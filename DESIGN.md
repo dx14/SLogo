@@ -1,9 +1,28 @@
 # SLogo: Design Document
 
 ## Introduction
-For this project, we are creating a interactive development environment that supports various Simple Logo commands. We will be using a Model-View-Controller design framework, with separate GUI, Controller, and Parser classes that work together to receive user input, interpret/parse the input and check its validity, and perform whatever action(s) given the parameter(s). The frontend and backend will be connected together through the controller, and will be restricted on which methods they have access to through use of interfaces. By doing so, the GUI and parser will have minimal interference with each other and will each be closed for modification (as much as possible). The GUI and parser will each have their own unique responsibilities, such as changing the position of a turtle visually or interpreting a command with its given parameters respectively, and these changes will be communicated across through method calls in the controller. Each possible Logo command will have its own class and properties associated with the command, and thus adding new commands in SLogo will be open for extension. We will also utilize reflection within our parser while checking for valid commands and parameters, and also we plan to use binding properties in order to keep the locations of each turtle aligned between the GUI and backend coordinates.
+For this project, we are creating a interactive development environment that supports various Simple Logo commands. We will be using a Model-View-Controller design framework, with separate GUI, Controller, and Parser classes that work together to receive user input, interpret/parse the input and check its validity, and perform whatever action(s) given the parameter(s). The frontend and backend will be connected together through the controller, and will be restricted on which methods they have access to through use of interfaces. By doing so, the GUI and parser will have minimal interference with each other and will each be closed for modification (as much as possible). The GUI and parser will each have their own unique responsibilities, such as changing the position of a turtle visually or interpreting a command with its given parameters respectively, and these changes will be communicated across through method calls in the controller. Each possible command will extend an abstract parent class and have its own properties associated with the command, and thus adding new commands in SLogo will be open for extension. We will also utilize reflection within our parser while checking for valid commands and parameters, and also we plan to use binding properties in order to keep the locations of each turtle aligned between the GUI and backend coordinates.
 
 ## Overview
+
+##### Front-End+Controller: External API
+
+``void addTurtle(Turtle turtle)`` - adds a Turtle to the List of turtles stored in the controller <br>
+``Turtle getTurtle(int turtleId)`` - returns a Turtle from the List of turtles specified by the given id <br>
+``void moveTurtle(int turtleId, SlogoPath path)`` - calls the moveTurtle method in the GUI <br>
+``void updateHistory(int turtleId, String command)`` - adds to the List of past commands
+
+##### Front-End+Controller: Internal API
+
+##### Back-End: External API
+The external API for the backend will be fairly limited, and will be accessed through the SlogoController class’s myParser link. myParser will be a link to the SlogoParser class through the ParserInterface interface. This interface will provide the following methods:
+
+``runCommand(String command)`` - executes command and adds it to the history, throws ParserException if the command is unable to be executed. <br>
+``runCommand(CommandString command)`` - executes command and adds it to the history (used to execute previously executed commands) <br>
+``setLanguage(String language)`` - sets the current input language to the resource bundle specified by language. If the string is invalid, throws a ``ParserException``
+
+##### Back-End: Internal API
+The internal API for the backend will be more robust, providing functionality for adding new commands. It will consist of several classes, which can be extended to add new functionality.
 
 ## User Interface
 Our user interface in the large scale will resemble a BorderLayout. The top section will hold a toolbar of buttons including a “language” dropdown to select the input language, as well as other configuration and display-related buttons such as “load image” and “help”. The left section will hold different color palettes for the GUI background color, line color, etc. that will be selectable by clicking on them. The right side will contain the command history list with a scroll bar that will implement syntax highlighting and will be able to respond to click events. The right side will also display the values of variables such as line width, language, etc. The bottom will contain the text box representing the console where the user will type commands. On the side of it there will be a scrollbar and buttons such as “run” and “clear”. The center of the layout will contain the main display output of the program, the turtle and its drawn paths.
@@ -19,11 +38,11 @@ There can be errors when the user inputs malformed or nonexistent commands into 
 
 ## API Example Code
 
-Example: user types ‘fd 50’ in command window.
+Example: user types ``fd 50`` in command window.
 
 ##### FRONTEND:
-1. ``GUI`` listens for text input. Goes to step 2 when “enter” is pressed (depending on whether “multiline” checkbox is activated or not) or when “Run” is clicked. 
-2. ``GUI`` calls ``myController.runCommand(String command)``
+1. ``SlogoGUI`` listens for text input. Goes to step 2 when “enter” is pressed (depending on whether “multiline” checkbox is activated or not) or when “Run” is clicked. 
+2. ``SlogoGUI`` calls ``myController.runCommand(String command)``
 3. ``SlogoController`` calls ``myParser.runCommand(String command)``
 
 ##### BACKEND:
