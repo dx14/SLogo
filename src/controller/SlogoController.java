@@ -7,6 +7,7 @@ import parser.ParserInterface;
 import parser.command.CommandString;
 import turtle.BackendTurtle;
 import util.SlogoPath;
+import util.Variable;
 
 public class SlogoController {
 
@@ -35,6 +36,14 @@ public class SlogoController {
 	}
 	
 	public void updateHistory(int turtleId, CommandString command) {
+		;
+	}
+	
+	public Variable getVariable(String variableName) throws ParserException{
+		return null;
+	}
+	
+	public void setVariable(String variableName, Double variableValue) throws ParserException{
 		;
 	}
 	
