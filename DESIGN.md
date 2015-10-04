@@ -8,6 +8,9 @@ For this project, we are creating a interactive development environment that sup
 ## User Interface
 Our user interface in the large scale will resemble a BorderLayout. The top section will hold a toolbar of buttons including a “language” dropdown to select the input language, as well as other configuration and display-related buttons such as “load image” and “help”. The left section will hold different color palettes for the GUI background color, line color, etc. that will be selectable by clicking on them. The right side will contain the command history list with a scroll bar that will implement syntax highlighting and will be able to respond to click events. The right side will also display the values of variables such as line width, language, etc. The bottom will contain the text box representing the console where the user will type commands. On the side of it there will be a scrollbar and buttons such as “run” and “clear”. The center of the layout will contain the main display output of the program, the turtle and its drawn paths.
 
+![GUI Design]
+(schematic.png)
+
 There can be errors when the user inputs malformed or nonexistent commands into the console. These errors will be detected in the backend where an exception will be thrown, and the GUI will catch the exception by displaying a popup window describing the nature of the error.
 
 ## Design Details
