@@ -255,15 +255,15 @@ Example: user types ``fd 50`` in command window.
 
 ##### FRONTEND:
 16 .``SlogoController`` calls ``myGUI.moveTurtle(currentTurtleId, currentPath)`` <br>
-16b. // ``SlogoGUI`` calls ``drawPath(currentPath)`` <br>
-16c. // ``SlogoGUI`` calls ``updateTurtlePosition(currentTurtleId, currentPath)`` <br>
+16b. ``SlogoGUI`` calls ``drawPath(currentPath)`` <br>
+16c. ``SlogoGUI`` calls ``updateTurtlePosition(currentTurtleId, currentPath)`` <br>
 
 ##### BACKEND:
 17 . ``CommandInterpreter`` returns control to ``CommandString``, returns control to ``SlogoParser`` <br>
 18 . ``SlogoParser`` calls ``myController.updateHistory(currentTurtleId, currentCommandString)`` 
 
 ##### FRONTEND:
-19 . // ``SlogoController`` calls ``myGUI.updateHistoryView(currentTurtleId, currentCommandString)``
+19 . ``SlogoController`` calls ``myGUI.updateHistoryView(currentTurtleId, currentCommandString)`` <br>
 20 . DONE!
 
 ## Design Considerations
