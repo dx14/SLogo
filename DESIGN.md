@@ -161,13 +161,15 @@ Class used to parse commands - links every element of a command with its corresp
 	
 Helper class used to assist with code formatting and addition of new syntax elements. Defines several constants, used to map to types of syntax elements (for code highlighting). Each of these constants corresponds to a class string instance which can be used to reflect and create a new instance of the class for each element. New syntactical elements can be added in this manner.
 
-```SyntaxElement.COMMAND
+```Java
+SyntaxElement.COMMAND
 SyntaxElement.USERCOMMAND
 SyntaxElement.VARIABLE
 SyntaxElement.SYMBOL
 SyntaxElement.PRIMITIVE
 SyntaxElement.COLOR
-SyntaxElement.SHAPE```
+SyntaxElement.SHAPE
+```
 
 ```static Color getColor(String element)``` - returns a Color object for the given element.
 
