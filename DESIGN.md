@@ -66,7 +66,7 @@ This will be the primary class responsible for implementing back-end functionali
 ``moveCurrentTurtle(SlogoPath path)`` - moves the current turtle using path <br>
 ``moveTurtle(int turtleId, SlogoPath path)`` - moves the specified turtle using path <br>
 
-######CommandString.java
+######``CommandString.java``
 This class will store processes commands in three forms: raw form (as typed by user), formatted (colored for syntax), and native form (class names which can be created via reflection)
 
 ``CommandString(String command)`` - returns a new ``CommandString`` object with command converted to native format. Throws a ``ParserException`` if it fails. <br> 
