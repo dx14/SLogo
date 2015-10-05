@@ -14,6 +14,36 @@ For this project, we are creating a interactive development environment that sup
 
 ##### Front-End+Controller: Internal API
 
+The internal API of the front end allows for extension through creation GUI components that can be placed in the main layout, as well as methods for manipulating the turtle’s display parameters.
+
+``Node returnNodeToDraw()`` - returns a ``Node`` to draw depending on what new component will be drawn on the screen
+``Image getImage()`` - gets the turtle’s display image
+``void setImage(Image image)`` - sets the turtle’s display image
+``double getXOnGrid()`` - gets the turtle’s x-position
+``void setXOnGrid(double x)`` - sets the turtle’s x-position
+``double getYOnGrid()`` - gets the turtle’s y-position
+``void setYOnGrid(double y)`` - sets the turtle’s y-position
+``void setWidth(double width)`` - sets the turtle’s pen width
+``Color getPenColor()`` - gets the turtle’s pen color
+``void setPenColor(Color penCol)`` - sets the turtle’s pen color
+``double getWidth()`` - gets the turtle’s pen width
+``double getAngle()`` - sets the turtle’s heading angle
+``boolean getIsVisible()`` - gets if the turtle is visible in the GUI
+
+#####Front-End+Controller Main Classes:
+
+``MainGUI`` - the outermost GUI element that holds all other GUI elements and variables
+``GUIComponent`` - an abstract class that all other SLogo GUI elements extend
+``GUIConsole`` - the GUI element that displays and allows user input and sends that input to the SlogoController
+``GUIHistory`` - the GUI element that displays the command history and allows the user to interact by clicking which calls the ``SlogoController``
+``GUIPalette`` - an abstract GUI element that displays the color chooser for different parts of the GUI and listens for the user’s clicks
+``GUIToolbar`` - the GUI element that holds the buttons at the top of the screen to configure the program
+``GUITurtleArea`` - the GUI element that displays the turtle and its path determened by the SlogoController
+``GUITurtle`` - a representation of the turtle which is stripped down to parts that only the GUI needs to know about
+``GUIController`` - a representation of the Slogo controller which is stripped down to parts that only the GUI needs to know about
+``SLogoLanguage`` - just holds a string but allows for more control over pointer accesses
+``SlogoController`` - provides the interface through which the front and back ends communicate
+
 ##### Back-End: External API
 The external API for the backend will be fairly limited, and will be accessed through the SlogoController class’s myParser link. myParser will be a link to the SlogoParser class through the ParserInterface interface. This interface will provide the following methods:
 
@@ -23,6 +53,47 @@ The external API for the backend will be fairly limited, and will be accessed th
 
 ##### Back-End: Internal API
 The internal API for the backend will be more robust, providing functionality for adding new commands. It will consist of several classes, which can be extended to add new functionality.
+
+#####MAIN CLASSES:
+
+#####``SlogoParser.java`` implements ``ParserInterface``
+This will be the primary class responsible for implementing back-end functionality. It will maintain a link to the Controller and will be responsible for interacting with the Controller and the GUI. It will provide several functions:
+	
+``addTurtle(int turtleId)`` - creates a new turtle, if one does not already exist
+``setTurtle(int turtleId)`` - sets the current turtle
+``getCurrentTurtle()`` - returns a reference to the current turtle
+``getTurtles()`` - returns a list of all turtles
+``moveCurrentTurtle(SlogoPath path)`` - moves the current turtle using path
+``moveTurtle(int turtleId, SlogoPath path)`` - moves the specified turtle using path
+
+#####CommandString.java
+This class will store processes commands in three forms: raw form (as typed by user), formatted (colored for syntax), and native form (class names which can be created via reflection)
+
+``CommandString(String command)`` - returns a new ``CommandString`` object with command converted to native format. Throws a ``ParserException`` if it fails.
+``getFormattedString()`` - returns formatted string
+``getNativeString()`` - returns native formatted string
+
+``CommandInterpreter.java``
+Class which actually executes commands. Iterates through a ``CommandString``, creating new ``Command`` and ``Argument`` objects as necessary. Uses reflection to instantiate objects, throwing a ``ParserException`` if a class is not found.
+
+``ParserResource.java``
+Helper class which interacts with resource files.
+
+``static getNativeCommand(String command)`` - returns a native version of command. Throws exception if it wasn’t found.
+``static setCurrentLanguage(String language)`` - sets the current language, throwing exception if resource not found.
+
+``Command.java implements Executable``
+Abstract parent class for all commands. Implements Executable interface.
+
+Each concrete command class which extends this parent class will be responsible for knowing how many ``Arguments`` it takes. Abstract child classes for each category of commands will be created (i.e. ``TurtleCommand``, ``MoveCommand``, etc). By implementing each type of command in a category, each command can specify what type of commands it will accept as arguments. For example, while ``fd 50`` returns 50, ``fd fd 50`` throws an exception in an online logo interpreter, suggesting that ``fd 50`` is not a valid way to pass 50 to the first ``fd`` command.
+
+Each command will be contained in its own class, and will implement the ``execute()`` method, responsible for running the command. Each command will also have a ``getRemainder()`` function, which will return unused portions of its argument string, allowing them to be evaluated separately.
+
+``Regex.java``
+Helper class used by other ``Parser`` classes.
+
+``static boolean isCommand(String str)`` - returns true if a given string is a command (or starts with a command), false if it is a variable or a primitive
+``static List<String> getCommands(String str)`` - returns a list of commands contained in ``str``
 
 ## User Interface
 Our user interface in the large scale will resemble a BorderLayout. The top section will hold a toolbar of buttons including a “language” dropdown to select the input language, as well as other configuration and display-related buttons such as “load image” and “help”. The left section will hold different color palettes for the GUI background color, line color, etc. that will be selectable by clicking on them. The right side will contain the command history list with a scroll bar that will implement syntax highlighting and will be able to respond to click events. The right side will also display the values of variables such as line width, language, etc. The bottom will contain the text box representing the console where the user will type commands. On the side of it there will be a scrollbar and buttons such as “run” and “clear”. The center of the layout will contain the main display output of the program, the turtle and its drawn paths.
