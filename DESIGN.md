@@ -101,10 +101,12 @@ Our user interface in the large scale will resemble a BorderLayout. The top sect
 ![GUI Design]
 (schematic.png)
 
+![GUI UML Diagram]
+(sampleUMLDiagram.jpg)
+
 There can be errors when the user inputs malformed or nonexistent commands into the console. These errors will be detected in the backend where an exception will be thrown, and the GUI will catch the exception by displaying a popup window describing the nature of the error.
 
 ## Design Details
-
 
 
 ## API Example Code
@@ -168,7 +170,7 @@ Example: user types ``fd 50`` in command window.
 Efe Aras and John Dai
 Responsible for implementing GUI related classes, interfaces, and communicating with JavaFX library functions. 
 
-SlogoController class will be developed somewhat jointly by the two teams, to ensure we are on the same page. However, the bulk of its implementation will be the responsibility of the front-end team.
+SlogoController class will be developed somewhat jointly by the two teams, to ensure we are on the same page. The both teams will gather together to code that in the way both teams want it and both teams will be held equally accountable for that class.
 
 ##### BACK-END TEAM:
 Ted Yavuzkurt and Dennis Xu
