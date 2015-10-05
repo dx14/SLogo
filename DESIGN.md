@@ -60,53 +60,138 @@ The external API for the backend will be fairly limited, and will be accessed th
 ``runCommand(CommandString command)`` - executes command and adds it to the history (used to execute previously executed commands) <br>
 ``setLanguage(String language)`` - sets the current input language to the resource bundle specified by language. If the string is invalid, throws a ``ParserException``
 
-##### Back-End: Internal API
+#####Back-End: Internal API
 The internal API for the backend will be more robust, providing functionality for adding new commands. It will consist of several classes, which can be extended to add new functionality.
 
-##### Back-End UML Diagram:
+### Back-End UML Diagram:
 ![Backend UML Diagram]
 (SlogoParser.jpg)
 
-#####MAIN CLASSES:
+##### Main Classes
 
-######``SlogoParser.java`` implements ``ParserInterface``
+#####**SlogoParser.java** implements ParserInterface
+	
 This will be the primary class responsible for implementing back-end functionality. It will maintain a link to the Controller and will be responsible for interacting with the Controller and the GUI. It will provide several functions:
 	
-``addTurtle(int turtleId)`` - creates a new turtle, if one does not already exist <br>
-``setTurtle(int turtleId)`` - sets the current turtle <br>
-``getCurrentTurtle()`` - returns a reference to the current turtle <br> 
-``getTurtles()`` - returns a list of all turtles <br>
-``moveCurrentTurtle(SlogoPath path)`` - moves the current turtle using path <br>
-``moveTurtle(int turtleId, SlogoPath path)`` - moves the specified turtle using path <br>
+```addTurtle(int turtleId)``` - creates a new turtle, if one does not already exist
+```setTurtle(int turtleId)``` - sets the current turtle
+```getCurrentTurtle()``` - returns a reference to the current turtle
+```getTurtles()``` - returns a list of all turtles
 
-######``CommandString.java``
-This class will store processes commands in three forms: raw form (as typed by user), formatted (colored for syntax), and native form (class names which can be created via reflection)
+```moveCurrentTurtle(SlogoPath path)``` - moves the current turtle using path
+```moveTurtle(int turtleId, SlogoPath path)``` - moves the specified turtle using path
 
-``CommandString(String command)`` - returns a new ``CommandString`` object with command converted to native format. Throws a ``ParserException`` if it fails. <br> 
-``getFormattedString()`` - returns formatted string <br>
-``getNativeString()`` - returns native formatted string <br>
+#####**CommandString.java**
+	
+This is an interface which is passed to the GUI to access ```CommandMap``` objects - allows them to be accessed without the GUI executing them or modifying their contents by accident.
 
-######``CommandInterpreter.java``
-Class which actually executes commands. Iterates through a ``CommandString``, creating new ``Command`` and ``Argument`` objects as necessary. Uses reflection to instantiate objects, throwing a ``ParserException`` if a class is not found.
+```getFormattedString()``` - returns formatted string
+```getNativeString()``` - returns native formatted string
 
-######``ParserResource.java``
+#####**CommandInterpreter.java**
+	
+Class which actually executes commands. Iterates through a ```CommandMap```, creating new ```Evaluable``` objects as necessary. Uses reflection to instantiate objects, throwing a ```ParserException``` if a class is not found.
+
+```public void prepareMap (CommandMap map) throws ParserException``` - steps through map and builds its Evaluation list.
+
+```public void evaluateMap(CommandMap map) throws ParserException``` - executes map.
+
+```public static Evaluable reflect(String command, CommandMap map) throws ParserException``` - returns a new ```Evaluable``` instance based on command, providing map as an argument.
+
+#####**ParserResource.java**
+
 Helper class which interacts with resource files.
 
-``static getNativeCommand(String command)`` - returns a native version of command. Throws exception if it wasn’t found. <br>
-``static setCurrentLanguage(String language)`` - sets the current language, throwing exception if resource not found. <br>
+```static getNativeCommand(String command)``` - returns a native version of command. Throws exception if it wasn’t found.
 
-######``Command.java implements Executable``
-Abstract parent class for all commands. Implements Executable interface.
+```static setCurrentLanguage(String language)``` - sets the current language, throwing exception if resource not found.
 
-Each concrete command class which extends this parent class will be responsible for knowing how many ``Arguments`` it takes. Abstract child classes for each category of commands will be created (i.e. ``TurtleCommand``, ``MoveCommand``, etc). By implementing each type of command in a category, each command can specify what type of commands it will accept as arguments. For example, while ``fd 50`` returns 50, ``fd fd 50`` throws an exception in an online logo interpreter, suggesting that ``fd 50`` is not a valid way to pass 50 to the first ``fd`` command.
+#####**Argument.java** implements Evaluable
 
-Each command will be contained in its own class, and will implement the ``execute()`` method, responsible for running the command. Each command will also have a ``getRemainder()`` function, which will return unused portions of its argument string, allowing them to be evaluated separately.
+Abstract class for all primitives, shapes, colors, symbols, etc which a user may type. Each subclass of ```Argument``` implements a specific type of element, providing functions to convert it into native class names.
 
-######``Regex.java``
-Helper class used by other ``Parser`` classes.
+#####**Primitive.java** extends Argument implements Evaluable
 
-``static boolean isCommand(String str)`` - returns true if a given string is a command (or starts with a command), false if it is a variable or a primitive <br>
-``static List<String> getCommands(String str)`` - returns a list of commands contained in ``str`` <br>
+Wrapper class for primitive types (numbers, strings, etc) which is created via Reflection and allows them to be evaluated.
+
+```public static String getNativeText(String primitiveString)``` - returns primitiveString - implemented to make abstraction possible with other types of arguments.
+
+#####**Symbol.java** extends Argument implements Evaluable
+
+Wrapper class for symbols (i.e. [, (, etc) which may be in code 
+
+```public static String getNativeText(String symbolString)``` - returns the class name associated with this symbol, for building a native string map.
+
+#####**Command.java** implements Executable, Evaluable
+	
+Abstract parent class for all commands. Implements ```Executable``` and ```Evaluable``` interfaces.
+
+Each concrete command class which extends this parent class will be responsible for knowing how many arguments of type ```Evaluable``` it takes. Abstract child classes for each category of commands will be created (i.e. ```TurtleCommand```, ```MoveCommand```, etc). By implementing each type of command in a category, each command can specify what type of commands it will accept as arguments. For example, while ```fd 50``` returns 50, ```fd fd 50``` throws an exception in an online logo interpreter, suggesting that “fd 50” is not a valid way to pass 50 to the first fd command.
+
+Each command will be contained in its own class, and will implement the ```execute()``` method, responsible for running the command. Each command will also have a ```getRemainder()``` function, which will return unused portions of its CommandMap, allowing them to be evaluated separately.
+
+```public Command(CommandMap map)``` - creates a new Command object with the CommandMap map.
+
+```public static String getNativeString(String command)``` - returns a native string for this command, using ParserResource class to help.
+
+```public double evaluate() throws ParserException``` - calls execute() on the command and returns any numeric value from the command.
+
+```public void execute() throws ParserException``` - runs the command.
+
+#####**TurtleCommand/GUICommand** etc etc
+Parent classes for each category of command.
+
+#####**CommandMap.java** implements Evaluable, CommandString
+
+Class used to parse commands - links every element of a command with its corresponding ```SyntaxElement``` type. Impelements ```CommandString``` interface to pass to GUI.. Also builds a ```List<Evaluable>``` which can be evaluated, once the ```CommandInterpreter``` has determined that the ```CommandMap``` is valid. Useful also for defining user commands, which are stored as a command map which has already been evaluated.
+
+```public CommandMap(String command) throws ParserException``` - parses command into its corresponding Class pairs. Builds map. Throws Exception if the process failed.
+
+```public void addEvaluable(Evaluable e)``` - adds e to the next position in the Evaluation list.
+
+```public CommandMap subMap(int startPos)``` - returns a new CommandMap starting at the specified position. Used by Executable objects to return the remainder of their CommandString for evaluation.
+
+```public String getFirst()``` - returns the first element of the map in String form for reflecting.
+
+```public boolean isEmpty()``` - returns true if map is empty, false otherwise.
+
+```public void evaluate() throws ParserException ```- iterates through Evaluation list, throwing an exception if anything fails to evaluate. Does nothing if evaluation list has not been defined (as in the case of a submap).
+
+#####**SyntaxElement.java**
+	
+Helper class used to assist with code formatting and addition of new syntax elements. Defines several constants, used to map to types of syntax elements (for code highlighting). Each of these constants corresponds to a class string instance which can be used to reflect and create a new instance of the class for each element. New syntactical elements can be added in this manner.
+
+```SyntaxElement.COMMAND
+SyntaxElement.USERCOMMAND
+SyntaxElement.VARIABLE
+SyntaxElement.SYMBOL
+SyntaxElement.PRIMITIVE
+SyntaxElement.COLOR
+SyntaxElement.SHAPE```
+
+```static Color getColor(String element)``` - returns a Color object for the given element.
+
+#####**Regex.java**
+
+Helper class used by other Parser classes. As of now, there are no public methods (it is used internally by ```CommandMap``` and other classes, however).
+
+
+#####**ParserResource.java**
+
+Helper class which converts raw command strings to their native class names by interacting with 
+
+```public static String getNativeString(String command) throws ParserException``` - returns native String name for command or throws an exception.
+
+```public static void setLanguage(String language) throws ParserException``` - sets language to language or throws exception.
+
+#####**Evaluable.java**
+Interface which specifies the following functions:
+```public double evaluate()``` - evaluates this command and returns the double result.
+
+#####**Executable.java** extends Evaluable
+Interface which specifies the following functions:
+
+```public double execute()``` - runs the current command and returns the result of its evaluation. Used for commands which can be executed, as opposed to just evaluated. Calling execute actually modifies state.
 
 ## User Interface
 Our user interface in the large scale will resemble a BorderLayout. The top section will hold a toolbar of buttons including a “language” dropdown to select the input language, as well as other configuration and display-related buttons such as “load image” and “help”. The left section will hold different color palettes for the GUI background color, line color, etc. that will be selectable by clicking on them. The right side will contain the command history list with a scroll bar that will implement syntax highlighting and will be able to respond to click events. The right side will also display the values of variables such as line width, language, etc. The bottom will contain the text box representing the console where the user will type commands. On the side of it there will be a scrollbar and buttons such as “run” and “clear”. The center of the layout will contain the main display output of the program, the turtle and its drawn paths.
@@ -118,6 +203,23 @@ There can be errors when the user inputs malformed or nonexistent commands into 
 
 ## Design Details
 
+###**Backend**
+Our backend is designed to be maximally extensible and uses recursion/reflection to iterate through a command string provided by the GUI. Every command we’ve been asked to implement has its own class, so adding new commands is a relatively trivial process consisting of creating a new Class for it, extending the proper super class (depending on the type of command) and then implementing the ```execute()``` and ```evaluate()``` functions.
+
+By wrapping all elements of a Command String in classes, we allow for the language to be easily extended to include new symbols, operators, and so forth. All elements implement the ```Evaluable``` interface, meaning they are interchangeable as far as the ```CommandInterpreter``` class is concerned.
+
+Division of labor is thus accomplished cleanly. ```ParserResource``` allows for localization. ```Regex``` contains all regular expression code. ```CommandInterpreter``` steps through execution of ```CommandMap```'s. It uses reflection to go through a ```CommandMap``` and built native code, which can be executed.
+
+All of these processes can throw a ```ParserException``` if there is a problem, which will return control to the GUI along with an explanation of what went wrong, so that the user can be informed of what corrective action to take.
+
+The heart of the backend lies in the interaction between the ```CommandInterpreter``` and ```CommandMap``` classes. This interaction proceeds in a few stages. First, the ```CommandInterpreter``` creates a new ```CommandMap``` based on the provided string. During this part, the ```CommandMap``` generates itself by using the ```Regex``` helper class to split the string into elements, which are then paired with first their corresponding ```SyntaxElement``` category, and then their specific ```Evaluable``` implementation.
+
+Once the ```CommandMap``` has been generated, ```CommandInterpreter``` steps through it sequentially. On each iteration, the ```CommandInterpreter``` takes the first element of the Map and uses reflection to create a new class instance. This class instance is then provided with the current ```CommandMap```. This class instance automatically processes its arguments from the ```CommandMap```, recursively executing any of them if necessary (by using ```CommandInterpreter.reflect```). If any of these fails, it will throw a ```ParserException``` with a message corresponding to the cause of the problem. Once that command has finished preparing itself for execution, the ```CommandInterpreter``` adds it to the evaluation list in the current ```CommandMap```. The ```CommandInterpreter``` then calls ```getRemainder()``` on the command, which will return any unused portion of the ```CommandMap```, which may contain further code to execute. The ```CommandInterpreter``` then proceeds through this new ```CommandMap```.
+
+Once the ```CommandInterpreter``` reaches the end of the ```CommandMap```, it will evaluate the ```CommandMap```. This steps through the evaluation list prepared previously, evaluating all of the commands. If any of these throw an exception, it is passed to the GUI. However, it is unlikely that an exception will be thrown at this stage, as each command is responsible upon creation for checking that its arguments are sensible.
+
+This recursive interpretation implementation allows for any type of command to be created, within reason. Each ```Evaluable``` element is responsible for taking the elements it needs from the ```CommandMap```, then passing on the rest of the map for the next command to use. This will make extension simple.
+
 
 ## API Example Code
 
@@ -128,8 +230,10 @@ Example: user types ``fd 50`` in command window.
 2. ``SlogoGUI`` calls ``myController.runCommand(String command)``
 3. ``SlogoController`` calls ``myParser.runCommand(String command)``
 
-##### BACKEND:
-4. ``SlogoParser`` creates a ``new CommandString(String command)``
+##### BACKEND: 
+*(note: after writing this, a more robust backend implementation was conceived, however the basic flow is very much the same, using CommandMaps instead of CommandStrings)*
+
+4.  ``SlogoParser`` creates a ``new CommandString(String command)``
 5. ``CommandString`` class verifies that command is contained in current language resource bundle by calling ``ParserResource.getNativeCommandString(String command)``
 6. ``SlogoParser`` class creates a new ``CommandInterpreter`` object by calling ``new CommandInterpreter(CommandString currentCommand)``
 7. ``CommandInterpreter`` class calls ``Regex.split(nativeCommand)``, uses reflection to create new instance of first half of split (in this case ``new ForwardCommand(String remainder)``)
