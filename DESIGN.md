@@ -44,6 +44,15 @@ The internal API of the front end allows for extension through creation GUI comp
 ``SLogoLanguage`` - just holds a string but allows for more control over pointer accesses <br>
 ``SlogoController`` - provides the interface through which the front and back ends communicate <br>
 
+
+###GUI UML Diagram
+
+![GUI UML Diagram]
+(sampleUML.png)
+
+
+
+
 ##### Back-End: External API
 The external API for the backend will be fairly limited, and will be accessed through the SlogoController class’s myParser link. myParser will be a link to the SlogoParser class through the ParserInterface interface. This interface will provide the following methods:
 
@@ -100,11 +109,6 @@ Our user interface in the large scale will resemble a BorderLayout. The top sect
 
 ![GUI Design]
 (schematic.png)
-
-GUI UML Diagram
-
-![GUI UML Diagram]
-(sampleUML.png)
 
 There can be errors when the user inputs malformed or nonexistent commands into the console. These errors will be detected in the backend where an exception will be thrown, and the GUI will catch the exception by displaying a popup window describing the nature of the error.
 
