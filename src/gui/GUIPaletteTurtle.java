@@ -4,7 +4,7 @@ import java.util.List;
 
 import javafx.scene.Node;
 
-public class GUIPaletteTurtle extends GUIComponent{
+public class GUIPaletteTurtle extends GUIPalette{
 
 	List<GUITurtle> myTurtles;
 	

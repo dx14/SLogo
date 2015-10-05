@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
  */
 
 
-public class MainGUI {
+public class MainGUI implements GUIInterface{
 	
 	private List<GUIComponent> allGUIComponents;
 	private Pane mainRoot;
@@ -28,12 +28,13 @@ public class MainGUI {
 		allGUIComponents = new ArrayList<GUIComponent>();
 		mainRoot = root;
 		allGUIComponents.add(new GUIHistory());
-		
+		allGUIComponents.add(new GUIPaletteBackground(turtleAreaColor));
 		
 	}
 	
 	
 	public void draw(){
+	
 		for(GUIComponent component : allGUIComponents){
 			 (mainRoot).getChildren().add(component.returnNodeToDraw());
 		}
