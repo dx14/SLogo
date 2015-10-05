@@ -7,8 +7,8 @@ public class GUIPaletteBackground extends GUIPalette{
 
 	Color backgroundColor;
 	
-	public GUIPaletteBackground(){
-		
+	public GUIPaletteBackground(Color col){
+		backgroundColor = col;
 		
 	}
 
