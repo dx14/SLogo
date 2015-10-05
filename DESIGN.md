@@ -101,6 +101,8 @@ Our user interface in the large scale will resemble a BorderLayout. The top sect
 ![GUI Design]
 (schematic.png)
 
+GUI UML Diagram
+
 ![GUI UML Diagram]
 (sampleUML.png)
 
