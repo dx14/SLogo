@@ -102,7 +102,7 @@ Our user interface in the large scale will resemble a BorderLayout. The top sect
 (schematic.png)
 
 ![GUI UML Diagram]
-(sampleUMLDiagram.jpg)
+(sampleUML.png)
 
 There can be errors when the user inputs malformed or nonexistent commands into the console. These errors will be detected in the backend where an exception will be thrown, and the GUI will catch the exception by displaying a popup window describing the nature of the error.
 
