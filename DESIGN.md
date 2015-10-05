@@ -205,6 +205,11 @@ There can be errors when the user inputs malformed or nonexistent commands into 
 
 ## Design Details
 
+###**Frontend**
+We tried to simplify down the external API so that the backend can see only the methods it likely needs such as being able to have access to changing the state of the turtle and history items. Other components and methods internal to the frontend should be hidden from the backend. In our external API, however, we wanted to provide a good amount of extensibility so the idea was to let future users be able to access values of the state variables as well as being able to extend the ```SlogoComponent``` class to create a custom GUI component.
+
+Each GUI component is self-explanatory for how it functions an relates to the assignment specifications. We would use such resources as different language files for both the text displayed in the frontend as well as the text sent to the parser. Each of our classes represent a different GUI element, using polymorphism where it makes sense. Also our interface classes also provide a specification for the API between the front and backend classes.
+
 ###**Backend**
 Our backend is designed to be maximally extensible and uses recursion/reflection to iterate through a command string provided by the GUI. Every command we’ve been asked to implement has its own class, so adding new commands is a relatively trivial process consisting of creating a new Class for it, extending the proper super class (depending on the type of command) and then implementing the ```execute()``` and ```evaluate()``` functions.
 
