@@ -63,6 +63,10 @@ The external API for the backend will be fairly limited, and will be accessed th
 ##### Back-End: Internal API
 The internal API for the backend will be more robust, providing functionality for adding new commands. It will consist of several classes, which can be extended to add new functionality.
 
+##### Back-End UML Diagram:
+![Backend UML Diagram]
+(SlogoParser.jpg)
+
 #####MAIN CLASSES:
 
 ######``SlogoParser.java`` implements ``ParserInterface``
