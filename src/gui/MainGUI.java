@@ -4,6 +4,7 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
@@ -28,7 +29,10 @@ public class MainGUI implements GUIInterface{
 		allGUIComponents = new ArrayList<GUIComponent>();
 		mainRoot = root;
 		allGUIComponents.add(new GUIHistory());
-		allGUIComponents.add(new GUIPaletteBackground(turtleAreaColor));
+		//allGUIComponents.add(new GUIPaletteBackground(turtleAreaColor));
+		
+		//TextArea a = new TextArea();
+		
 		
 	}
 	
