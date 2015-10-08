@@ -12,15 +12,9 @@ public class CommandInterpreter {
 	private CommandTree myRoot;
 	private SlogoParser myParser;
 	
-	public static void main(String args[]) throws ParserException{
-		
-		CommandInterpreter c = new CommandInterpreter("fd 50", null);
-		
-	}
-	
 	public CommandInterpreter(String command, SlogoParser parser) throws ParserException{
 		
-		myParser = null;
+		myParser = parser;
 		
 		System.out.println(command);
 		
@@ -29,13 +23,9 @@ public class CommandInterpreter {
 		
 		List<String> nativeString = translator.buildNativeString(myCommandString);
 		
-		
-		try {
-			reflect(nativeString.get(0), null, null);
-		} catch (ParserException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		myRoot = new CommandTree(nativeString, myParser);
+		myRoot.build();
+		myRoot.evaluate();
 		
 		/*
 		 * 

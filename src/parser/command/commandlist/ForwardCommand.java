@@ -6,23 +6,28 @@ import parser.ParserException;
 import parser.SlogoParser;
 import parser.command.Command;
 import parser.command.CommandTree;
+import parser.command.Evaluable;
 
 public class ForwardCommand extends Command {
-
+	
+	private Evaluable myDistance;
+	
 	public ForwardCommand(){
 		System.out.println("Forward Command Initializing");
 	}
 
 	@Override
 	public double evaluate() throws ParserException {
-		// TODO Auto-generated method stub
-		return 0;
+		double distance = myDistance.evaluate();
+		myParser.moveCurrentTurtle(distance);
+		return distance;
 	}
 
 	@Override
 	public List<String> build() throws ParserException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		myDistance = myTree.buildNext();
+		return myTree.getRemainder();
 	}
 
 }
