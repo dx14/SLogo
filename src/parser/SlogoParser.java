@@ -17,7 +17,7 @@ public class SlogoParser implements ParserInterface{
 	@Override
 	public void runCommand(String command) throws ParserException {
 		
-		new CommandInterpreter(command);
+		new CommandInterpreter(command, this);
 		
 	}
 

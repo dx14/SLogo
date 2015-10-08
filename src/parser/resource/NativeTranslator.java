@@ -19,21 +19,9 @@ public class NativeTranslator {
 	public static final String NOTFOUND = "NOTFOUND";
 	public static final String USERDEFINED = "UserDefined";
 	
-	public static void main(String args[]) throws ParserException{
-		NativeTranslator t = new NativeTranslator();
-		//t.buildCommandString("LOL\nIM A STRING\n\nTESTING123\n\n\ntest");
-		
-		String command = "to poly [ :numsides :length ]\n[\n  repeat :numsides\n  [\n    fd :length \n    rt quotient 360 :numsides\n  ]\n]\n\nto square [ :side ]\n[\n poly 4 :side\n]\n";
-			CommandString s = t.buildCommandString(command);
-				System.out.println(s);
-				
-		System.out.println(t.buildNativeString(s));
-	}
-	
 	public CommandString buildCommandString(String command) throws ParserException{		
 		// workaround for now, fix later
 		command = removeComments(command);
-		
 		
 		ArrayList<String> commandList = new ArrayList<>(Arrays.asList(command.split("\\s")));
 		stripWhiteSpace(commandList);
@@ -49,9 +37,7 @@ public class NativeTranslator {
 		Iterator<String> i = commandList.iterator();
 		while(i.hasNext()){
 			if(i.next().matches("\\s*")){
-				System.out.println("WHITESPACE");
-				i.remove();
-			
+				i.remove();			
 			}
 		}
 	}
