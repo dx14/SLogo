@@ -1,5 +1,10 @@
 package parser.command;
 
-public class CommandString {
+import java.util.List;
 
+public interface CommandString {
+
+	public List<String> getSplitString();
+	public List<String> getTypeString();
+	
 }
