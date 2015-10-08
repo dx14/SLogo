@@ -9,7 +9,7 @@ import gui.GUIInterface;
 import gui.GUITurtle;
 import parser.ParserException;
 import parser.ParserInterface;
-import parser.command.CommandString;
+import parser.command.CommandList;
 import turtle.BackendTurtle;
 import turtle.Turtle;
 import util.SlogoPath;
@@ -38,7 +38,7 @@ public class SlogoController implements GUIController{
 	public void runCommand (String command) throws ParserException {
 	}
 	
-	public void updateHistory(int turtleId, CommandString command) {
+	public void updateHistory(int turtleId, CommandList command) {
 	}
 	
 	public Variable getVariable(String variableName) throws ParserException{
