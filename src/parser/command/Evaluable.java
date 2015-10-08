@@ -9,7 +9,7 @@ public interface Evaluable {
 	
 	public double evaluate() throws ParserException;
 	
-	public List<String> build() throws ParserException;
+	public CommandList build() throws ParserException;
 
 	public void setParameters(CommandTree tree, SlogoParser parser);
 	

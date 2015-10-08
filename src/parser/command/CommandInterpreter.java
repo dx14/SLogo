@@ -8,7 +8,7 @@ import parser.resource.NativeTranslator;
 
 public class CommandInterpreter {
 
-	private CommandString myCommandString;
+	private CommandList myCommandList;
 	private CommandTree myRoot;
 	private SlogoParser myParser;
 	
@@ -19,11 +19,9 @@ public class CommandInterpreter {
 		System.out.println(command);
 		
 		NativeTranslator translator = new NativeTranslator();
-		myCommandString = translator.buildCommandString(command);
+		myCommandList = translator.buildCommandList(command);
 		
-		List<String> nativeString = translator.buildNativeString(myCommandString);
-		
-		myRoot = new CommandTree(nativeString, myParser);
+		myRoot = new CommandTree(myCommandList.copy(), myParser);
 		myRoot.build();
 		myRoot.evaluate();
 		
@@ -45,6 +43,7 @@ public class CommandInterpreter {
 		Evaluable command = instantiateClass(className);
 	
 		command.setParameters(tree, parser);
+		System.out.println("I just set parameters for real");
 		
 		return command;
 	}

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import parser.ParserException;
-import parser.command.CommandString;
+import parser.command.CommandList;
 
 public class NativeTranslator {
 
@@ -19,7 +19,7 @@ public class NativeTranslator {
 	public static final String NOTFOUND = "NOTFOUND";
 	public static final String USERDEFINED = "UserDefined";
 	
-	public CommandString buildCommandString(String command) throws ParserException{		
+	public CommandList buildCommandList(String command) throws ParserException{		
 		// workaround for now, fix later
 		command = removeComments(command);
 		
@@ -29,8 +29,9 @@ public class NativeTranslator {
 		
 		labelSyntax(commandList, typeList);
 		validateTypes(commandList, typeList);
+		List<String> nativeList = buildNativeList(commandList, typeList);
 		
-		return new CommandString(commandList, typeList);
+		return new CommandList(commandList, typeList, nativeList);
 	}
 	
 	private void stripWhiteSpace(ArrayList<String> commandList) {
@@ -42,11 +43,11 @@ public class NativeTranslator {
 		}
 	}
 
-	public List<String> buildNativeString(CommandString command) throws ParserException{
+	public List<String> buildNativeList(List<String> commandList, List<String> typeList) throws ParserException{
 		ArrayList<String> nativeList = new ArrayList<>();
 		
-		for(int i = 0; i<command.getTypeString().size(); i++){
-			nativeList.add( (command.getTypeString().get(i).equals("Command")) ? getNativeCommand(command.getSplitString().get(i)) : command.getTypeString().get(i) );
+		for(int i = 0; i<commandList.size(); i++){
+			nativeList.add( (typeList.get(i).equals("Command")) ? getNativeCommand(commandList.get(i)) : typeList.get(i) );
 		}
 		return nativeList;
 	}

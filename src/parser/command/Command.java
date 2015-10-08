@@ -19,7 +19,6 @@ public abstract class Command implements Evaluable{
 	public void setParameters(CommandTree tree, SlogoParser parser){
 		myTree = tree;
 		myParser = parser;
-		System.out.println("Parameters set");
 	}
 
 }

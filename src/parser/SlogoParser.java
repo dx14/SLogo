@@ -1,7 +1,7 @@
 package parser;
 
 import parser.command.CommandInterpreter;
-import parser.command.CommandString;
+import parser.command.CommandList;
 import util.Coordinate;
 import util.SlogoPath;
 import util.StraightPath;
@@ -40,7 +40,7 @@ public class SlogoParser implements ParserInterface{
 	}
 
 	@Override
-	public void runCommand(CommandString command) throws ParserException {
+	public void runCommand(CommandList command) throws ParserException {
 		// TODO Auto-generated method stub
 		
 	}

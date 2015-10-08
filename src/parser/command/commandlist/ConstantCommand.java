@@ -1,9 +1,8 @@
 package parser.command.commandlist;
 
-import java.util.List;
-
 import parser.ParserException;
 import parser.command.Command;
+import parser.command.CommandList;
 
 public class ConstantCommand extends Command {
 
@@ -13,11 +12,12 @@ public class ConstantCommand extends Command {
 	
 	@Override
 	public double evaluate() throws ParserException {
-		return Double.parseDouble(myTree.getSource().get(0));
+		System.out.println("evaluating distance");
+		return Double.parseDouble(myTree.getSource().getRawCommand(0));
 	}
 
 	@Override
-	public List<String> build() throws ParserException {
+	public CommandList build() throws ParserException {
 		return myTree.getRemainder();
 	}
 

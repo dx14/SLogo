@@ -1,7 +1,6 @@
 package parser.command;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import parser.ParserException;
@@ -9,8 +8,8 @@ import parser.SlogoParser;
 
 public class CommandTree implements Evaluable {
 
-	private List<String> mySource;
-	private List<String> myRemainder;
+	private CommandList mySource;
+	private CommandList myRemainder;
 	
 	private Evaluable myCommand;	// two way link
 	
@@ -24,21 +23,23 @@ public class CommandTree implements Evaluable {
 	 * CREATE ROOT COMMAND
 	 */
 	
-	public CommandTree(List<String> source, SlogoParser parser){
+	public CommandTree(CommandList source, SlogoParser parser){
 		this(source, parser, null);
 	}
 	
-	public CommandTree(List<String> source, SlogoParser parser, CommandTree parent){
+	public CommandTree(CommandList source, SlogoParser parser, CommandTree parent){
 		mySource = source;
-		myRemainder = new ArrayList<>(mySource);
+		myRemainder = mySource.copy();
+		
+		myParser = parser;
 		
 		myParent = parent;
 		myCommand = null;
 		myBranches = new ArrayList<>();
 	}
 	
-	public List<String> build () throws ParserException{
-		myCommand = CommandInterpreter.reflect(mySource.get(0), this, myParser);
+	public CommandList build () throws ParserException{
+		myCommand = CommandInterpreter.reflect(mySource.getNativeCommand(0), this, myParser);
 		myRemainder.remove(0);
 		
 		myCommand.build();	// will build this as well
@@ -47,7 +48,7 @@ public class CommandTree implements Evaluable {
 	}
 	
 	public Evaluable buildNext() throws ParserException{
-		CommandTree newBranch = new CommandTree(myRemainder, myParser);
+		CommandTree newBranch = new CommandTree(myRemainder, myParser, this);
 		myBranches.add(newBranch);
 		myRemainder = newBranch.build();
 		return newBranch.getCommand();
@@ -61,7 +62,7 @@ public class CommandTree implements Evaluable {
 		return myCommand.evaluate();
 	}
 
-	public List<String> getRemainder(){
+	public CommandList getRemainder(){
 		return myRemainder;
 	}
 	
@@ -69,8 +70,8 @@ public class CommandTree implements Evaluable {
 		return myCommand;
 	}
 	
-	public List<String> getSource(){
-		return Collections.unmodifiableList(mySource);
+	public CommandList getSource(){
+		return mySource.copy();
 	}
 	
 	@Override
