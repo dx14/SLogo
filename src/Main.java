@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.LinkedList;
+
 import gui.MainGUI;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -33,85 +36,6 @@ public class Main extends Application{
 	
 		
 	}
-	
-	private void run(StackPane root) {
-
-		BorderPane border = new BorderPane();
-		HBox hbox = addHBox();
-		border.setTop(hbox);
-		border.setLeft(addVBox());
-		addStackPane(hbox);         // Add stack to HBox in top region
-
-		root.getChildren().add(border);
-		
-		//border.setCenter(addGridPane());
-		//border.setRight(addFlowPane());
-	}
-
-	public HBox addHBox() {
-	    HBox hbox = new HBox();
-	    hbox.setPadding(new Insets(15, 12, 15, 12));
-	    hbox.setSpacing(10);
-	    hbox.setStyle("-fx-background-color: #336699;");
-
-	    Button buttonCurrent = new Button("Current");
-	    buttonCurrent.setPrefSize(100, 20);
-
-	    Button buttonProjected = new Button("Projected");
-	    buttonProjected.setPrefSize(100, 20);
-	    hbox.getChildren().addAll(buttonCurrent, buttonProjected);
-
-	    return hbox;
-	}
-	
-	public VBox addVBox() {
-	    VBox vbox = new VBox();
-	    vbox.setPadding(new Insets(10));
-	    vbox.setSpacing(8);
-
-	    Text title = new Text("Data");
-	    title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-	    vbox.getChildren().add(title);
-
-	    Hyperlink options[] = new Hyperlink[] {
-	        new Hyperlink("Sales"),
-	        new Hyperlink("Marketing"),
-	        new Hyperlink("Distribution"),
-	        new Hyperlink("Costs")};
-
-	    for (int i=0; i<4; i++) {
-	        VBox.setMargin(options[i], new Insets(0, 0, 0, 8));
-	        vbox.getChildren().add(options[i]);
-	    }
-
-	    return vbox;
-	}
-	
-
-	public void addStackPane(HBox hb) {
-	    StackPane stack = new StackPane();
-	    Rectangle helpIcon = new Rectangle(30.0, 25.0);
-	    helpIcon.setFill(new LinearGradient(0,0,0,1, true, CycleMethod.NO_CYCLE,
-	        new Stop[]{
-	        new Stop(0,Color.web("#4977A3")),
-	        new Stop(0.5, Color.web("#B0C6DA")),
-	        new Stop(1,Color.web("#9CB6CF")),}));
-	    helpIcon.setStroke(Color.web("#D0E6FA"));
-	    helpIcon.setArcHeight(3.5);
-	    helpIcon.setArcWidth(3.5);
-
-	    Text helpText = new Text("?");
-	    helpText.setFont(Font.font("Verdana", FontWeight.BOLD, 18));
-	    helpText.setFill(Color.WHITE);
-	    helpText.setStroke(Color.web("#7080A0")); 
-
-	    stack.getChildren().addAll(helpIcon, helpText);
-	    stack.setAlignment(Pos.CENTER_RIGHT);     // Right-justify nodes in stack
-	    StackPane.setMargin(helpText, new Insets(0, 10, 0, 0)); // Center "?"
-
-	    hb.getChildren().add(stack);            // Add to HBox from Example 1-2
-	    HBox.setHgrow(stack, Priority.ALWAYS);    // Give stack any extra space
-	}
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -126,11 +50,18 @@ public class Main extends Application{
 	    	MainGUI myGui = new MainGUI(root);
 	    	myGui.draw();
 	    	
-	    	Scene scene = new Scene(root, 300, 250);
+	    	
+	    	
+	    	Scene scene = new Scene(root, 600, 600);
 
 	        primaryStage.setTitle("Hello World!");
 	        primaryStage.setScene(scene);
-	        primaryStage.show();
+	        primaryStage.show(); 
+	        
+	        
+		
+		
+		
 		
 		
 	}
