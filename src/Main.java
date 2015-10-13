@@ -48,7 +48,7 @@ public class Main extends Application{
 	        BorderPane root = new BorderPane();
 	    	//run(root);
 
-	    	MainGUI myGui = new MainGUI(root, (GUIController)controller);
+	    	MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
 	    	myGui.draw();
 	    	
 	    	

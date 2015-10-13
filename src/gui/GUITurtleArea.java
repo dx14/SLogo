@@ -16,12 +16,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private Color backgroundColor;
     private Canvas canvas;
     private GraphicsContext gc;
-    private int xBackground=0;
-    private int yBackground=0;
-    private int widthBackground=400;
-    private int heightBackground=400;
     private int xCanvas=400;
     private int yCanvas=400;
+    private int xBackground=0;
+    private int yBackground=0;
+    private int widthBackground=xCanvas;
+    private int heightBackground=yCanvas;
 
     public GUITurtleArea (Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
         backgroundColor = turtleAreaColor;
@@ -33,15 +33,15 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
 
     @Override
     public Node returnNodeToDraw () {
-        draw();
+        drawAll();
         return canvas;
     }
     @Override
     public void updateBackgroundColor (Color c) {
         backgroundColor = c;
-        draw();
+        drawAll();
     }
-    private void draw() {
+    public void drawAll() {
         drawBackground();
         drawTurtles();
         drawPaths();
@@ -69,7 +69,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         }
     }
     
-    
+    //___helper functions___
     private Double[] realToGUICoordinates (double xOnGrid, double yOnGrid) {
         Double[] d = new Double[2];
         d[0]=xOnGrid+xCanvas/2;

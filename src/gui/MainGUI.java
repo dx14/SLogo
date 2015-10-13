@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import turtle.Turtle;
 import util.Coordinate;
 import util.SlogoPath;
@@ -25,6 +26,7 @@ public class MainGUI implements GUIInterface{
 	
 	private List<GUIComponent> allGUIComponents;
 	private BorderPane mainRoot;
+	private Stage mainStage;
 	private Color turtleAreaColor;
 	private List<GUITurtle> turtleList;
 	private List<SlogoPath> pathList;
@@ -33,8 +35,9 @@ public class MainGUI implements GUIInterface{
 	private GUITurtleArea myGUITurtleArea;
 	private GUIHistory myGUIHistory;
 	private GUIPaletteBackground myGUIPaletteBackground;
+	private GUIToolbar myGUIToolbar;
 	
-	public MainGUI(BorderPane root, GUIController controller){
+	public MainGUI(BorderPane root, Stage stage, GUIController controller){
 	        myGUIController = controller;
 	        //turtleList=myGUIController.getGUITurtles();
 	        turtleList=new ArrayList<GUITurtle>();
@@ -42,12 +45,14 @@ public class MainGUI implements GUIInterface{
 		turtleAreaColor = Color.WHITE;
 		allGUIComponents = new ArrayList<GUIComponent>();
 		mainRoot = root;
+		mainStage = stage;
 	        myGUITurtleArea = new GUITurtleArea(turtleAreaColor, turtleList, pathList);
 	        allGUIComponents.add(myGUITurtleArea);
 	        myGUIHistory=new GUIHistory();
 		allGUIComponents.add(myGUIHistory);
 		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
+		myGUIToolbar = new GUIToolbar(this, mainStage, turtleList);
 		
 		//temporary test seeds
 		Turtle t = new Turtle();
@@ -73,6 +78,9 @@ public class MainGUI implements GUIInterface{
 		mainRoot.setCenter(myGUITurtleArea.returnNodeToDraw());
 		mainRoot.setLeft(myGUIHistory.returnNodeToDraw());
 		mainRoot.setRight(myGUIPaletteBackground.returnNodeToDraw());
+		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 	}
-
+	public void updateTurtleArea() {
+	    myGUITurtleArea.drawAll();
+	}
 }
