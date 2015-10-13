@@ -9,7 +9,7 @@ import javafx.scene.transform.Rotate;
 import util.SlogoPath;
 
 
-public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface {
+public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaRedrawInterface {
 
     private List<GUITurtle> myTurtles;
     private List<SlogoPath> myPaths;

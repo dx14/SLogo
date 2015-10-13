@@ -22,7 +22,7 @@ public class GUIToolbar extends GUIComponent {
     private List<GUITurtle> myTurtles;
     private ToolBar toolBar;
 
-    public GUIToolbar (MainGUI mainGUI, Stage stage, List<GUITurtle> turtles) {
+    public GUIToolbar (Stage stage, List<GUITurtle> turtles, GUITurtleAreaRedrawInterface turtleArea) {
         Button openImage = new Button("Open Image");
         myTurtles=turtles;
         openImage.setOnAction(new EventHandler<ActionEvent>() {
@@ -40,7 +40,7 @@ public class GUIToolbar extends GUIComponent {
                         for (GUITurtle t: myTurtles) {
                             t.setImage(image);
                         }
-                        mainGUI.updateTurtleArea();
+                        turtleArea.drawAll();
                     }
                     catch (Exception e) {
                         System.out.println("file:"+selectedFile.getAbsolutePath());
