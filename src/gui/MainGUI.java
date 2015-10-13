@@ -52,7 +52,7 @@ public class MainGUI implements GUIInterface{
 		allGUIComponents.add(myGUIHistory);
 		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
-		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea);
+		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea, myGUIController);
 		
 		//temporary test seeds
 		Turtle t = new Turtle();
