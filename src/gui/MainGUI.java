@@ -26,18 +26,25 @@ public class MainGUI implements GUIInterface{
 	
 	
 	public MainGUI(Pane root){
+
+		turtleAreaColor = Color.WHITE;
+
 		allGUIComponents = new ArrayList<GUIComponent>();
 		mainRoot = root;
 		allGUIComponents.add(new GUIHistory());
-		//allGUIComponents.add(new GUIPaletteBackground(turtleAreaColor));
 		
-		//TextArea a = new TextArea();
+		GUITurtleArea guiTurtleArea = new GUITurtleArea(turtleAreaColor);
+		
+		allGUIComponents.add(new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) guiTurtleArea));
+		
+		allGUIComponents.add(guiTurtleArea);
 		
 		
 	}
 	
 	
 	public void draw(){
+		
 	
 		for(GUIComponent component : allGUIComponents){
 			 (mainRoot).getChildren().add(component.returnNodeToDraw());

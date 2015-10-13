@@ -8,19 +8,29 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GUITurtleArea extends GUIComponent{
+public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface{
 
 	private List<GUITurtle> myTurtles;
 	private Color backgroundColor;
 	
+	private Canvas canvas; 
 	
 	
+	public GUITurtleArea(Color turtleAreaColor) {
+
+	backgroundColor = turtleAreaColor;
 	
+	canvas = new Canvas(100, 100);
+
+	}
+
+
+
+
 	@Override
 	public Node returnNodeToDraw() {
 		// TODO Auto-generated method stub
 		
-		Canvas canvas = new Canvas(300, 250);
         GraphicsContext gc = canvas.getGraphicsContext2D();
       
         
@@ -28,7 +38,26 @@ public class GUITurtleArea extends GUIComponent{
         gc.fillRect(50, 50, 50, 50);
 		
 		
+        
+        
 		return canvas;
+	}
+
+
+
+
+	@Override
+	public void updateBackgroundColor(Color c) {
+		// TODO Auto-generated method stub
+		  GraphicsContext gc = canvas.getGraphicsContext2D();
+		
+		  backgroundColor = c;
+		  
+		  
+		 gc.setFill(backgroundColor);
+	     gc.fillRect(50, 50, 50, 50);
+		
+		
 	}
 	
 	
