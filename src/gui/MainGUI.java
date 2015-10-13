@@ -49,16 +49,16 @@ public class MainGUI implements GUIInterface{
 		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
 		
-
+		//temporary test seeds
 		Turtle t = new Turtle();
-		t.setXOnGrid(300);
-		t.setYOnGrid(100);
+		t.setXOnGrid(0);
+		t.setYOnGrid(0);
 		turtleList.add(t);
 		t=new Turtle();
-		t.setXOnGrid(250);
-		t.setYOnGrid(333);
+		t.setXOnGrid(-100);
+		t.setYOnGrid(100);
 		turtleList.add(t);
-		SlogoPath p = new StraightPath(new Coordinate(20,30), new Coordinate(240,120));
+		SlogoPath p = new StraightPath(new Coordinate(150,-100), new Coordinate(0,0));
 		pathList.add(p);
 	}
 	

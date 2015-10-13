@@ -35,6 +35,9 @@ public class Turtle implements GUITurtle{
 		
 	}
 
+	/**
+	 * These coordinates should be in the reference frame that (0,0) is the center/start point
+	 */
 	@Override
 	public double getXOnGrid() {
 

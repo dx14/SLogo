@@ -18,8 +18,8 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private GraphicsContext gc;
     private int xBackground=0;
     private int yBackground=0;
-    private int width=400;
-    private int height=400;
+    private int widthBackground=400;
+    private int heightBackground=400;
     private int xCanvas=400;
     private int yCanvas=400;
 
@@ -41,20 +41,21 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         backgroundColor = c;
         draw();
     }
-    public void draw() {
+    private void draw() {
         drawBackground();
         drawTurtles();
         drawPaths();
     }
-    public void drawBackground() {
+    private void drawBackground() {
         gc.setFill(backgroundColor);
-        gc.fillRect(xBackground, yBackground, width, height);
+        gc.fillRect(xBackground, yBackground, widthBackground, heightBackground);
     }
     private void drawTurtles () {
         for (GUITurtle turtle: myTurtles) {
             gc.save();
-            setGCTransform(turtle.getAngle(), turtle.getXOnGrid(), turtle.getYOnGrid());
-            gc.drawImage(turtle.getImage(), turtle.getXOnGrid(), turtle.getYOnGrid());
+            Double[] guiCoords=realToGUICoordinates(turtle.getXOnGrid(),turtle.getYOnGrid());
+            setGCTransform(turtle.getAngle(), guiCoords[0], guiCoords[1]);
+            gc.drawImage(turtle.getImage(), guiCoords[0], guiCoords[1]);
             gc.restore();
         }
     }
@@ -62,8 +63,18 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         //TODO: set path colors (gc.setStroke(penColor));
         for (SlogoPath path: myPaths) {
             //TODO: be able to draw arcs
-            gc.strokeLine(path.getStart().getX(), path.getStart().getY(), path.getEnd().getX(), path.getEnd().getY());;
+            Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),path.getStart().getY());
+            Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),path.getEnd().getY());
+            gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);;
         }
+    }
+    
+    
+    private Double[] realToGUICoordinates (double xOnGrid, double yOnGrid) {
+        Double[] d = new Double[2];
+        d[0]=xOnGrid+xCanvas/2;
+        d[1]=yOnGrid+yCanvas/2;
+        return d;
     }
     private void setGCTransform(double angle, double x, double y) {
         Rotate r = new Rotate(angle, x, y);
