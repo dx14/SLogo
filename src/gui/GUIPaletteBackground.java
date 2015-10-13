@@ -22,7 +22,7 @@ public class GUIPaletteBackground extends GUIPalette{
 	public Node returnNodeToDraw() {
 		// TODO Auto-generated method stub
 		   final ColorPicker colorPicker = new ColorPicker();
-	        colorPicker.setValue(Color.CORAL);
+	        colorPicker.setValue(Color.WHITE);
 	        
 	        colorPicker.setOnAction(new EventHandler() {
 	            public void handle(Event t) {

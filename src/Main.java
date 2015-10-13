@@ -1,6 +1,7 @@
 import java.util.Collections;
 import java.util.LinkedList;
-
+import controller.SlogoController;
+import gui.GUIController;
 import gui.MainGUI;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -42,12 +43,12 @@ public class Main extends Application{
 		// TODO Auto-generated method stub
 		
 	
-		
+		SlogoController controller = new SlogoController();
 		
 	        StackPane root = new StackPane();
 	    	//run(root);
 
-	    	MainGUI myGui = new MainGUI(root);
+	    	MainGUI myGui = new MainGUI(root, (GUIController)controller);
 	    	myGui.draw();
 	    	
 	    	
