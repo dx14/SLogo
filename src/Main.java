@@ -48,17 +48,17 @@ public class Main extends Application{
 	        BorderPane root = new BorderPane();
 	    	//run(root);
 
-	    	MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
-	    	myGui.draw();
+
 	    	
-	    	
+	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
+                myGui.draw();
 	    	
 	    	Scene scene = new Scene(root, 600, 600);
 
 	        primaryStage.setTitle("Hello World!");
 	        primaryStage.setScene(scene);
 	        primaryStage.show(); 
-	        
+	               
 	        
 		
 		

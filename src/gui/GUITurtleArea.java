@@ -4,8 +4,10 @@ import java.util.List;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Stage;
 import util.SlogoPath;
 
 
@@ -16,14 +18,14 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private Color backgroundColor;
     private Canvas canvas;
     private GraphicsContext gc;
-    private int xCanvas=400;
-    private int yCanvas=400;
+    private double xCanvas=400;
+    private double yCanvas=400;
     private int xBackground=0;
     private int yBackground=0;
-    private int widthBackground=xCanvas;
-    private int heightBackground=yCanvas;
+    private double widthBackground=xCanvas;
+    private double heightBackground=yCanvas;
 
-    public GUITurtleArea (Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
+    public GUITurtleArea (Stage mainStage, Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
         backgroundColor = turtleAreaColor;
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
@@ -53,9 +55,11 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private void drawTurtles () {
         for (GUITurtle turtle: myTurtles) {
             gc.save();
+            Double[] offsetCoords=findImageCenter(turtle.getXOnGrid(),turtle.getYOnGrid(), turtle.getImage());
+            Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
             Double[] guiCoords=realToGUICoordinates(turtle.getXOnGrid(),turtle.getYOnGrid());
             setGCTransform(turtle.getAngle(), guiCoords[0], guiCoords[1]);
-            gc.drawImage(turtle.getImage(), guiCoords[0], guiCoords[1]);
+            gc.drawImage(turtle.getImage(), offsetguiCoords[0], offsetguiCoords[1]);
             gc.restore();
         }
     }
@@ -74,6 +78,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         Double[] d = new Double[2];
         d[0]=xOnGrid+xCanvas/2;
         d[1]=yOnGrid+yCanvas/2;
+        return d;
+    }
+    private Double[] findImageCenter (double xOnGrid, double yOnGrid, Image image) {
+        Double[] d = new Double[2];
+        d[0]=xOnGrid-image.getWidth()/2;
+        d[1]=yOnGrid-image.getHeight()/2;
         return d;
     }
     private void setGCTransform(double angle, double x, double y) {

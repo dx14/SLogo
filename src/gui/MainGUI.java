@@ -46,7 +46,7 @@ public class MainGUI implements GUIInterface{
 		allGUIComponents = new ArrayList<GUIComponent>();
 		mainRoot = root;
 		mainStage = stage;
-	        myGUITurtleArea = new GUITurtleArea(turtleAreaColor, turtleList, pathList);
+	        myGUITurtleArea = new GUITurtleArea(mainStage, turtleAreaColor, turtleList, pathList);
 	        allGUIComponents.add(myGUITurtleArea);
 	        myGUIHistory=new GUIHistory();
 		allGUIComponents.add(myGUIHistory);
@@ -61,7 +61,8 @@ public class MainGUI implements GUIInterface{
 		turtleList.add(t);
 		t=new Turtle();
 		t.setXOnGrid(-100);
-		t.setYOnGrid(100);
+		t.setYOnGrid(150);
+		t.setAngle(160);
 		turtleList.add(t);
 		SlogoPath p = new StraightPath(new Coordinate(150,-100), new Coordinate(0,0));
 		pathList.add(p);
