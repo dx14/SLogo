@@ -6,11 +6,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import util.SlogoPath;
 
 
 public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface {
 
     private List<GUITurtle> myTurtles;
+    private List<SlogoPath> myPaths;
     private Color backgroundColor;
     private Canvas canvas;
     private GraphicsContext gc;
@@ -20,25 +22,29 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private int height=400;
     private int xCanvas=400;
     private int yCanvas=400;
-    private GUIController myGUIController;
 
-    public GUITurtleArea (Color turtleAreaColor, List<GUITurtle> turtles) {
+    public GUITurtleArea (Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
         backgroundColor = turtleAreaColor;
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
         myTurtles=turtles;
+        myPaths=paths;
     }
 
     @Override
     public Node returnNodeToDraw () {
-        drawBackground();
-        drawTurtles();
+        draw();
         return canvas;
     }
     @Override
     public void updateBackgroundColor (Color c) {
         backgroundColor = c;
+        draw();
+    }
+    public void draw() {
         drawBackground();
+        drawTurtles();
+        drawPaths();
     }
     public void drawBackground() {
         gc.setFill(backgroundColor);
@@ -50,6 +56,13 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
             setGCTransform(turtle.getAngle(), turtle.getXOnGrid(), turtle.getYOnGrid());
             gc.drawImage(turtle.getImage(), turtle.getXOnGrid(), turtle.getYOnGrid());
             gc.restore();
+        }
+    }
+    private void drawPaths() {
+        //TODO: set path colors (gc.setStroke(penColor));
+        for (SlogoPath path: myPaths) {
+            //TODO: be able to draw arcs
+            gc.strokeLine(path.getStart().getX(), path.getStart().getY(), path.getEnd().getX(), path.getEnd().getY());;
         }
     }
     private void setGCTransform(double angle, double x, double y) {

@@ -76,9 +76,9 @@ public class GUIHistory extends GUIComponent{
 	        vbox.setSpacing(5);
 	        
 	        ScrollPane historyBox = new ScrollPane();
-	        historyBox.setTranslateX(-100);
-	        historyBox.setTranslateY(-100);
-	        historyBox.setMaxSize(100, 100);
+	        //historyBox.setTranslateX(-100);
+	        //historyBox.setTranslateY(-100);
+	        historyBox.setMaxSize(100, 200);
 	        
 	        
 	        historyBox.setContent(vbox);

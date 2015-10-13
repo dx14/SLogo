@@ -18,6 +18,13 @@ public abstract class SlogoPath {
 	public Coordinate getEnd(){
 		return end;
 	}
+	
+	public double getXLength() {
+	    return end.getX()-start.getX();
+	}
+        public double getYLength() {
+            return end.getY()-start.getY();
+        }
 
 	@Override
 	public String toString(){

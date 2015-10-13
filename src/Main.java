@@ -45,7 +45,7 @@ public class Main extends Application{
 	
 		SlogoController controller = new SlogoController();
 		
-	        StackPane root = new StackPane();
+	        BorderPane root = new BorderPane();
 	    	//run(root);
 
 	    	MainGUI myGui = new MainGUI(root, (GUIController)controller);
