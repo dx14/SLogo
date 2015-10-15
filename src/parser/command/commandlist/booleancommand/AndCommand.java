@@ -8,9 +8,9 @@ public class AndCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		double expr1 = myTree.get(0).evaluate();
-		double expr2 = myTree.get(1).evaluate();
-		if (expr1 !=0 && expr2 !=0) return 1;
+		double test1 = myTree.get(0).evaluate();
+		double test2 = myTree.get(1).evaluate();
+		if (test1 !=0 && test2 !=0) return 1;
 		return 0;
 	}
 
