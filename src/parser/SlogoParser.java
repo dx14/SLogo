@@ -6,6 +6,7 @@ import util.Coordinate;
 import util.SlogoPath;
 import util.StraightPath;
 import util.Variable;
+import parser.structure.Turtle;
 
 public class SlogoParser implements ParserInterface{
 
@@ -40,6 +41,10 @@ public class SlogoParser implements ParserInterface{
 	
 	public void rotateTurtle(double angle){
 		
+	}
+	
+	public Turtle getCurrentTurtle(){
+		return null;
 	}
 	
 	@Override

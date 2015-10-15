@@ -4,17 +4,16 @@ import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class ForwardCommand extends Command {
+public class SetTowardsCommand extends Command {
+
 	@Override
 	public double evaluate() throws ParserException {
-		double distance = myTree.get(0).evaluate();
-		myParser.getCurrentTurtle().move(distance);
-		return distance;
+		return myParser.getCurrentTurtle.setTowards(myTree.get(0).evaluate(), myTree.get(1).evaluate());
 	}
 
 	@Override
 	public CommandList build() throws ParserException {
-		return myTree.buildNext().getRemainder();
+		return myTree.buildNext().buildNext().getRemainder();
 	}
 
 }

@@ -4,12 +4,11 @@ import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class ForwardCommand extends Command {
+public class SetHeadingCommand extends Command {
+
 	@Override
 	public double evaluate() throws ParserException {
-		double distance = myTree.get(0).evaluate();
-		myParser.getCurrentTurtle().move(distance);
-		return distance;
+		return myParser.getCurrentTurtle().setHeading(myTree.get(0).evaluate());
 	}
 
 	@Override

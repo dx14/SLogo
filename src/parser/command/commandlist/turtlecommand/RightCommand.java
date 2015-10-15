@@ -4,12 +4,13 @@ import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class ForwardCommand extends Command {
+public class RightCommand extends Command {
+
 	@Override
 	public double evaluate() throws ParserException {
-		double distance = myTree.get(0).evaluate();
-		myParser.getCurrentTurtle().move(distance);
-		return distance;
+		double angle = myTree.get(0).evaluate();
+		myParser.getCurrentTurtle().turn(angle * -1);
+		return angle;
 	}
 
 	@Override
