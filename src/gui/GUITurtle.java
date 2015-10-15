@@ -3,36 +3,35 @@ package gui;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
-public interface GUITurtle{
 
-public Image getImage();
+public interface GUITurtle {
 
-public void setImage(Image image);
-	
-public double getXOnGrid();
+    public Image getImage ();
 
-public void setXOnGrid(double x);
+    public void setImage (Image image);
 
-public double getYOnGrid();
+    /**
+     * Will these grid values be for the center of the turtle, or the top left corner, etc.?
+     * @return
+     */
+    public double getXOnGrid ();
 
-public void setYOnGrid(double y);
+    public void setXOnGrid (double x);
 
-public void setWidth(double width);
+    public double getYOnGrid ();
 
-public Color getPenColor();
+    public void setYOnGrid (double y);
 
-public void setPenColor(Color penCol);
+    public void setWidth (double width);
 
-public double getWidth();
+    public Color getPenColor ();
 
-public double getAngle();
+    public void setPenColor (Color penCol);
 
-public boolean getIsVisible();
+    public double getWidth ();
 
+    public double getAngle ();
 
-
-
-
-
+    public boolean getIsVisible ();
 
 }

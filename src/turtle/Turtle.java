@@ -12,8 +12,17 @@ public class Turtle implements GUITurtle{
 	boolean isVisible;
 	double angle;
 	
-	
-	
+	/**
+	 * Temporary constructor for turtle
+	 * @author John
+	 */
+	public Turtle() {
+	    gridCoords=new Point2D(0,0);
+	    isVisible=true;
+	           Image im = new Image("http://el.media.mit.edu/logo-foundation/what_is_logo/graphics/image4.jpg");
+	                setImage(im);
+	                angle=0;
+	}
 	
 	@Override
 	public Image getImage() {
@@ -26,6 +35,9 @@ public class Turtle implements GUITurtle{
 		
 	}
 
+	/**
+	 * These coordinates should be in the reference frame that (0,0) is the center/start point
+	 */
 	@Override
 	public double getXOnGrid() {
 
@@ -65,6 +77,9 @@ public class Turtle implements GUITurtle{
 	@Override
 	public double getAngle() {
 		return angle;
+	}
+	public void setAngle(double angle) {
+	    this.angle=angle;
 	}
 
 	@Override
