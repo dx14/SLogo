@@ -1,14 +1,14 @@
-package parser.command.commandlist.turtlecommand;
+package parser.command.commandlist.turtlequery;
 
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class HideTurtleCommand extends Command {
+public class YCoordinateCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		myParser.getCurrentTurtle().hide();
-		return 0;
+		return myParser.getCurrentTurtle().getCoordinate().getY();
 	}
+
 }

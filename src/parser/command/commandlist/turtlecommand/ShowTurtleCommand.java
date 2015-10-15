@@ -12,9 +12,4 @@ public class ShowTurtleCommand extends Command {
 		return 1;
 	}
 
-	@Override
-	public CommandList build() throws ParserException {
-		return myTree.getRemainder();
-	}
-
 }

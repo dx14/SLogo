@@ -11,10 +11,4 @@ public class PenUpCommand extends Command {
 		myParser.getCurrentTurtle().penUp();
 		return 0;
 	}
-
-	@Override
-	public CommandList build() throws ParserException {
-		return myTree.getRemainder();
-	}
-
 }

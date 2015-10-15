@@ -11,10 +11,4 @@ public class ClearScreenCommand extends Command {
 		myParser.getCurrentTurtle().clear();
 		return myParser.getCurrentTurtle().setPosition(0,0);
 	}
-
-	@Override
-	public CommandList build() throws ParserException {
-		return myTree.getRemainder();
-	}
-
 }

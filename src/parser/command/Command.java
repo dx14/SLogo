@@ -1,5 +1,6 @@
 package parser.command;
 
+import parser.ParserException;
 import parser.SlogoParser;
 
 public abstract class Command implements Evaluable{
@@ -28,6 +29,11 @@ public abstract class Command implements Evaluable{
 		if(DEBUG){
 			System.out.println("Initializing: " + myCommand.getNativeCommand());
 		}
+	}
+	
+	@Override
+	public CommandList build() throws ParserException{
+		return myTree.getRemainder();
 	}
 
 }

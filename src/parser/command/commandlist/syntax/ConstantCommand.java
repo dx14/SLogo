@@ -10,10 +10,4 @@ public class ConstantCommand extends Command {
 	public double evaluate() throws ParserException {
 		return Double.parseDouble(myCommand.getRawText());
 	}
-
-	@Override
-	public CommandList build() throws ParserException {
-		return myTree.getRemainder();
-	}
-
 }
