@@ -6,15 +6,15 @@ import java.util.List;
 import parser.ParserException;
 import parser.SlogoParser;
 
-public class CommandTree implements Evaluable {
+public class CommandTreeNode implements Evaluable {
 
-	private CommandList mySource;
-	private CommandList myRemainder;
+	private CommandList mySource; 
+	private CommandList myRemainder; 
 	
 	private Evaluable myCommand;	// two way link
 	
-	private CommandTree myParent;
-	private List<CommandTree> myBranches;
+	private CommandTreeNode myParent;
+	private List<CommandTreeNode> myBranches;
 	
 	private SlogoParser myParser;
 	
@@ -23,11 +23,14 @@ public class CommandTree implements Evaluable {
 	 * CREATE ROOT COMMAND
 	 */
 	
-	public CommandTree(CommandList source, SlogoParser parser){
+	public CommandTreeNode(CommandList source, SlogoParser parser) throws ParserException{
 		this(source, parser, null);
 	}
 	
-	public CommandTree(CommandList source, SlogoParser parser, CommandTree parent){
+	public CommandTreeNode(CommandList source, SlogoParser parser, CommandTreeNode parent) throws ParserException{
+		if(source.isEmpty()){
+			throw new ParserException("Error: expected another argument.");
+		}
 		mySource = source;
 		myRemainder = mySource.copy();
 		
@@ -47,11 +50,11 @@ public class CommandTree implements Evaluable {
 		return myRemainder;
 	}
 	
-	public Evaluable buildNext() throws ParserException{
-		CommandTree newBranch = new CommandTree(myRemainder, myParser, this);
+	public CommandTreeNode buildNext() throws ParserException{
+		CommandTreeNode newBranch = new CommandTreeNode(myRemainder, myParser, this);
 		myBranches.add(newBranch);
 		myRemainder = newBranch.build();
-		return newBranch.getCommand();
+		return this;
 	}
 	
 	public boolean empty(){
@@ -74,8 +77,16 @@ public class CommandTree implements Evaluable {
 		return mySource.copy();
 	}
 	
+	public CommandTreeNode getParent(){
+		return myParent;
+	}
+	
+	public CommandTreeNode get(int index){
+		return myBranches.get(index);
+	}
+	
 	@Override
-	public void setParameters(CommandTree tree, SlogoParser parser) {
+	public void setParameters(CommandTreeNode tree, SlogoParser parser) {
 		myParser = parser;
 		myParent = tree;
 	}
