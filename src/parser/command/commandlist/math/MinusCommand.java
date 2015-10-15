@@ -8,14 +8,12 @@ public class MinusCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		// TODO Auto-generated method stub
-		return 0;
+		return myTree.get(0).evaluate()*-1;
 	}
 
 	@Override
 	public CommandList build() throws ParserException {
-		// TODO Auto-generated method stub
-		return null;
+		return myTree.buildNext().getRemainder();
 	}
 
 }
