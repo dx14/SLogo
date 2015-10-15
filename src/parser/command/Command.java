@@ -4,19 +4,19 @@ import parser.SlogoParser;
 
 public abstract class Command implements Evaluable{
 	
-	protected CommandTree myTree;
+	protected CommandTreeNode myTree;
 	protected SlogoParser myParser;
 	
 	public Command(){
 		this(null, null);
 	}
 	
-	public Command(CommandTree tree, SlogoParser parser){
+	public Command(CommandTreeNode tree, SlogoParser parser){
 		setParameters(tree, parser);
 	}
 	
 	@Override
-	public void setParameters(CommandTree tree, SlogoParser parser){
+	public void setParameters(CommandTreeNode tree, SlogoParser parser){
 		myTree = tree;
 		myParser = parser;
 	}

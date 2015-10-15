@@ -6,56 +6,42 @@ import java.util.List;
 
 public class CommandList {
 
-	private List<String> myRawCommandList;
-	private List<String> myTypeList;
-	private List<String> myNativeList;
+	private List<CommandElement> myCommandList;
 	
-	public CommandList(List<String> commandList, List<String> typeList, List<String> nativeList){
-		myRawCommandList = commandList;
-		myTypeList = typeList;
-		myNativeList = nativeList;
-	}
-	
-	public List<String> getRawCommandString(){
-		return Collections.unmodifiableList(myRawCommandList);
-	}
-	
-	public List<String> getTypeString(){
-		return Collections.unmodifiableList(myTypeList);
-	}
-	
-	public List<String> getNativeCommandString(){
-		return Collections.unmodifiableList(myNativeList);
+	public CommandList(List<CommandElement> commandList){
+		myCommandList = commandList;
 	}
 	
 	public String toString(){
-		return myRawCommandList.toString() + "\n" + myTypeList.toString();
+		return myCommandList.toString();
 	}
 	
 	public void remove(int index){
-		myRawCommandList.remove(index);
-		myTypeList.remove(index);
-		myNativeList.remove(index);
+		myCommandList.remove(index);
 	}
 	
 
 	public CommandList copy(){
-		return new CommandList(new ArrayList<String>(myRawCommandList), new ArrayList<String>(myTypeList), new ArrayList<String>(myNativeList));
+		return new CommandList(new ArrayList<>(myCommandList));
 	}
 
+	
+	public boolean isEmpty(){
+		return myCommandList.isEmpty();
+	}
 	
 	// TODO: implement object type that contains all three implementations (maybe a map)
 	
 	public String getNativeCommand(int index){
-		return myNativeList.get(index);
+		return myCommandList.get(index).getNativeCommand();
 	}
 	
 	public String getRawCommand(int index){
-		return myRawCommandList.get(index);
+		return myCommandList.get(index).getRawText();
 	}
 	
 	public String getCommandType(int index){
-		return myTypeList.get(index);
+		return myCommandList.get(index).getType();
 	}
 	
 }

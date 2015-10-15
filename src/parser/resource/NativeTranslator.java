@@ -6,9 +6,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import parser.ParserException;
 import parser.command.CommandList;
+import parser.command.CommandElement;
 
 public class NativeTranslator {
 
@@ -16,47 +19,61 @@ public class NativeTranslator {
 	private String currentLanguage = "English";
 	private ResourceBundle commandResources = ResourceBundle.getBundle("resources.languages." + currentLanguage);
 	
+	private List<String> mySyntaxTypes;
+	private List<String> myCommandNames;
+	
 	public static final String NOTFOUND = "NOTFOUND";
 	public static final String USERDEFINED = "UserDefined";
 	
 	public CommandList buildCommandList(String command) throws ParserException{		
-		// workaround for now, fix later
 		command = removeComments(command);
 		
-		ArrayList<String> commandList = new ArrayList<>(Arrays.asList(command.split("\\s")));
-		stripWhiteSpace(commandList);
-		ArrayList<String> typeList = new ArrayList<>();
+		mySyntaxTypes = Collections.list(syntaxResources.getKeys());
+		myCommandNames = Collections.list(commandResources.getKeys());
 		
-		labelSyntax(commandList, typeList);
-		validateTypes(commandList, typeList);
-		List<String> nativeList = buildNativeList(commandList, typeList);
+		ArrayList<String> rawCommands = new ArrayList<>(Arrays.asList(command.split("\\s")));
+		List<CommandElement> commandList = rawCommands.stream()
+				.filter(s -> !s.matches("\\s*"))
+				.map( CommandElement::new )
+				.map(c -> translate(c))
+				.collect( Collectors.toList());
 		
-		return new CommandList(commandList, typeList, nativeList);
+		validate(commandList);
+		CommandList cl = new CommandList(commandList);
+		return  cl;
 	}
 	
-	private void stripWhiteSpace(ArrayList<String> commandList) {
-		Iterator<String> i = commandList.iterator();
-		while(i.hasNext()){
-			if(i.next().matches("\\s*")){
-				i.remove();			
+	public String getType(String s){
+		String typeString = NOTFOUND;
+		for(String type : mySyntaxTypes){
+			if(s.matches(syntaxResources.getString(type)))
+			{
+				typeString = type;
+				break;
+			}
+		}
+		return typeString;
+	}
+	
+	private CommandElement translate(CommandElement c){
+		c.setType(getType(c.getRawText()));
+		c.setNativeCommand(c.getType().equals("Command") ? getNativeCommand(c.getRawText()) : c.getType());
+		return c;
+	}
+	
+	private void validate(List<CommandElement> commandList) throws ParserException{
+		for(CommandElement c : commandList){
+			if(c.getType().equals(NOTFOUND)){
+				throw new ParserException("Command not found: " + c.getNativeCommand());
 			}
 		}
 	}
-
-	public List<String> buildNativeList(List<String> commandList, List<String> typeList) throws ParserException{
-		ArrayList<String> nativeList = new ArrayList<>();
-		
-		for(int i = 0; i<commandList.size(); i++){
-			nativeList.add( (typeList.get(i).equals("Command")) ? getNativeCommand(commandList.get(i)) : typeList.get(i) );
-		}
-		return nativeList;
-	}
 	
 	private String getNativeCommand(String test) {
-		List<String> commandNames = Collections.list(commandResources.getKeys());
+				
 		String command = USERDEFINED;
 		
-		for(String s : commandNames){
+		for(String s : myCommandNames){
 			if(test.matches(commandResources.getString(s))){
 				command = s;
 			}
@@ -68,27 +85,4 @@ public class NativeTranslator {
 	private String removeComments(String command){
 		return command.replaceAll(syntaxResources.getString("Comment"), "");
 	}
-	
-	private void labelSyntax(List<String> commandList, List<String> typeList){
-		List<String> syntaxTypes = Collections.list(syntaxResources.getKeys());
-		
-		for(int i=0; i<commandList.size(); i++){ typeList.add(NOTFOUND); }
-		
-		for(String type : syntaxTypes){
-			for(int i = 0; i<commandList.size(); i++){
-				if(commandList.get(i).matches(syntaxResources.getString(type))){
-					typeList.set(i, type);
-				}
-			}
-		}
-	}
-	
-	private void validateTypes(List<String> commandList, List<String> typeList) throws ParserException{
-		for(int i=0; i<typeList.size(); i++){
-			if(typeList.get(i).equals(NOTFOUND)){
-				throw new ParserException("ERROR: Unrecognized string " + commandList.get(i));
-			}
-		}
-	}
-	
 }
