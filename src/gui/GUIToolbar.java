@@ -3,6 +3,7 @@ package gui;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -24,7 +25,8 @@ import parser.ParserException;
 
 public class GUIToolbar extends GUIComponent {
 
-    private static final String languagesFileDirectoryName = "src/resources/languages";
+    private ResourceBundle textResources = ResourceBundle.getBundle("resources.guitext.Toolbar");
+    private final String languagesFileDirectoryName = textResources.getString("languagesdirectory");
     private SLogoLanguage myLanguage;
     private List<GUITurtle> myTurtles;
     private ToolBar toolBar;
@@ -60,14 +62,14 @@ public class GUIToolbar extends GUIComponent {
     }
 
     private Button addHelpButton () {
-        Button help = new Button("Help");
+        Button help = new Button(textResources.getString("help"));
         help.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
                 Popup popup = new Popup();
                 popup.setX(myStage.getX());
                 popup.setY(myStage.getY());
-                Button hide = new Button("Hide");
+                Button hide = new Button(textResources.getString("hide"));
                 hide.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -75,7 +77,7 @@ public class GUIToolbar extends GUIComponent {
                     }
                 });
                 WebView html = new WebView();
-                html.getEngine().load("http://www.cs.duke.edu/courses/compsci308/fall15/assign/03_slogo/commands.php");
+                html.getEngine().load(textResources.getString("helpurl"));
                 popup.getContent().addAll(html);
                 popup.getContent().addAll(hide);
                 popup.show(myStage);
@@ -91,12 +93,12 @@ public class GUIToolbar extends GUIComponent {
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> languagesList = new ArrayList<String>();
         for (File file : listOfFiles) {
-            if (!file.getName().equals("Syntax.properties")) {
-                languagesList.add(file.getName().split("\\.(?=[^\\.]+$)")[0]);
+            if (!file.getName().equals(textResources.getString("ignoredsyntaxfile"))) {
+                languagesList.add(file.getName().split(textResources.getString("regexforlanguagename"))[0]);
             }
         }
         languageDropdown.getItems().addAll(languagesList);
-        languageDropdown.setValue("English");
+        languageDropdown.setValue(textResources.getString("defaultlanguage"));
         languageDropdown.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
@@ -114,13 +116,14 @@ public class GUIToolbar extends GUIComponent {
     }
 
     private Button addImageFileLoader () {
-        Button openImage = new Button("Open Image");
+        Button openImage = new Button(textResources.getString("openimage"));
         openImage.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
                 FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle("Select Image for Turtle");;
-                fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", ".bmp", ".gif"));
+                fileChooser.setTitle(textResources.getString("imagebrowsertitle"));
+                fileChooser.getExtensionFilters().addAll(new ExtensionFilter(textResources.getString("imageextensionlabel"), 
+                                                                             textResources.getString("imageextensions").split(textResources.getString("imageextensiondelimiter"))));
                 File selectedFile = fileChooser.showOpenDialog(myStage);
                 if (selectedFile!=null) {
                     try {
