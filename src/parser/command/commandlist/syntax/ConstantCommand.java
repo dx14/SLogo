@@ -1,4 +1,4 @@
-package parser.command.commandlist;
+package parser.command.commandlist.syntax;
 
 import parser.ParserException;
 import parser.command.Command;
@@ -6,14 +6,9 @@ import parser.command.CommandList;
 
 public class ConstantCommand extends Command {
 
-	public ConstantCommand(){
-		System.out.println("Constant Command Initializing");
-	}
-	
 	@Override
 	public double evaluate() throws ParserException {
-		System.out.println("evaluating distance");
-		return Double.parseDouble(myTree.getSource().getRawCommand(0));
+		return Double.parseDouble(myCommand.getRawText());
 	}
 
 	@Override

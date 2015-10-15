@@ -23,7 +23,7 @@ public class NativeTranslator {
 	private List<String> myCommandNames;
 	
 	public static final String NOTFOUND = "NOTFOUND";
-	public static final String USERDEFINED = "UserDefined";
+	public static final String USERDEFINED = "UserDefinedCommand";
 	
 	public CommandList buildCommandList(String command) throws ParserException{		
 		command = removeComments(command);
@@ -39,6 +39,7 @@ public class NativeTranslator {
 				.collect( Collectors.toList());
 		
 		validate(commandList);
+		commandList.add(0, new CommandElement(Arrays.asList("root", "Command", "RootCommand")));
 		CommandList cl = new CommandList(commandList);
 		return  cl;
 	}
@@ -57,7 +58,7 @@ public class NativeTranslator {
 	
 	private CommandElement translate(CommandElement c){
 		c.setType(getType(c.getRawText()));
-		c.setNativeCommand(c.getType().equals("Command") ? getNativeCommand(c.getRawText()) : c.getType());
+		c.setNativeCommand(c.getType().equals("Command") ? getNativeCommand(c.getRawText()) : (c.getType()+"Command"));
 		return c;
 	}
 	
@@ -75,7 +76,8 @@ public class NativeTranslator {
 		
 		for(String s : myCommandNames){
 			if(test.matches(commandResources.getString(s))){
-				command = s;
+				command = s + "Command";
+				break;
 			}
 		}
 		

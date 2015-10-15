@@ -1,6 +1,8 @@
 package parser.command;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import parser.ParserException;
@@ -12,6 +14,9 @@ public class CommandInterpreter {
 	private CommandList myCommandList;
 	private CommandTreeNode myRoot;
 	private SlogoParser myParser;
+	
+	private static final ArrayList<String> commandTypes = new ArrayList<>(Arrays.asList("turtlecommand.", "turtlequery.", "math.", "booleancommand.", "control.", "display.", "turtles.", "syntax."));
+
 	
 	public CommandInterpreter(String command, SlogoParser parser) throws ParserException{
 		
@@ -31,15 +36,24 @@ public class CommandInterpreter {
 		
 	}
 	
-	public static Evaluable reflect(String raw, CommandTreeNode tree, SlogoParser parser) throws ParserException{
-		String className = "parser.command.commandlist." + raw + "Command";
-		Evaluable command = instantiateClass(className);
-	
+	public static Evaluable reflect(CommandElement ce, CommandTreeNode tree, SlogoParser parser) throws ParserException{
 		
+		String baseName = "parser.command.commandlist.";
+		Evaluable command = null;
+		for(String ctype : commandTypes){
+			try{
+				command = instantiateClass(baseName + ctype + ce.getNativeCommand());
+				break;
+			}
+			catch(ParserException e){
+				continue;
+			}
+		}
+		if(command==null){
+			throw new ParserException("ERROR: Don't know how to " + ce.getRawText());
+		}
 		
-		command.setParameters(tree, parser);
-		System.out.println("Parameters set.");
-
+		command.setParameters(tree, parser, ce);
 		return command;
 	}
 

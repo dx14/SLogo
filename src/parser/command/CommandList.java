@@ -20,6 +20,10 @@ public class CommandList {
 		myCommandList.remove(index);
 	}
 	
+	public CommandElement get(int index){
+		return myCommandList.get(index);
+	}
+	
 
 	public CommandList copy(){
 		return new CommandList(new ArrayList<>(myCommandList));

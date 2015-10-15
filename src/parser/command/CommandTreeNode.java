@@ -42,7 +42,7 @@ public class CommandTreeNode implements Evaluable {
 	}
 	
 	public CommandList build () throws ParserException{
-		myCommand = CommandInterpreter.reflect(mySource.getNativeCommand(0), this, myParser);
+		myCommand = CommandInterpreter.reflect(mySource.get(0), this, myParser);
 		myRemainder.remove(0);
 		
 		myCommand.build();	// will build this as well
@@ -86,7 +86,7 @@ public class CommandTreeNode implements Evaluable {
 	}
 	
 	@Override
-	public void setParameters(CommandTreeNode tree, SlogoParser parser) {
+	public void setParameters(CommandTreeNode tree, SlogoParser parser, CommandElement command) {
 		myParser = parser;
 		myParent = tree;
 	}
