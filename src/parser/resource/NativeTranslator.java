@@ -41,6 +41,7 @@ public class NativeTranslator {
 		validate(commandList);
 		commandList.add(0, new CommandElement(Arrays.asList("root", "Command", "RootCommand")));
 		CommandList cl = new CommandList(commandList);
+		System.out.println(cl);
 		return  cl;
 	}
 	
