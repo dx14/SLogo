@@ -28,7 +28,7 @@ public class SlogoParser implements ParserInterface{
 		
 		SlogoParser p = new SlogoParser();
 		
-		p.runCommand("dotimes [ :lol 3 ] [ fd 50 ]");
+		p.runCommand("ifelse set :lol 0 [ fd 50 ] [ fd 100 ]");
 		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
 	}

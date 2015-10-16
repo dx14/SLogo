@@ -105,4 +105,8 @@ public class CommandTreeNode implements Evaluable {
 	public CommandElement getCommandElement(){
 		return myCommand.getCommandElement();
 	}
+	
+	public int getNumBranches(){
+		return myBranches.size();
+	}
 }

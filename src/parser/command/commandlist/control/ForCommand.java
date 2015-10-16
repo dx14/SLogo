@@ -8,28 +8,30 @@ import parser.command.commandlist.syntax.ListStartCommand;
 import parser.command.commandlist.syntax.VariableCommand;
 import parser.structure.Variable;
 
-public class DoTimesCommand extends Command {
-	
+public class ForCommand extends Command {
+
 	private CommandTreeNode myParameters;
 	private CommandTreeNode myCommands;
 	
 	@Override
 	public double evaluate() throws ParserException {
 		Variable variable = myParser.getVariableContainer().getVariable(myParameters.get(0));
-		variable.setValue(1);
-		double limit = myParameters.get(1).evaluate();
+		
+		double start = myParameters.get(1).evaluate();
+		double end = myParameters.get(2).evaluate();
+		double increment = myParameters.get(3).evaluate();
+		
 		double lastValue = 0;
 		
-		while(variable.getValue() <= limit){
+		for(variable.setValue(start); variable.getValue() <= end; variable.increment(increment)){
 			lastValue = myCommands.evaluate();
-			variable.increment();
 		}
 		
 		return lastValue;
 	}
 	
 	@Override
-	public CommandList build() throws ParserException{
+	public CommandList build() throws ParserException {
 		CommandList remainder = myTree.buildNext().buildNext().getRemainder();
 		
 		myParameters = myTree.get(0);
@@ -47,8 +49,8 @@ public class DoTimesCommand extends Command {
 			throw new ParserException("Error: " + myCommand.getRawText() + " expected variable but got: " + myParameters.get(0).getCommandElement().getRawText());
 		}
 		
-		if(myParameters.getNumBranches()!=3){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected 2 parameters but got: " + (myParameters.getNumBranches()-1));
+		if(myParameters.getNumBranches()!=5){
+			throw new ParserException("Error: " + myCommand.getRawText() + " expected 4 parameters but got: " + (myParameters.getNumBranches()-1));
 		}
 		
 		return remainder;

@@ -36,5 +36,10 @@ public class Variable implements GUIVariable{
 	public double increment(){
 		return ++myValue;
 	}
+	
+	public double increment(double increment){
+		myValue += increment;
+		return myValue;
+	}
 
 }
