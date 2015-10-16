@@ -3,6 +3,8 @@ package parser.structure;
 import java.util.HashMap;
 import java.util.Map;
 
+import parser.command.Evaluable;
+
 public class VariableContainer {
 	
 	private Map<String, Variable> myVariables;
@@ -33,6 +35,10 @@ public class VariableContainer {
 			setVariable(name, 0.0);
 		}
 		return myVariables.get(name);
+	}
+	
+	public Variable getVariable(Evaluable var){
+		return getVariable(var.getCommandElement().getRawText());
 	}
 
 }

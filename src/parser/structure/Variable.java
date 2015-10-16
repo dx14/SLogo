@@ -34,7 +34,7 @@ public class Variable implements GUIVariable{
 	}
 	
 	public double increment(){
-		return myValue++;
+		return ++myValue;
 	}
 
 }

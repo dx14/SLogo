@@ -7,8 +7,7 @@ public class VariableCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		// TODO Auto-generated method stub
-		return 0;
+		return myParser.getVariableContainer().getVariableValue(myCommand.getRawText());
 	}
 
 }
