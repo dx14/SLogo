@@ -25,8 +25,7 @@ import parser.ParserException;
 
 public class GUIToolbar extends GUIComponent {
 
-    private ResourceBundle textResources = ResourceBundle.getBundle("resources.guitext.Toolbar");
-    private final String languagesFileDirectoryName = textResources.getString("languagesdirectory");
+    private final String languagesFileDirectoryName;
     private SLogoLanguage myLanguage;
     private List<GUITurtle> myTurtles;
     private ToolBar toolBar;
@@ -39,6 +38,8 @@ public class GUIToolbar extends GUIComponent {
         myTurtleArea=turtleArea;
         myStage=stage;
         myGUIController=GUIController;
+        setTextResources(ResourceBundle.getBundle("resources.guitext.Toolbar"));
+        languagesFileDirectoryName = getTextResources().getString("languagesdirectory");
         
         toolBar = new ToolBar(
                               addLanguageDropDown(),
@@ -62,14 +63,14 @@ public class GUIToolbar extends GUIComponent {
     }
 
     private Button addHelpButton () {
-        Button help = new Button(textResources.getString("help"));
+        Button help = new Button(getTextResources().getString("help"));
         help.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
                 Popup popup = new Popup();
                 popup.setX(myStage.getX());
                 popup.setY(myStage.getY());
-                Button hide = new Button(textResources.getString("hide"));
+                Button hide = new Button(getTextResources().getString("hide"));
                 hide.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -77,7 +78,7 @@ public class GUIToolbar extends GUIComponent {
                     }
                 });
                 WebView html = new WebView();
-                html.getEngine().load(textResources.getString("helpurl"));
+                html.getEngine().load(getTextResources().getString("helpurl"));
                 popup.getContent().addAll(html);
                 popup.getContent().addAll(hide);
                 popup.show(myStage);
@@ -93,12 +94,12 @@ public class GUIToolbar extends GUIComponent {
         File[] listOfFiles = folder.listFiles();
         ArrayList<String> languagesList = new ArrayList<String>();
         for (File file : listOfFiles) {
-            if (!file.getName().equals(textResources.getString("ignoredsyntaxfile"))) {
-                languagesList.add(file.getName().split(textResources.getString("regexforlanguagename"))[0]);
+            if (!file.getName().equals(getTextResources().getString("ignoredsyntaxfile"))) {
+                languagesList.add(file.getName().split(getTextResources().getString("regexforlanguagename"))[0]);
             }
         }
         languageDropdown.getItems().addAll(languagesList);
-        languageDropdown.setValue(textResources.getString("defaultlanguage"));
+        languageDropdown.setValue(getTextResources().getString("defaultlanguage"));
         languageDropdown.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
@@ -107,8 +108,7 @@ public class GUIToolbar extends GUIComponent {
                     myGUIController.changeLanguage(languageDropdown.getValue());
                 }
                 catch (ParserException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    handleException(e);
                 }
             }
         });
@@ -116,14 +116,14 @@ public class GUIToolbar extends GUIComponent {
     }
 
     private Button addImageFileLoader () {
-        Button openImage = new Button(textResources.getString("openimage"));
+        Button openImage = new Button(getTextResources().getString("openimage"));
         openImage.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
                 FileChooser fileChooser = new FileChooser();
-                fileChooser.setTitle(textResources.getString("imagebrowsertitle"));
-                fileChooser.getExtensionFilters().addAll(new ExtensionFilter(textResources.getString("imageextensionlabel"), 
-                                                                             textResources.getString("imageextensions").split(textResources.getString("imageextensiondelimiter"))));
+                fileChooser.setTitle(getTextResources().getString("imagebrowsertitle"));
+                fileChooser.getExtensionFilters().addAll(new ExtensionFilter(getTextResources().getString("imageextensionlabel"), 
+                                                                             getTextResources().getString("imageextensions").split(getTextResources().getString("imageextensiondelimiter"))));
                 File selectedFile = fileChooser.showOpenDialog(myStage);
                 if (selectedFile!=null) {
                     try {
@@ -134,9 +134,7 @@ public class GUIToolbar extends GUIComponent {
                         myTurtleArea.drawAll();
                     }
                     catch (Exception e) {
-                        //TODO: error handling
-                        System.out.println("file:"+selectedFile.getAbsolutePath());
-                        System.out.println(e);
+                        handleException(e);
                     }
                 }
             }

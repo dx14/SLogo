@@ -36,6 +36,7 @@ public class MainGUI implements GUIInterface{
 	private GUIHistory myGUIHistory;
 	private GUIPaletteBackground myGUIPaletteBackground;
 	private GUIToolbar myGUIToolbar;
+	private GUIConsole myGUIConsole;
 	
 	public MainGUI(BorderPane root, Stage stage, GUIController controller){
 	        myGUIController = controller;
@@ -53,6 +54,7 @@ public class MainGUI implements GUIInterface{
 		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea, myGUIController);
+		myGUIConsole = new GUIConsole(myGUIController);
 		
 		//temporary test seeds
 		Turtle t = new Turtle();
@@ -80,6 +82,7 @@ public class MainGUI implements GUIInterface{
 		mainRoot.setLeft(myGUIHistory.returnNodeToDraw());
 		mainRoot.setRight(myGUIPaletteBackground.returnNodeToDraw());
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
+		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 	}
 	public void updateTurtleArea() {
 	    myGUITurtleArea.drawAll();
