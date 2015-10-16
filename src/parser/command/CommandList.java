@@ -1,8 +1,11 @@
 package parser.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import parser.ParserException;
 
 public class CommandList {
 
@@ -46,6 +49,20 @@ public class CommandList {
 	
 	public String getCommandType(int index){
 		return myCommandList.get(index).getType();
+	}
+	
+	public CommandList initialize(){
+		myCommandList.add(0, new CommandElement(Arrays.asList("root", "Command", "RootCommand")));
+		return this;
+	}
+	
+	public CommandList validate(String invalid) throws ParserException{
+		for(CommandElement c : myCommandList){
+			if(c.getType().equals(invalid)){
+				throw new ParserException("Command not found: " + c.getRawText());
+			}
+		}
+		return this;
 	}
 	
 }

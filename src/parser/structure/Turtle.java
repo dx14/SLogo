@@ -9,7 +9,7 @@ import util.Coordinate;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
-public class Turtle implements GUITurtle{
+public class Turtle implements Observable{
 	
 	Coordinate myCoord;
 	double myHeading;
@@ -19,6 +19,7 @@ public class Turtle implements GUITurtle{
 	boolean useImage;
 	String myImageOrShape;
 	
+	//TODO: make pen object
 	String penColor;
 	
 	public Turtle(){
@@ -34,76 +35,41 @@ public class Turtle implements GUITurtle{
 		System.out.println("to " + myCoord);
 	}
 
-	@Override
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return null;
+	public void show() {
+		visible = true;
+	}
+	
+	public void hide() {
+		visible = false;
+	}
+	
+	public void penUp() {
+		penDown = false;
+	}
+	
+	public void penDown() {
+		penDown = true;
+	}
+	
+	public boolean isPenDown() {
+		return penDown;
 	}
 
-	@Override
-	public void setImage(Image image) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double getXOnGrid() {
+	public double getHeading() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public void setXOnGrid(double x) {
+	public void addListener(InvalidationListener listener) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public double getYOnGrid() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setYOnGrid(double y) {
+	public void removeListener(InvalidationListener listener) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void setWidth(double width) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Color getPenColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setPenColor(Color penCol) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public double getWidth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public double getAngle() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean getIsVisible() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

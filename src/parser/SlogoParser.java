@@ -24,6 +24,7 @@ public class SlogoParser implements ParserInterface{
 		
 		SlogoParser p = new SlogoParser();
 		//p.runCommand("fd 50\n\nfd 100");
+		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		p.loadCommand("examples/simple/forward_complex.logo");
 	}
 	

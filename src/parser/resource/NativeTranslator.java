@@ -1,12 +1,9 @@
 package parser.resource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import parser.ParserException;
@@ -25,27 +22,31 @@ public class NativeTranslator {
 	public static final String NOTFOUND = "NOTFOUND";
 	public static final String USERDEFINED = "UserDefinedCommand";
 	
-	public CommandList buildCommandList(String command) throws ParserException{		
-		command = removeComments(command);
-		
+	public NativeTranslator(){
 		mySyntaxTypes = Collections.list(syntaxResources.getKeys());
 		myCommandNames = Collections.list(commandResources.getKeys());
-		
-		ArrayList<String> rawCommands = new ArrayList<>(Arrays.asList(command.split("\\s")));
-		List<CommandElement> commandList = rawCommands.stream()
-				.filter(s -> !s.matches("\\s*"))
-				.map( CommandElement::new )
-				.map(c -> translate(c))
-				.collect( Collectors.toList());
-		
-		validate(commandList);
-		commandList.add(0, new CommandElement(Arrays.asList("root", "Command", "RootCommand")));
-		CommandList cl = new CommandList(commandList);
-		System.out.println(cl);
-		return  cl;
 	}
 	
-	public String getType(String s){
+	public CommandList buildCommandList(String command) throws ParserException{		
+		List<CommandElement> commandList = Arrays.asList(command.split("\n+")).stream()
+				.map( s -> s.trim() )
+				.filter( s -> !s.matches(syntaxResources.getString("Comment")) )
+				.flatMap( s -> Arrays.asList(s.split("\\s+")).stream() )
+				.filter( s -> !s.matches("\\s*") )
+				.map( CommandElement :: new )
+				.map( this::translate )
+				.collect( Collectors.toList() );
+		
+		return new CommandList(commandList).validate(NOTFOUND).initialize();
+	}
+	
+	private CommandElement translate(CommandElement c){
+		c.setType(getType(c.getRawText()));
+		c.setNativeCommand(c.getType().equals("Command") ? getNativeCommand(c.getRawText()) : (c.getType()+"Command"));
+		return c;
+	}
+	
+	private String getType(String s){
 		String typeString = NOTFOUND;
 		for(String type : mySyntaxTypes){
 			if(s.matches(syntaxResources.getString(type)))
@@ -57,35 +58,14 @@ public class NativeTranslator {
 		return typeString;
 	}
 	
-	private CommandElement translate(CommandElement c){
-		c.setType(getType(c.getRawText()));
-		c.setNativeCommand(c.getType().equals("Command") ? getNativeCommand(c.getRawText()) : (c.getType()+"Command"));
-		return c;
-	}
-	
-	private void validate(List<CommandElement> commandList) throws ParserException{
-		for(CommandElement c : commandList){
-			if(c.getType().equals(NOTFOUND)){
-				throw new ParserException("Command not found: " + c.getNativeCommand());
-			}
-		}
-	}
-	
-	private String getNativeCommand(String test) {
-				
-		String command = USERDEFINED;
-		
+	private String getNativeCommand(String raw) {
 		for(String s : myCommandNames){
-			if(test.matches(commandResources.getString(s))){
-				command = s + "Command";
-				break;
-			}
+			if(raw.matches(commandResources.getString(s)))
+				return s + "Command";
 		}
-		
-		return command;
+		return USERDEFINED;
 	}
+	
+	
 
-	private String removeComments(String command){
-		return command.replaceAll(syntaxResources.getString("Comment"), "");
-	}
 }

@@ -27,8 +27,11 @@ public class CommandInterpreter {
 		NativeTranslator translator = new NativeTranslator();
 		myCommandList = translator.buildCommandList(command);
 		
+		System.out.println(myCommandList);
+		
 		myRoot = new CommandTreeNode(myCommandList.copy(), myParser);
 		myRoot.build();
+		System.out.println(myRoot.toString());
 		
 		myRoot.evaluate();
 		

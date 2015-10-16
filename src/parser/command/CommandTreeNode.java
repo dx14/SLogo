@@ -90,4 +90,14 @@ public class CommandTreeNode implements Evaluable {
 		myParser = parser;
 		myParent = tree;
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder output = new StringBuilder("(" + myCommand.toString());
+		for(CommandTreeNode t : myBranches){
+			output.append(" ");
+			output.append(t.toString());
+		}
+		return output.append(")").toString();
+	}
 }

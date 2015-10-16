@@ -35,5 +35,10 @@ public abstract class Command implements Evaluable{
 	public CommandList build() throws ParserException{
 		return myTree.getRemainder();
 	}
+	
+	@Override
+	public String toString(){
+		return myCommand.getRawText();
+	}
 
 }
