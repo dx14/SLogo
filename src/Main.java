@@ -2,6 +2,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import controller.SlogoController;
 import gui.GUIController;
+import gui.GUIInterface;
 import gui.MainGUI;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -59,6 +60,7 @@ public class Main extends Application{
 	        primaryStage.show(); 
 	               
 	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
+	        controller.setGUI((GUIInterface)myGui);
 	        myGui.draw();
 		
 		

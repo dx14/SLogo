@@ -64,4 +64,7 @@ public class SlogoController implements GUIController{
 		return myGUITurtles;
 	}
 	
+	public void setGUI(GUIInterface gui) {
+	    myGUI = gui;
+	}
 }
