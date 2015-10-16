@@ -10,6 +10,7 @@ import java.util.List;
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.command.Evaluable;
+import parser.command.CommandContainer;
 import parser.command.commandlist.turtlecommand.ForwardCommand;
 import util.Coordinate;
 import util.SlogoPath;
@@ -23,13 +24,14 @@ public class SlogoParser implements ParserInterface{
 	private Turtle myCurrentTurtle;
 	private List<Turtle> myTurtles;
 	private VariableContainer myVariableContainer;
+	private CommandContainer myCommandContainer;
 	
 	public static void main(String args[]) throws ParserException{
 		
 		SlogoParser p = new SlogoParser();
 		
-		p.runCommand("ifelse set :lol 0 [ fd 50 ] [ fd 100 ]");
-		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+		//p.runCommand("ifelse set :lol 0 [ fd 50 ] [ fd 100 ]");
+		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
 	}
 	
@@ -37,26 +39,7 @@ public class SlogoParser implements ParserInterface{
 		myCurrentTurtle = new Turtle();
 		myTurtles = new ArrayList<>(Arrays.asList(myCurrentTurtle));
 		myVariableContainer = new VariableContainer();
-	}
-	
-	public Variable getVariable(){
-		return null;
-	}
-	
-	public void moveCurrentTurtle(double distance){
-		moveCurrentTurtle(new StraightPath(new Coordinate(0,0), new Coordinate(0, distance)));
-	}
-
-	public void moveCurrentTurtle(SlogoPath path){
-		System.out.println("MOVING TURTLE along " + path);
-	}
-
-	public void rotateTurtle(double angle, double direction){
-		
-	}
-	
-	public void rotateTurtle(double angle){
-		
+		myCommandContainer = new CommandContainer();
 	}
 	
 	public Turtle getCurrentTurtle(){
@@ -65,6 +48,10 @@ public class SlogoParser implements ParserInterface{
 	
 	public VariableContainer getVariableContainer(){
 		return myVariableContainer;
+	}
+	
+	public CommandContainer getCommandContainer(){
+		return myCommandContainer;
 	}
 	
 	public void loadCommand(String filename) throws ParserException {
