@@ -3,7 +3,6 @@ package parser.command;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import parser.ParserException;
 import parser.SlogoParser;
@@ -34,9 +33,6 @@ public class CommandInterpreter {
 		System.out.println(myRoot.toString());
 		
 		myRoot.evaluate();
-		
-		
-		
 	}
 	
 	public static Evaluable reflect(CommandElement ce, CommandTreeNode tree, SlogoParser parser) throws ParserException{
@@ -60,6 +56,7 @@ public class CommandInterpreter {
 		return command;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private static Class loadClass(String className) throws ParserException {
 		Class c = null;
 		try{
@@ -71,6 +68,7 @@ public class CommandInterpreter {
 		return c;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	private static Evaluable instantiateClass(String className) throws ParserException {
 		Class c = loadClass(className);
 		Class[] types = { CommandTreeNode.class, SlogoParser.class };

@@ -37,8 +37,12 @@ public abstract class Command implements Evaluable{
 	}
 	
 	@Override
+	public CommandElement getCommandElement(){
+		return myCommand;
+	}
+	
+	@Override
 	public String toString(){
 		return myCommand.getRawText();
 	}
-
 }

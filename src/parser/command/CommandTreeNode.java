@@ -100,4 +100,9 @@ public class CommandTreeNode implements Evaluable {
 		}
 		return output.append(")").toString();
 	}
+	
+	@Override
+	public CommandElement getCommandElement(){
+		return myCommand.getCommandElement();
+	}
 }

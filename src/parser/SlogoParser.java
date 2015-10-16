@@ -9,28 +9,34 @@ import java.util.List;
 
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
+import parser.command.Evaluable;
+import parser.command.commandlist.turtlecommand.ForwardCommand;
 import util.Coordinate;
 import util.SlogoPath;
 import util.StraightPath;
-import util.Variable;
 import parser.structure.Turtle;
+import parser.structure.Variable;
+import parser.structure.VariableContainer;
 
 public class SlogoParser implements ParserInterface{
 
 	private Turtle myCurrentTurtle;
 	private List<Turtle> myTurtles;
+	private VariableContainer myVariableContainer;
 	
 	public static void main(String args[]) throws ParserException{
 		
 		SlogoParser p = new SlogoParser();
-		//p.runCommand("fd 50\n\nfd 100");
+		
+		p.runCommand("set :lol 50");
 		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
-		p.loadCommand("examples/simple/forward_complex.logo");
+		//p.loadCommand("examples/simple/forward_complex.logo");
 	}
 	
 	public SlogoParser(){
 		myCurrentTurtle = new Turtle();
 		myTurtles = new ArrayList<>(Arrays.asList(myCurrentTurtle));
+		myVariableContainer = new VariableContainer();
 	}
 	
 	public Variable getVariable(){
@@ -55,6 +61,10 @@ public class SlogoParser implements ParserInterface{
 	
 	public Turtle getCurrentTurtle(){
 		return myCurrentTurtle;
+	}
+	
+	public VariableContainer getVariableContainer(){
+		return myVariableContainer;
 	}
 	
 	public void loadCommand(String filename) throws ParserException {
