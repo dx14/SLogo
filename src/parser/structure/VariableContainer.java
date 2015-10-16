@@ -16,14 +16,23 @@ public class VariableContainer {
 			myVariables.put(name, new Variable(name, value));
 		} 
 		myVariables.get(name).setValue(value);
-		System.out.println(myVariables);
+		// debug
+		myVariables.keySet().stream().forEach(s -> System.out.println(s));
+		myVariables.values().stream().forEach(s -> System.out.println(s.getValue()));
 	}
 	
-	public double getVariable(String name){
+	public double getVariableValue(String name){
 		if(!myVariables.containsKey(name)){
 			setVariable(name, 0.0);
 		}
 		return myVariables.get(name).getValue();
+	}
+	
+	public Variable getVariable(String name){
+		if(!myVariables.containsKey(name)){
+			setVariable(name, 0.0);
+		}
+		return myVariables.get(name);
 	}
 
 }

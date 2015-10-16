@@ -19,7 +19,7 @@ public class MakeVariableCommand extends Command {
 	public CommandList build() throws ParserException {
 		CommandList remainder = myTree.buildNext().buildNext().getRemainder();
 		if(!(myTree.get(0).getCommand() instanceof VariableCommand))
-			throw new ParserException("MAKE expected variable argument, got " + myTree.get(0).getCommandElement().getRawText());
+			throw new ParserException(myCommand.getRawText() + " expected variable argument, got " + myTree.get(0).getCommandElement().getRawText());
 		return remainder;
 	}
 

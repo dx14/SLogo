@@ -32,5 +32,9 @@ public class Variable implements GUIVariable{
 	public void setValue(double newValue) {
 		myValue = newValue;
 	}
+	
+	public double increment(){
+		return myValue++;
+	}
 
 }
