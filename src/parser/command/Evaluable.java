@@ -1,7 +1,5 @@
 package parser.command;
 
-import java.util.List;
-
 import parser.ParserException;
 import parser.SlogoParser;
 
@@ -10,7 +8,9 @@ public interface Evaluable {
 	public double evaluate() throws ParserException;
 	
 	public CommandList build() throws ParserException;
+	
+	public CommandElement getCommandElement();
 
-	public void setParameters(CommandTree tree, SlogoParser parser);
+	public void setParameters(CommandTreeNode tree, SlogoParser parser, CommandElement command);
 	
 }
