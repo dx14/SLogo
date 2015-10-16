@@ -50,16 +50,16 @@ public class Main extends Application{
 
 
 	    	
-	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
-                myGui.draw();
+
 	    	
-	    	Scene scene = new Scene(root, 600, 600);
+	    	Scene scene = new Scene(root, 1000, 800);
 
 	        primaryStage.setTitle("Hello World!");
 	        primaryStage.setScene(scene);
 	        primaryStage.show(); 
 	               
-	        
+	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
+	        myGui.draw();
 		
 		
 		

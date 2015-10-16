@@ -3,11 +3,12 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import turtle.Turtle;
@@ -35,6 +36,7 @@ public class MainGUI implements GUIInterface{
 	private GUITurtleArea myGUITurtleArea;
 	private GUIHistory myGUIHistory;
 	private GUIPaletteBackground myGUIPaletteBackground;
+	private GUIPaletteTurtle myGUIPaletteTurtle;
 	private GUIToolbar myGUIToolbar;
 	private GUIConsole myGUIConsole;
 	
@@ -52,6 +54,7 @@ public class MainGUI implements GUIInterface{
 	        myGUIHistory=new GUIHistory();
 		allGUIComponents.add(myGUIHistory);
 		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
+		myGUIPaletteTurtle = new GUIPaletteTurtle(turtleList, (GUITurtleAreaBGInterface)myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea, myGUIController);
 		myGUIConsole = new GUIConsole(myGUIController);
@@ -80,7 +83,10 @@ public class MainGUI implements GUIInterface{
 	    
 		mainRoot.setCenter(myGUITurtleArea.returnNodeToDraw());
 		mainRoot.setLeft(myGUIHistory.returnNodeToDraw());
-		mainRoot.setRight(myGUIPaletteBackground.returnNodeToDraw());
+		mainRoot.setRight(new VBox(new Label("Background Color:"),
+		                           myGUIPaletteBackground.returnNodeToDraw(),
+		                           new Label("Pen Color:"),
+		                           myGUIPaletteTurtle.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 	}
