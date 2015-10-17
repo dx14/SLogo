@@ -19,9 +19,8 @@ public class SlogoController implements GUIController{
 
 	private ParserInterface myParser;
 	private GUIInterface myGUI;
-	private List<Turtle> myTurtles;
 	
-	public void moveTurtle(int turtleId, SlogoPath path){
+	public void moveTurtle(int turtleId, List<SlogoPath> paths){
 	}
 	
 	public BackendTurtle getTurtle(int turtleId){

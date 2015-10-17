@@ -1,5 +1,7 @@
 package parser;
 
+import java.util.Observer;
+
 import parser.command.CommandList;
 
 public interface ParserInterface {
@@ -9,5 +11,7 @@ public interface ParserInterface {
 	public void runCommand(CommandList command) throws ParserException;
 	
 	public void setLanguage(String language) throws ParserException;
+	
+	public void addVariableObserver(Observer o);
 	
 }
