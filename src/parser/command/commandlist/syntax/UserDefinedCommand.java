@@ -23,13 +23,12 @@ public class UserDefinedCommand extends Command {
 		CommandList remainder = myTree.getRemainder();
 		try{
 			usercommand = myParser.getCommandContainer().getCommandInstance(myCommand.getRawText());
-			usercommand.setParameters(myTree, myParser, getCommandElement());
+			usercommand.setParameters(myTree, myParser, myCommand);
 			remainder = usercommand.build();
 		}
 		// if the command hasn't been created yet, it's not NECESSARILY an error -> could be the first time
 		// in this case we set a flag and make sure we never try to evaluate this command
 		catch(ParserException e){
-			System.out.println("EXCEPTION CAUGHT");
 			notFound = true;
 		}
 		return 	remainder;

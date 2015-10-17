@@ -18,9 +18,6 @@ public class VariableContainer {
 			myVariables.put(name, new Variable(name, value));
 		} 
 		myVariables.get(name).setValue(value);
-		// debug
-		myVariables.keySet().stream().forEach(s -> System.out.println(s));
-		myVariables.values().stream().forEach(s -> System.out.println(s.getValue()));
 	}
 	
 	public double getVariableValue(String name){
@@ -39,6 +36,11 @@ public class VariableContainer {
 	
 	public Variable getVariable(Evaluable var){
 		return getVariable(var.getCommandElement().getRawText());
+	}
+	
+	public void debug(){
+		System.out.println("User Variable List:");
+		myVariables.keySet().stream().forEach(s -> System.out.printf("%13s = %f %n", s, myVariables.get(s).getValue()));
 	}
 
 }

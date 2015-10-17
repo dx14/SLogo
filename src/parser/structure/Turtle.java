@@ -29,9 +29,9 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 	
 	public void move(double distance){
-		System.out.println("Moving turtle from " + myCoord);
+		System.out.print("Moving turtle from " + myCoord);
 		myCoord.update(distance, myHeading);
-		System.out.println("to " + myCoord);
+		System.out.println(" to " + myCoord);
 	}
 
 	public void show() {

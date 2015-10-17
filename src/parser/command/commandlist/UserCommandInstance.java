@@ -43,5 +43,10 @@ public class UserCommandInstance extends Command implements Evaluable {
 		}
 		return remainder;
 	}
+	
+	@Override
+	public String toString(){
+		return myCommands.toString();
+	}
 
 }

@@ -30,6 +30,11 @@ public class CommandContainer {
 	
 	public void addCommand(UserCommandInstance c){
 		myCommands.put(c.getName(), c);
-		System.out.println("put " + c.getName());
+	}
+	
+	public void debug(){
+		System.out.println("User Command List:");
+		myCommands.keySet().stream()
+			.forEach(s -> System.out.printf("%13s -> %n\t%s%n%n", s, myCommands.get(s)));
 	}
 }

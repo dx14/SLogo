@@ -30,9 +30,11 @@ public class SlogoParser implements ParserInterface{
 		
 		SlogoParser p = new SlogoParser();
 		
-		p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 ] ] walk 4");
-		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
+		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
+		p.getVariableContainer().debug();
+		p.getCommandContainer().debug();
 	}
 	
 	public SlogoParser(){
