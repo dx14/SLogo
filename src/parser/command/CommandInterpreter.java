@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import parser.ParserException;
 import parser.SlogoParser;
-import parser.resource.NativeTranslator;
+import parser.resource.ResourceParser;
 
 public class CommandInterpreter {
 
@@ -23,7 +23,7 @@ public class CommandInterpreter {
 		
 		System.out.println(command);
 		
-		NativeTranslator translator = new NativeTranslator();
+		ResourceParser translator = new ResourceParser();
 		myCommandList = translator.buildCommandList(command);
 		
 		System.out.println(myCommandList);

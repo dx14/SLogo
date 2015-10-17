@@ -2,7 +2,6 @@ package parser.command;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 public class CommandElement {
 
@@ -37,15 +36,7 @@ public class CommandElement {
 	public void setNativeCommand(String command){
 		myNativeCommand = command;
 	}
-	
-//	public void setType(Function<CommandElement, String> f){
-//		myType = f.apply(this);
-//	}
-//	
-//	public void setNativeCommand(Function<CommandElement, String> f){
-//		myNativeCommand = f.apply(this);
-//	}
-//	
+
 	public String getRawText(){
 		return myRawText;
 	}
