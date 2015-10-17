@@ -18,6 +18,17 @@ public class Coordinate {
 		return myY;
 	}
 	
+	// TODO: add wrapper
+	public void update(double distance, double angle){
+		myX += distance * Math.sin(Math.toRadians(angle));
+		myY += distance * Math.cos(Math.toRadians(angle));
+	}
+	
+	public void set(double x, double y){
+		myX = x;
+		myY = y;
+	}
+	
 	@Override
 	public String toString(){
 		return "(" + myX + ", " + myY + ")";

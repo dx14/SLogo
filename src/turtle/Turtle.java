@@ -1,9 +1,11 @@
 package turtle;
 import gui.GUITurtle;
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+// TODO: repackage GUI stuff in GUIdata class
 public class Turtle implements GUITurtle{
 
 	Image turtlePic;
