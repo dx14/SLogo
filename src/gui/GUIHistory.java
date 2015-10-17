@@ -3,11 +3,15 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.util.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.StackPane;
@@ -24,7 +28,9 @@ public class GUIHistory extends GUIComponent{
 	private List<String> formattedTextHistory;
 	private Hyperlink[] hpls;
 	
-	GUIController guiController;
+	private ObservableList<String> myList;
+	
+	private GUIController guiController;
 
 	
 	public GUIHistory(){
@@ -33,11 +39,19 @@ public class GUIHistory extends GUIComponent{
 		textHistory.add("fw 50");
 		textHistory.add("fw 200");
 		textHistory.add("fw 200");
+		myList =  FXCollections.observableArrayList(
+		          "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise");
 		}
 	
 	@Override
 	public Node returnNodeToDraw() {
 	
+	
+		
+		ListView whatToShow = new ListView(myList);
+		//this will be guiController.getObservableHistory();
+    
+		
 		//historyBox.getChildren().add(link);
 		hpls = new Hyperlink[textHistory.size()];
 		
@@ -47,22 +61,7 @@ public class GUIHistory extends GUIComponent{
             hpls[i] = hpl;
             final int j = i;
             
-            hpl.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    try {
-                    	
-                    	//right now guiController is null;
-                    	
-						guiController.runCommand(hpls[j].getText());
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						//e1.printStackTrace();
-					}
-                    System.out.println("Hey, you did something amazing by clicking on " + hpls[j].getText() );
-                }
-            });
-        }
+		 }
 		
 		 
 		  VBox vbox = new VBox();
@@ -84,7 +83,7 @@ public class GUIHistory extends GUIComponent{
 	        historyBox.setContent(vbox);
 	        
 		
-		return historyBox; 
+		return whatToShow; 
 	}
 
 }

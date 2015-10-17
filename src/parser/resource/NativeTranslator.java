@@ -1,14 +1,14 @@
 package parser.resource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import parser.ParserException;
 import parser.command.CommandList;
+import parser.command.CommandElement;
 
 public class NativeTranslator {
 
@@ -16,79 +16,56 @@ public class NativeTranslator {
 	private String currentLanguage = "English";
 	private ResourceBundle commandResources = ResourceBundle.getBundle("resources.languages." + currentLanguage);
 	
+	private List<String> mySyntaxTypes;
+	private List<String> myCommandNames;
+	
 	public static final String NOTFOUND = "NOTFOUND";
-	public static final String USERDEFINED = "UserDefined";
+	public static final String USERDEFINED = "UserDefinedCommand";
+	
+	public NativeTranslator(){
+		mySyntaxTypes = Collections.list(syntaxResources.getKeys());
+		myCommandNames = Collections.list(commandResources.getKeys());
+	}
 	
 	public CommandList buildCommandList(String command) throws ParserException{		
-		// workaround for now, fix later
-		command = removeComments(command);
+		List<CommandElement> commandList = Arrays.asList(command.split("\n+")).stream()
+				.map( s -> s.trim() )
+				.filter( s -> !s.matches(syntaxResources.getString("Comment")) )
+				.flatMap( s -> Arrays.asList(s.split("\\s+")).stream() )
+				.filter( s -> !s.matches("\\s*") )
+				.map( CommandElement :: new )
+				.map( this::translate )
+				.collect( Collectors.toList() );
 		
-		ArrayList<String> commandList = new ArrayList<>(Arrays.asList(command.split("\\s")));
-		stripWhiteSpace(commandList);
-		ArrayList<String> typeList = new ArrayList<>();
-		
-		labelSyntax(commandList, typeList);
-		validateTypes(commandList, typeList);
-		List<String> nativeList = buildNativeList(commandList, typeList);
-		
-		return new CommandList(commandList, typeList, nativeList);
+		return new CommandList(commandList).validate(NOTFOUND).initialize();
 	}
 	
-	private void stripWhiteSpace(ArrayList<String> commandList) {
-		Iterator<String> i = commandList.iterator();
-		while(i.hasNext()){
-			if(i.next().matches("\\s*")){
-				i.remove();			
+	private CommandElement translate(CommandElement c){
+		c.setType(getType(c.getRawText()));
+		c.setNativeCommand(c.getType().equals("Command") ? getNativeCommand(c.getRawText()) : (c.getType()+"Command"));
+		return c;
+	}
+	
+	private String getType(String s){
+		String typeString = NOTFOUND;
+		for(String type : mySyntaxTypes){
+			if(s.matches(syntaxResources.getString(type)))
+			{
+				typeString = type;
+				break;
 			}
 		}
+		return typeString;
 	}
+	
+	private String getNativeCommand(String raw) {
+		for(String s : myCommandNames){
+			if(raw.matches(commandResources.getString(s)))
+				return s + "Command";
+		}
+		return USERDEFINED;
+	}
+	
+	
 
-	public List<String> buildNativeList(List<String> commandList, List<String> typeList) throws ParserException{
-		ArrayList<String> nativeList = new ArrayList<>();
-		
-		for(int i = 0; i<commandList.size(); i++){
-			nativeList.add( (typeList.get(i).equals("Command")) ? getNativeCommand(commandList.get(i)) : typeList.get(i) );
-		}
-		return nativeList;
-	}
-	
-	private String getNativeCommand(String test) {
-		List<String> commandNames = Collections.list(commandResources.getKeys());
-		String command = USERDEFINED;
-		
-		for(String s : commandNames){
-			if(test.matches(commandResources.getString(s))){
-				command = s;
-			}
-		}
-		
-		return command;
-	}
-
-	private String removeComments(String command){
-		return command.replaceAll(syntaxResources.getString("Comment"), "");
-	}
-	
-	private void labelSyntax(List<String> commandList, List<String> typeList){
-		List<String> syntaxTypes = Collections.list(syntaxResources.getKeys());
-		
-		for(int i=0; i<commandList.size(); i++){ typeList.add(NOTFOUND); }
-		
-		for(String type : syntaxTypes){
-			for(int i = 0; i<commandList.size(); i++){
-				if(commandList.get(i).matches(syntaxResources.getString(type))){
-					typeList.set(i, type);
-				}
-			}
-		}
-	}
-	
-	private void validateTypes(List<String> commandList, List<String> typeList) throws ParserException{
-		for(int i=0; i<typeList.size(); i++){
-			if(typeList.get(i).equals(NOTFOUND)){
-				throw new ParserException("ERROR: Unrecognized string " + commandList.get(i));
-			}
-		}
-	}
-	
 }

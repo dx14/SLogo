@@ -1,9 +1,11 @@
 package turtle;
 import gui.GUITurtle;
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+// TODO: repackage GUI stuff in GUIdata class
 public class Turtle implements GUITurtle{
 
 	Image turtlePic;
@@ -21,7 +23,7 @@ public class Turtle implements GUITurtle{
 	    isVisible=true;
 	           Image im = new Image("http://el.media.mit.edu/logo-foundation/what_is_logo/graphics/image4.jpg");
 	                setImage(im);
-	                angle=90;
+	                angle=0;
 	}
 	
 	@Override
@@ -77,6 +79,9 @@ public class Turtle implements GUITurtle{
 	@Override
 	public double getAngle() {
 		return angle;
+	}
+	public void setAngle(double angle) {
+	    this.angle=angle;
 	}
 
 	@Override

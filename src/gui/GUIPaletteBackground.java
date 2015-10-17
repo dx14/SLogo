@@ -1,5 +1,6 @@
 package gui;
 
+import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -23,11 +24,11 @@ public class GUIPaletteBackground extends GUIPalette{
 		// TODO Auto-generated method stub
 		   final ColorPicker colorPicker = new ColorPicker();
 	        colorPicker.setValue(Color.WHITE);
-	        //Color.web(colorString);
-	        colorPicker.setOnAction(new EventHandler() {
-	            public void handle(Event t) {
-	                backgroundColor = (colorPicker.getValue()); 
-	                
+
+	        
+	        colorPicker.setOnAction(new EventHandler<ActionEvent>() {
+	            public void handle(ActionEvent t) {
+	                backgroundColor = (colorPicker.getValue());
 	                myGuiTurtleArea.updateBackgroundColor(backgroundColor);
 	                //let GUITurtleArea know
 	                //System.out.println(backgroundColor);

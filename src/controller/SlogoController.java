@@ -10,10 +10,10 @@ import gui.GUITurtle;
 import parser.ParserException;
 import parser.ParserInterface;
 import parser.command.CommandList;
+import parser.structure.Variable;
 import turtle.BackendTurtle;
 import turtle.Turtle;
 import util.SlogoPath;
-import util.Variable;
 
 public class SlogoController implements GUIController{
 
@@ -64,4 +64,7 @@ public class SlogoController implements GUIController{
 		return myGUITurtles;
 	}
 	
+	public void setGUI(GUIInterface gui) {
+	    myGUI = gui;
+	}
 }
