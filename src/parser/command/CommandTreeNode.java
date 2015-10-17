@@ -9,7 +9,6 @@ import parser.SlogoParser;
 public class CommandTreeNode implements Evaluable {
 
 	private CommandList mySource; 
-	private CommandList myRemainder; 
 	
 	private Evaluable myCommand;	// two way link
 	
@@ -17,12 +16,7 @@ public class CommandTreeNode implements Evaluable {
 	private List<CommandTreeNode> myBranches;
 	
 	private SlogoParser myParser;
-	
-	
-	/*
-	 * CREATE ROOT COMMAND
-	 */
-	
+
 	public CommandTreeNode(CommandList source, SlogoParser parser) throws ParserException{
 		this(source, parser, null);
 	}
@@ -32,7 +26,6 @@ public class CommandTreeNode implements Evaluable {
 			throw new ParserException("Error: expected another argument.");
 		}
 		mySource = source;
-		myRemainder = mySource.copy();
 		
 		myParser = parser;
 		
@@ -43,22 +36,18 @@ public class CommandTreeNode implements Evaluable {
 	
 	public CommandList build () throws ParserException{
 		myCommand = CommandInterpreter.reflect(mySource.get(0), this, myParser);
-		myRemainder.remove(0);
+		mySource.remove(0);
 		
 		myCommand.build();	// will build this as well
 		
-		return myRemainder;
+		return mySource;
 	}
 	
 	public CommandTreeNode buildNext() throws ParserException{
-		CommandTreeNode newBranch = new CommandTreeNode(myRemainder, myParser, this);
+		CommandTreeNode newBranch = new CommandTreeNode(mySource, myParser, this);
 		myBranches.add(newBranch);
-		myRemainder = newBranch.build();
+		mySource = newBranch.build();
 		return this;
-	}
-	
-	public boolean empty(){
-		return myBranches.size() == 0;
 	}
 	
 	public double evaluate() throws ParserException{
@@ -66,15 +55,11 @@ public class CommandTreeNode implements Evaluable {
 	}
 
 	public CommandList getRemainder(){
-		return myRemainder;
+		return mySource;
 	}
 	
 	public Evaluable getCommand(){
 		return myCommand;
-	}
-	
-	public CommandList getSource(){
-		return mySource.copy();
 	}
 	
 	public CommandTreeNode getParent(){
