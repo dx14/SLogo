@@ -40,8 +40,6 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
 	
 		SlogoController controller = new SlogoController();
 		
@@ -55,6 +53,8 @@ public class Main extends Application{
 	    	
 	    	Scene scene = new Scene(root, 600, 600);
 
+	    	//1366x768
+	    	
 	        primaryStage.setTitle("Hello World!");
 	        primaryStage.setScene(scene);
 	        primaryStage.show(); 
