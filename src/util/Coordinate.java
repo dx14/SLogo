@@ -1,6 +1,8 @@
 package util;
 
-public class Coordinate {
+import parser.structure.GUICoordinate;
+
+public class Coordinate implements GUICoordinate{
 	
 	private double myX;
 	private double myY;

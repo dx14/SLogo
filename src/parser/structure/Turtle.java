@@ -3,12 +3,15 @@ package parser.structure;
 import util.Coordinate;
 import util.SlogoPath;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
 public class Turtle extends Observable implements GUITurtle2{
+	
+	int myID;
 	
 	Coordinate myCoord;
 	double myHeading;
@@ -19,13 +22,20 @@ public class Turtle extends Observable implements GUITurtle2{
 	boolean useImage;
 	String myImageOrShape;
 	
-	public Turtle(){
+	List<SlogoPath> myCurrentPaths;
+	boolean clear;
+	
+	public Turtle(int id){
+		myID = id;
+		
+		
 		myCoord = new Coordinate(0,0);
 		myHeading = 0;
 		
 		myPen = new Pen();
 		
 		visible = true;
+		clear = false;
 	}
 	
 	public void move(double distance){
@@ -54,8 +64,7 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 
 	public double getHeading() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myHeading;
 	}
 
 
@@ -85,13 +94,11 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 
 	public boolean isShowing() {
-		// TODO Auto-generated method stub
-		return false;
+		return visible;
 	}
 
 	public Coordinate getCoordinate() {
-		// TODO Auto-generated method stub
-		return null;
+		return myCoord;
 	}
 
 	public double setTowards(double evaluate, double evaluate2) {
@@ -102,13 +109,28 @@ public class Turtle extends Observable implements GUITurtle2{
 
 	@Override
 	public List<SlogoPath> getPaths() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableList(myCurrentPaths);
 	}
 
 	@Override
 	public Pen getPen() {
+		return myPen;
+	}
+	
+	@Override
+	public int getID(){
+		return myID;
+	}
+
+	@Override
+	public boolean isClear() {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
+	}
+
+	@Override
+	public void completeUpdate() {
+		myCurrentPaths.clear();
+		clear = false;
 	}
 }

@@ -3,50 +3,40 @@ package parser;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Observer;
 
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
-import parser.command.Evaluable;
-import parser.command.commandlist.turtlecommand.ForwardCommand;
-import util.Coordinate;
-import util.SlogoPath;
-import util.StraightPath;
 import parser.structure.CommandContainer;
 import parser.structure.Turtle;
-import parser.structure.Variable;
+import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 
 public class SlogoParser implements ParserInterface{
 
-	private Turtle myCurrentTurtle;
-	private List<Turtle> myTurtles;
+	private TurtleContainer myTurtleContainer;
 	private VariableContainer myVariableContainer;
 	private CommandContainer myCommandContainer;
 	
-	public static void main(String args[]) throws ParserException{
-		
-		SlogoParser p = new SlogoParser();
-		
-		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
-		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
-		//p.loadCommand("examples/simple/forward_complex.logo");
-		p.getVariableContainer().debug();
-		p.getCommandContainer().debug();
-	}
+//	public static void main(String args[]) throws ParserException{
+//		
+//		SlogoParser p = new SlogoParser();
+//		
+//		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
+//		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+//		//p.loadCommand("examples/simple/forward_complex.logo");
+//		p.getVariableContainer().debug();
+//		p.getCommandContainer().debug();
+//	}
 	
 	public SlogoParser(){
-		myCurrentTurtle = new Turtle();
-		myTurtles = new ArrayList<>(Arrays.asList(myCurrentTurtle));
+		myTurtleContainer = new TurtleContainer();
 		myVariableContainer = new VariableContainer();
 		myCommandContainer = new CommandContainer();
 	}
 	
 	public Turtle getCurrentTurtle(){
-		return myCurrentTurtle;
+		return myTurtleContainer.getCurrentTurtle();
 	}
 	
 	public VariableContainer getVariableContainer(){
@@ -85,7 +75,15 @@ public class SlogoParser implements ParserInterface{
 		
 	}
 	
+	@Override
 	public void addVariableObserver(Observer o){
 		myVariableContainer.addObserver(o);
+	}
+
+	@Override
+	public void debug() {
+		myVariableContainer.debug();
+		myCommandContainer.debug();
+		myTurtleContainer.debug();
 	}
 }
