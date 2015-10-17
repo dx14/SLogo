@@ -10,11 +10,11 @@ import java.util.List;
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.command.Evaluable;
-import parser.command.CommandContainer;
 import parser.command.commandlist.turtlecommand.ForwardCommand;
 import util.Coordinate;
 import util.SlogoPath;
 import util.StraightPath;
+import parser.structure.CommandContainer;
 import parser.structure.Turtle;
 import parser.structure.Variable;
 import parser.structure.VariableContainer;
@@ -30,9 +30,11 @@ public class SlogoParser implements ParserInterface{
 		
 		SlogoParser p = new SlogoParser();
 		
-		//p.runCommand("ifelse set :lol 0 [ fd 50 ] [ fd 100 ]");
+		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
 		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
+		p.getVariableContainer().debug();
+		p.getCommandContainer().debug();
 	}
 	
 	public SlogoParser(){

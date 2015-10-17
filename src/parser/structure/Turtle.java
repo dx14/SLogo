@@ -1,38 +1,37 @@
 package parser.structure;
 
-import gui.GUITurtle;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import util.Coordinate;
+import util.SlogoPath;
+
+import java.util.List;
+import java.util.Observable;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
-public class Turtle implements Observable{
+public class Turtle extends Observable implements GUITurtle2{
 	
 	Coordinate myCoord;
 	double myHeading;
-	boolean penDown;
+	
+	Pen myPen;
 	boolean visible;
 	
 	boolean useImage;
 	String myImageOrShape;
 	
-	//TODO: make pen object
-	String penColor;
-	
 	public Turtle(){
 		myCoord = new Coordinate(0,0);
 		myHeading = 0;
-		penDown = true;
+		
+		myPen = new Pen();
+		
 		visible = true;
 	}
 	
 	public void move(double distance){
-		System.out.println("Moving turtle from " + myCoord);
+		System.out.print("Moving turtle from " + myCoord);
 		myCoord.update(distance, myHeading);
-		System.out.println("to " + myCoord);
+		System.out.println(" to " + myCoord);
 	}
 
 	public void show() {
@@ -44,15 +43,14 @@ public class Turtle implements Observable{
 	}
 	
 	public void penUp() {
-		penDown = false;
+		myPen.setDown(false);
 	}
 	
 	public void penDown() {
-		penDown = true;
-	}
+		myPen.setDown(true);	}
 	
 	public boolean isPenDown() {
-		return penDown;
+		return myPen.isDown();
 	}
 
 	public double getHeading() {
@@ -101,17 +99,16 @@ public class Turtle implements Observable{
 		return 0;
 	}
 
-	
+
 	@Override
-	public void addListener(InvalidationListener listener) {
+	public List<SlogoPath> getPaths() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void removeListener(InvalidationListener listener) {
+	public Pen getPen() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
-
 }

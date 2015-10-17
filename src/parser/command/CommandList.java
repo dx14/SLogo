@@ -2,7 +2,6 @@ package parser.command;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import parser.ParserException;
@@ -10,6 +9,7 @@ import parser.ParserException;
 public class CommandList {
 
 	private List<CommandElement> myCommandList;
+	String rawString;
 	
 	public CommandList(List<CommandElement> commandList){
 		myCommandList = commandList;
@@ -36,9 +36,7 @@ public class CommandList {
 	public boolean isEmpty(){
 		return myCommandList.isEmpty();
 	}
-	
-	// TODO: implement object type that contains all three implementations (maybe a map)
-	
+		
 	public String getNativeCommand(int index){
 		return myCommandList.get(index).getNativeCommand();
 	}

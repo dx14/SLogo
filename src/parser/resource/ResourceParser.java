@@ -10,21 +10,34 @@ import parser.ParserException;
 import parser.command.CommandList;
 import parser.command.CommandElement;
 
-public class NativeTranslator {
+public class ResourceParser {
 
-	private ResourceBundle syntaxResources = ResourceBundle.getBundle("resources.languages.Syntax");
-	private String currentLanguage = "English";
-	private ResourceBundle commandResources = ResourceBundle.getBundle("resources.languages." + currentLanguage);
+	private ResourceBundle syntaxResources;
+	private ResourceBundle commandResources;
 	
+	private String myCurrentLanguage;
 	private List<String> mySyntaxTypes;
 	private List<String> myCommandNames;
 	
 	public static final String NOTFOUND = "NOTFOUND";
 	public static final String USERDEFINED = "UserDefinedCommand";
+	public static final List<String> LANGUAGES = Arrays.asList(
+			"English", 
+			"Chinese", 
+			"French", 
+			"German", 
+			"Italian", 
+			"Portuguese", 
+			"Russian", 
+			"Spanish");
 	
-	public NativeTranslator(){
-		mySyntaxTypes = Collections.list(syntaxResources.getKeys());
-		myCommandNames = Collections.list(commandResources.getKeys());
+	public ResourceParser(){
+		this(LANGUAGES.get(0));
+	}
+	
+	public ResourceParser(String language){
+		myCurrentLanguage = language;
+		reload();
 	}
 	
 	public CommandList buildCommandList(String command) throws ParserException{		
@@ -66,6 +79,23 @@ public class NativeTranslator {
 		return USERDEFINED;
 	}
 	
+	public void setLanguage(String language) throws ParserException{
+		if(!LANGUAGES.contains(language)){
+			throw new ParserException("Error: don't know language " + language);
+		}
+		else {
+			myCurrentLanguage = language;
+			reload();
+		}
+	}
+	
+	private void reload(){
+		syntaxResources = ResourceBundle.getBundle("resources.languages.Syntax");
+		commandResources = ResourceBundle.getBundle("resources.languages." + myCurrentLanguage);
+		
+		mySyntaxTypes = Collections.list(syntaxResources.getKeys());
+		myCommandNames = Collections.list(commandResources.getKeys());
+	}
 	
 
 }
