@@ -14,6 +14,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -51,7 +52,13 @@ public class GUIHistory extends GUIComponent{
 		ListView whatToShow = new ListView(myList);
 		//this will be guiController.getObservableHistory();
     
-		
+		whatToShow.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+	        @Override
+	        public void handle(MouseEvent event) {
+	            System.out.println("clicked on " + whatToShow.getSelectionModel().getSelectedItem());
+	        }
+	    });
 		//historyBox.getChildren().add(link);
 		hpls = new Hyperlink[textHistory.size()];
 		

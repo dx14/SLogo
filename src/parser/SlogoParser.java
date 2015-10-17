@@ -26,7 +26,7 @@ public class SlogoParser implements ParserInterface{
 	private VariableContainer myVariableContainer;
 	private CommandContainer myCommandContainer;
 	
-	public static void main(String args[]) throws ParserException{
+/*	public static void main(String args[]) throws ParserException{
 		
 		SlogoParser p = new SlogoParser();
 		
@@ -35,7 +35,7 @@ public class SlogoParser implements ParserInterface{
 		//p.loadCommand("examples/simple/forward_complex.logo");
 		p.getVariableContainer().debug();
 		p.getCommandContainer().debug();
-	}
+	}*/
 	
 	public SlogoParser(){
 		myCurrentTurtle = new Turtle();

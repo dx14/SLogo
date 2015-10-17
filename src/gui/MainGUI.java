@@ -3,6 +3,9 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -39,6 +42,7 @@ public class MainGUI implements GUIInterface{
 	private GUIPaletteTurtle myGUIPaletteTurtle;
 	private GUIToolbar myGUIToolbar;
 	private GUIConsole myGUIConsole;
+	private GUIVariableList myGUIVariables;
 	
 	public MainGUI(BorderPane root, Stage stage, GUIController controller){
 	        myGUIController = controller;
@@ -75,6 +79,7 @@ public class MainGUI implements GUIInterface{
 	
 	
 	public void draw(){
+
 //		
 //	
 //		for(GUIComponent component : allGUIComponents){
@@ -92,5 +97,9 @@ public class MainGUI implements GUIInterface{
 	}
 	public void updateTurtleArea() {
 	    myGUITurtleArea.drawAll();
+	}
+	
+	public Observer showObserverVariables(){
+		return (Observer) myGUIVariables;
 	}
 }

@@ -9,6 +9,7 @@ import gui.GUIInterface;
 import gui.GUITurtle;
 import parser.ParserException;
 import parser.ParserInterface;
+import parser.SlogoParser;
 import parser.command.CommandList;
 import parser.structure.Variable;
 import turtle.BackendTurtle;
@@ -22,10 +23,19 @@ public class SlogoController implements GUIController{
 	private List<Turtle> myTurtles;
 	
 	public void moveTurtle(int turtleId, SlogoPath path){
+		
+		
+		
 	}
 	
 	public BackendTurtle getTurtle(int turtleId){
 		return null;
+		
+		
+	}
+	
+	public SlogoController(){
+		myParser = new SlogoParser();
 	}
 	
 	// throws exception if a turtle with that ID already exists
@@ -36,6 +46,9 @@ public class SlogoController implements GUIController{
 	}
 	
 	public void runCommand (String command) throws ParserException {
+		
+		myParser.runCommand(command);
+		
 	}
 	
 	public void updateHistory(int turtleId, CommandList command) {
