@@ -72,37 +72,35 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private void drawTurtle (GUITurtle turtle) {
         if (turtle.usingImage()) {
             Image image = new Image("file:"+turtle.getDisplayString());
-            gc.save();
-            Double[] offsetCoords=findImageCenter(turtle.getCoordinate().getX(),-1*turtle.getCoordinate().getY(), image);
-            Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
-            Double[] guiCoords=realToGUICoordinates(turtle.getCoordinate().getX(),-1*turtle.getCoordinate().getY());
-            setGCTransform(turtle.getHeading(), guiCoords[0], guiCoords[1]);
-            gc.drawImage(image, offsetguiCoords[0], offsetguiCoords[1]);
-            gc.restore();
+            drawTurtleImage(turtle, image);
         }
         else { //default
             Image image = new Image("http://el.media.mit.edu/logo-foundation/what_is_logo/graphics/image4.jpg");
-            gc.save();
-            Double[] offsetCoords=findImageCenter(turtle.getCoordinate().getX(),-1*turtle.getCoordinate().getY(), image);
-            Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
-            Double[] guiCoords=realToGUICoordinates(turtle.getCoordinate().getX(),-1*turtle.getCoordinate().getY());
-            setGCTransform(turtle.getHeading(), guiCoords[0], guiCoords[1]);
-            gc.drawImage(image, offsetguiCoords[0], offsetguiCoords[1]);
-            gc.restore();
+            drawTurtleImage(turtle, image);
         }
+    }
+    private void drawTurtleImage(GUITurtle turtle, Image image) {
+        gc.save();
+        Double[] offsetCoords=findImageCenter(turtle.getCoordinate().getX(),-1*turtle.getCoordinate().getY(), image);
+        Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
+        Double[] guiCoords=realToGUICoordinates(turtle.getCoordinate().getX(),-1*turtle.getCoordinate().getY());
+        setGCTransform(turtle.getHeading(), guiCoords[0], guiCoords[1]);
+        gc.drawImage(image, offsetguiCoords[0], offsetguiCoords[1]);
+        gc.restore();
     }
     private void turtleObserved(GUITurtle turtle) {
         myTurtles.clear();
         myTurtles.add(turtle);
+        myPaths = turtle.getPaths();
         drawAll();
     }
     private void drawPaths() {
         //TODO: set path colors (gc.setStroke(penColor));
         for (SlogoPath path: myPaths) {
             //TODO: be able to draw arcs
-            Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),path.getStart().getY());
-            Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),path.getEnd().getY());
-            //gc.setStroke(path.getPenColor());
+            Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),-1*path.getStart().getY());
+            Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),-1*path.getEnd().getY());
+            gc.setStroke(Color.valueOf(path.getPen().getColor()));
             gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
         }
     }
@@ -112,7 +110,8 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         if(o instanceof TurtleContainer){
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
             System.out.println("OUTPUTTING");
-            drawTurtle(turtle);
+            turtleObserved(turtle);
+            turtle.completeUpdate();
         }
 
         else{

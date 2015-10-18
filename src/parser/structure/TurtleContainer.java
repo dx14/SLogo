@@ -25,7 +25,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 		myTurtles.stream().forEach(t -> System.out.println(t));
 	}
 	
-	protected void update(){
+	public void update(){
 		setChanged();
 		notifyObservers();
 		System.out.println("QQQQQQQQ");

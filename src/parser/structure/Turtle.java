@@ -43,6 +43,7 @@ public class Turtle implements GUITurtle{
 		
 		myPen = new Pen();
 		myCurrentPaths = new ArrayList<SlogoPath>();
+		myHistory = new ArrayList<SlogoPath>();
 		
 		visible = true;
 		clear = false;
