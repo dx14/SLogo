@@ -2,8 +2,7 @@ package util;
 
 public interface GUIVariable {
 
-	public String getName();
-	public double getValue();
+	public String toString();
 	public void setValue(double newValue);
 	
 }

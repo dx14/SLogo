@@ -62,6 +62,8 @@ public class MainGUI implements GUIInterface{
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea, myGUIController);
 		myGUIConsole = new GUIConsole(myGUIController);
+		myGUIVariables = new GUIVariableList();
+		//allGUIComponents.add(myGUIVariables);
 		
 		//temporary test seeds
 		Turtle t = new Turtle();
@@ -80,11 +82,6 @@ public class MainGUI implements GUIInterface{
 	
 	public void draw(){
 
-//		
-//	
-//		for(GUIComponent component : allGUIComponents){
-//			 (mainRoot).getChildren().add(component.returnNodeToDraw());
-//		}
 	    
 		mainRoot.setCenter(myGUITurtleArea.returnNodeToDraw());
 		mainRoot.setLeft(myGUIHistory.returnNodeToDraw());
@@ -94,6 +91,7 @@ public class MainGUI implements GUIInterface{
 		                           myGUIPaletteTurtle.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
+		//mainRoot.setLeft(myGUIVariables.returnNodeToDraw());
 	}
 	public void updateTurtleArea() {
 	    myGUITurtleArea.drawAll();
@@ -102,4 +100,9 @@ public class MainGUI implements GUIInterface{
 	public Observer showObserverVariables(){
 		return (Observer) myGUIVariables;
 	}
+	
+	public UpdatableHistory showHistory(){
+		return (UpdatableHistory) myGUIHistory;
+	}
+	
 }

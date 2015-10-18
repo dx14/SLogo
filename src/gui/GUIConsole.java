@@ -10,7 +10,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.HBox;
 import parser.ParserException;
 
-public class GUIConsole extends GUIComponent {
+public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable{
 
     private GUIController myGUIController;
     private TextInputControl console;
@@ -34,7 +34,7 @@ public class GUIConsole extends GUIComponent {
                 String input = console.getText();
                 //TODO: do we want any formatting or filtering here such as checking if string is blank?
                 sendCommand(input);
-                System.out.println(input);
+                //System.out.println(input);
                 console.clear();
             }
         });
@@ -43,6 +43,8 @@ public class GUIConsole extends GUIComponent {
         container.getChildren().add(console);
         container.getChildren().add(submit);
     }
+    
+    
 
     @Override
     public Node returnNodeToDraw () {
@@ -57,5 +59,13 @@ public class GUIConsole extends GUIComponent {
             handleException(e);
         }
     }
+
+
+
+	@Override
+	public void changeText(String input) {
+
+		console.setText(input);
+	}
 
 }

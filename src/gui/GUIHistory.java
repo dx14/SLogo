@@ -21,7 +21,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import parser.ParserException;
 
-public class GUIHistory extends GUIComponent{
+public class GUIHistory extends GUIComponent implements UpdatableHistory{
 
 	
 	//private StackPane historyBox;
@@ -37,18 +37,12 @@ public class GUIHistory extends GUIComponent{
 	public GUIHistory(){
 		
 		textHistory = new ArrayList<String>();
-		textHistory.add("fw 50");
-		textHistory.add("fw 200");
-		textHistory.add("fw 200");
-		myList =  FXCollections.observableArrayList(
-		          "Julia", "Ian", "Sue", "Matthew", "Hannah", "Stephan", "Denise");
-		}
-	
+	}	
 	@Override
 	public Node returnNodeToDraw() {
 	
 	
-		
+		myList = FXCollections.observableList(textHistory);
 		ListView whatToShow = new ListView(myList);
 		//this will be guiController.getObservableHistory();
     
@@ -59,38 +53,15 @@ public class GUIHistory extends GUIComponent{
 	            System.out.println("clicked on " + whatToShow.getSelectionModel().getSelectedItem());
 	        }
 	    });
-		//historyBox.getChildren().add(link);
-		hpls = new Hyperlink[textHistory.size()];
 		
-		
-		 for (int i = 0; i < textHistory.size(); i++) {
-            final Hyperlink hpl = new Hyperlink(textHistory.get(i));
-            hpls[i] = hpl;
-            final int j = i;
-            
-		 }
-		
-		 
-		  VBox vbox = new VBox();
-		  
-		  vbox.setPrefSize(100, 100);
-		  
-		
-		  
-		  
-	        vbox.getChildren().addAll(hpls);
-	        vbox.setSpacing(5);
-	        
-	        ScrollPane historyBox = new ScrollPane();
-	        //historyBox.setTranslateX(-100);
-	        //historyBox.setTranslateY(-100);
-	        historyBox.setMaxSize(100, 200);
-	        
-	        
-	        historyBox.setContent(vbox);
-	        
 		
 		return whatToShow; 
 	}
+	
+	public void addToHistory(String arg){
+		myList.add(arg);
+	}
+	
+	
 
 }

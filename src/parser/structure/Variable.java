@@ -18,12 +18,15 @@ public class Variable implements GUIVariable{
 		myValue = value;
 	}
 	
-	@Override
 	public String getName() {
 		return myName;
 	}
 
 	@Override
+	public String toString() {
+		return String.format("%13s = %f", myName, myValue);
+	}
+	
 	public double getValue() {
 		return myValue;
 	}

@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Observer;
 
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
@@ -84,4 +85,8 @@ public class SlogoParser implements ParserInterface{
 		
 	}
 	
+	public void addVariableObserver(Observer o){
+	//	System.out.println(myVariableContainer == null);
+		myVariableContainer.addObserver(o);
+	}
 }
