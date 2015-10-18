@@ -2,6 +2,7 @@ package parser.structure;
 
 import util.Coordinate;
 import util.SlogoPath;
+import util.StraightPath;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,8 +10,9 @@ import java.util.Observable;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
-public class Turtle extends Observable implements GUITurtle2{
+public class Turtle extends Observable implements GUITurtle{
 	
+	private static int id = 1;
 	int myID;
 	
 	Coordinate myCoord;
@@ -26,9 +28,8 @@ public class Turtle extends Observable implements GUITurtle2{
 	List<SlogoPath> myCurrentPaths;
 	boolean clear;
 	
-	public Turtle(int id){
-		myID = id;
-		
+	public Turtle(){
+		myID = id++;
 		
 		myCoord = new Coordinate(0,0);
 		myHeading = 0;
@@ -41,7 +42,7 @@ public class Turtle extends Observable implements GUITurtle2{
 	
 	public void move(double distance){
 		System.out.print("Moving turtle from " + myCoord);
-		myCoord.update(distance, myHeading);
+		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading), myPen.clone()));
 		System.out.println(" to " + myCoord);
 	}
 
@@ -109,6 +110,11 @@ public class Turtle extends Observable implements GUITurtle2{
 	@Override
 	public List<SlogoPath> getPaths() {
 		return Collections.unmodifiableList(myCurrentPaths);
+	}
+	
+	@Override
+	public List<SlogoPath> getHistory() {
+		return Collections.unmodifiableList(myHistory);
 	}
 
 	@Override

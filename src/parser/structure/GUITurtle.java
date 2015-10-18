@@ -5,7 +5,7 @@ import java.util.List;
 import util.GUICoordinate;
 import util.SlogoPath;
 
-public interface GUITurtle2 {
+public interface GUITurtle {
 	
 	public int getID();
 
@@ -14,6 +14,8 @@ public interface GUITurtle2 {
 	public GUICoordinate getCoordinate();
 	
 	public List<SlogoPath> getPaths();
+	
+	public List<SlogoPath> getHistory();
 	
 	public GUIPen getPen();
 	
