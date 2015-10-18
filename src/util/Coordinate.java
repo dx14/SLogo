@@ -28,9 +28,13 @@ public class Coordinate implements GUICoordinate{
 		return new Coordinate(myX + distance * Math.sin(Math.toRadians(angle)),	myY + distance * Math.cos(Math.toRadians(angle)));
 	}
 	
-	public void set(double x, double y){
+	public double set(double x, double y){
+		double diffX = Math.pow((x-myX), 2);
+		double diffY = Math.pow((y-myY), 2);
+		double distance = Math.sqrt(diffX + diffY);
 		myX = x;
 		myY = y;
+		return distance;
 	}
 	
 	@Override

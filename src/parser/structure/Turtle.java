@@ -69,9 +69,8 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 
 
-	public double setPosition(double d, double e) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double setPosition(double x, double y) {
+		return myCoord.set(x, y);
 	}
 
 	public void clear() {
@@ -79,12 +78,13 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 
 	public void turn(double angle) {
-		
+		myHeading = myHeading + angle;
 	}
 
-	public double setHeading(double evaluate) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double setHeading(double angle) {
+		double diff = myHeading - angle;
+		myHeading = angle;
+		return diff;
 	}
 
 	public boolean isShowing() {
