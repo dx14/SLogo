@@ -92,12 +92,12 @@ public class Turtle implements GUITurtle{
 	}
 
 	public void turn(double angle) {
-		myHeading = myHeading + angle;
+		myHeading = myHeading - angle;
 		update();
 	}
 
 	public double setHeading(double angle) {
-		double diff = myHeading - angle;
+		double diff = angle - myHeading;
 		myHeading = angle;
 		update();
 		return diff;
