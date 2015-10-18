@@ -11,6 +11,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
@@ -32,30 +33,38 @@ public class GUIHistory extends GUIComponent implements UpdatableHistory{
 	private ObservableList<String> myList;
 	
 	private GUIController guiController;
-
+	private GUIConsoleTextEditable guiConsole;
 	
-	public GUIHistory(){
-		
+	
+	public GUIHistory(GUIConsoleTextEditable myGUIConsole) {
+		// TODO Auto-generated constructor stub
 		textHistory = new ArrayList<String>();
-	}	
+		myList = FXCollections.observableList(textHistory);
+		guiConsole = myGUIConsole;
+		
+		
+	}
 	@Override
 	public Node returnNodeToDraw() {
 	
 	
-		myList = FXCollections.observableList(textHistory);
-		ListView whatToShow = new ListView(myList);
+		ListView<String> whatToGive = new ListView<String>(myList);
+		whatToGive.setPlaceholder(new Label("No commands entered")); //move to resources
+		
+
 		//this will be guiController.getObservableHistory();
     
-		whatToShow.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		whatToGive.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 	        @Override
 	        public void handle(MouseEvent event) {
-	            System.out.println("clicked on " + whatToShow.getSelectionModel().getSelectedItem());
+	            guiConsole.changeText(whatToGive.getSelectionModel().getSelectedItem().toString());
+	            
 	        }
 	    });
 		
 		
-		return whatToShow; 
+		return whatToGive; 
 	}
 	
 	public void addToHistory(String arg){

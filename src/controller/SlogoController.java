@@ -45,9 +45,10 @@ public class SlogoController implements GUIController{
 	
 	public void runCommand (String command) throws ParserException {
 		
-		myGUI.showHistory().addToHistory(command);
+		
 		myParser.runCommand(command);
 		
+		myGUI.showHistory().addToHistory(command);
 	}
 
 	
@@ -81,5 +82,6 @@ public class SlogoController implements GUIController{
 	    myGUI = gui;
 	    System.out.println(myGUI.showObserverVariables() == null);
 	    myParser.addVariableObserver(myGUI.showObserverVariables());
+	    //myParser.addCommandObserver(myGUI.showObserverUserDefinedCommands());
 	}
 }
