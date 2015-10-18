@@ -63,19 +63,8 @@ public class SlogoController implements GUIController{
 	}
 
 	@Override
-	public void changeLanguage(String commang) throws ParserException {
+	public void changeLanguage(String language) throws ParserException {
 		
-	}
-
-	@Override
-	public List<GUITurtle> getGUITurtles() {
-		List<GUITurtle> myGUITurtles = new ArrayList<GUITurtle>();
-//		
-//		for(Turtle turt: myTurtles){
-//			myGUITurtles.add((GUITurtle) turt);
-//		}
-//		
-		return myGUITurtles;
 	}
 	
 	public void setGUI(GUIInterface gui) {

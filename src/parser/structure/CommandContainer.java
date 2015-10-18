@@ -2,11 +2,12 @@ package parser.structure;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
 
 import parser.ParserException;
 import parser.command.commandlist.UserCommandInstance;
 
-public class CommandContainer {
+public class CommandContainer extends Observable implements GUICommandContainer{
 	
 	private Map<String, UserCommandInstance> myCommands;
 	
@@ -30,11 +31,23 @@ public class CommandContainer {
 	
 	public void addCommand(UserCommandInstance c){
 		myCommands.put(c.getName(), c);
+		update();
 	}
 	
 	public void debug(){
 		System.out.println("User Command List:");
 		myCommands.keySet().stream()
 			.forEach(s -> System.out.printf("%13s -> %n\t%s%n%n", s, myCommands.get(s)));
+	}
+	
+	private void update(){
+		setChanged();
+		notifyObservers();
+	}
+
+	@Override
+	public Map<String, String> getCommands() {
+		// TODO Auto-generated method stub
+		return new HashMap<>();
 	}
 }
