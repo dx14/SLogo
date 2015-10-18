@@ -13,4 +13,6 @@ public interface Evaluable {
 
 	public void setParameters(CommandTreeNode tree, SlogoParser parser, CommandElement command);
 	
+	public String toString(boolean useDelimiter);
+	
 }

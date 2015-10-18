@@ -78,12 +78,18 @@ public class CommandTreeNode implements Evaluable {
 	
 	@Override
 	public String toString(){
-		StringBuilder output = new StringBuilder("(" + myCommand.toString());
+		return toString(true);
+	}
+	
+	public String toString(boolean useDelimiter){
+		String startDelimiter = (useDelimiter)?"(":"";
+		String endDelimiter = (useDelimiter)?")":"";
+		StringBuilder output = new StringBuilder(startDelimiter + myCommand.toString());
 		for(CommandTreeNode t : myBranches){
 			output.append(" ");
 			output.append(t.toString());
 		}
-		return output.append(")").toString();
+		return output.append(endDelimiter).toString();
 	}
 	
 	@Override

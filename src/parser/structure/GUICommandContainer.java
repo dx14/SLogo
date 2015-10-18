@@ -1,9 +1,9 @@
 package parser.structure;
 
-import java.util.Map;
+import java.util.List;
 
 public interface GUICommandContainer {
 
-	public Map<String, String> getCommands();
+	public List<GUICommand> getCommands();
 	
 }

@@ -1,6 +1,9 @@
 package parser.structure;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -46,8 +49,10 @@ public class CommandContainer extends Observable implements GUICommandContainer{
 	}
 
 	@Override
-	public Map<String, String> getCommands() {
-		// TODO Auto-generated method stub
-		return new HashMap<>();
+	public List<GUICommand> getCommands() {
+		final ArrayList<GUICommand> userCommandList = new ArrayList<>();
+		myCommands.values().stream()
+			.forEach(c -> userCommandList.add(c));
+		return Collections.unmodifiableList(userCommandList);
 	}
 }

@@ -45,4 +45,9 @@ public abstract class Command implements Evaluable{
 	public String toString(){
 		return myCommand.getRawText();
 	}
+	
+	@Override
+	public String toString(boolean useDelimiter){
+		return myCommand.getRawText();
+	}
 }
