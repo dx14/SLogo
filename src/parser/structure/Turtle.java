@@ -84,8 +84,9 @@ public class Turtle implements GUITurtle{
 	}
 
 	public double setPosition(double x, double y) {
-		update();
-		return myCoord.set(x, y);
+		double distance = myCoord.set(x, y);
+	        update();
+	        return distance;
 	}
 
 	public void clear() {
@@ -118,7 +119,7 @@ public class Turtle implements GUITurtle{
 		double adjacent = x - myCoord.getX();
 		double opposite = y - myCoord.getY();
 		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
-		double theta = Math.asin(opposite/hypotenuse);
+		double theta = Math.atan2(opposite, adjacent);
 		
 		return setHeading(Math.toDegrees(theta));
 	}
