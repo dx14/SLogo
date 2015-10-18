@@ -1,6 +1,6 @@
 package util;
 
-public class Coordinate {
+public class Coordinate implements GUICoordinate{
 	
 	private double myX;
 	private double myY;
@@ -19,14 +19,23 @@ public class Coordinate {
 	}
 	
 	// TODO: add wrapper
-	public void update(double distance, double angle){
+	public Coordinate update(double distance, double angle){
 		myX += distance * Math.sin(Math.toRadians(angle));
 		myY += distance * Math.cos(Math.toRadians(angle));
+		return this;
 	}
 	
-	public void set(double x, double y){
+	public Coordinate clone(){
+		return new Coordinate(myX, myY);
+	}
+	
+	public double set(double x, double y){
+		double diffX = Math.pow((x-myX), 2);
+		double diffY = Math.pow((y-myY), 2);
+		double distance = Math.sqrt(diffX + diffY);
 		myX = x;
 		myY = y;
+		return distance;
 	}
 	
 	@Override

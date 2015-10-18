@@ -14,4 +14,6 @@ public interface ParserInterface {
 	
 	public void addVariableObserver(Observer o);
 	
+	public void debug();
+	
 }

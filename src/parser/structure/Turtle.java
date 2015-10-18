@@ -2,13 +2,18 @@ package parser.structure;
 
 import util.Coordinate;
 import util.SlogoPath;
+import util.StraightPath;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
-public class Turtle extends Observable implements GUITurtle2{
+public class Turtle extends Observable implements GUITurtle{
+	
+	private static int id = 1;
+	int myID;
 	
 	Coordinate myCoord;
 	double myHeading;
@@ -19,18 +24,25 @@ public class Turtle extends Observable implements GUITurtle2{
 	boolean useImage;
 	String myImageOrShape;
 	
+	List<SlogoPath> myHistory;
+	List<SlogoPath> myCurrentPaths;
+	boolean clear;
+	
 	public Turtle(){
+		myID = id++;
+		
 		myCoord = new Coordinate(0,0);
 		myHeading = 0;
 		
 		myPen = new Pen();
 		
 		visible = true;
+		clear = false;
 	}
 	
 	public void move(double distance){
 		System.out.print("Moving turtle from " + myCoord);
-		myCoord.update(distance, myHeading);
+		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading), myPen.clone()));
 		System.out.println(" to " + myCoord);
 	}
 
@@ -54,61 +66,76 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 
 	public double getHeading() {
-		// TODO Auto-generated method stub
-		return 0;
+		return myHeading;
 	}
 
 
-	public double setPosition(double d, double e) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double setPosition(double x, double y) {
+		return myCoord.set(x, y);
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public double setPosition(int i, int j) {
-		// TODO Auto-generated method stub
-		return 0;
+		clear = true;
 	}
 
 	public void turn(double angle) {
-		// TODO Auto-generated method stub
-		
+		myHeading = myHeading + angle;
 	}
 
-	public double setHeading(double evaluate) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double setHeading(double angle) {
+		double diff = myHeading - angle;
+		myHeading = angle;
+		return diff;
 	}
 
 	public boolean isShowing() {
-		// TODO Auto-generated method stub
-		return false;
+		return visible;
 	}
 
 	public Coordinate getCoordinate() {
-		// TODO Auto-generated method stub
-		return null;
+		return myCoord;
 	}
 
-	public double setTowards(double evaluate, double evaluate2) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double setTowards(double x, double y) {
+		
+		double adjacent = x - myCoord.getX();
+		double opposite = y - myCoord.getY();
+		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
+		double theta = Math.asin(opposite/hypotenuse);
+		
+		return setHeading(Math.toDegrees(theta));
 	}
 
 
 	@Override
 	public List<SlogoPath> getPaths() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableList(myCurrentPaths);
+	}
+	
+	@Override
+	public List<SlogoPath> getHistory() {
+		return Collections.unmodifiableList(myHistory);
 	}
 
 	@Override
 	public Pen getPen() {
-		// TODO Auto-generated method stub
-		return null;
+		return myPen;
+	}
+	
+	@Override
+	public int getID(){
+		return myID;
+	}
+
+	@Override
+	public boolean isClear() {
+		return clear;
+	}
+
+	@Override
+	public void completeUpdate() {
+		myHistory.addAll(myCurrentPaths);
+		myCurrentPaths.clear();
+		clear = false;
 	}
 }
