@@ -28,11 +28,18 @@ public class GUIPaletteTurtle extends GUIPalette {
                 Color penColor = (colorPicker.getValue());
                 for (GUITurtle turtle : myTurtles) {
                     //TODO: which turtle to set color? Right now it sets all turtles. Also does it change the color or already drawn paths?
-                    turtle.setPenColor(penColor);
+                    turtle.setPenColor(toRGBCode(penColor));
                 }
             }
         });
         return colorPicker;
     }
 
+    public static String toRGBCode( Color color )
+    {
+        return String.format( "#%02X%02X%02X",
+            (int)( color.getRed() * 255 ),
+            (int)( color.getGreen() * 255 ),
+            (int)( color.getBlue() * 255 ) );
+    }
 }

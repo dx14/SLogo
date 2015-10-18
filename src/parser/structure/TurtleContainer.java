@@ -28,6 +28,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	protected void update(){
 		setChanged();
 		notifyObservers();
+		System.out.println("QQQQQQQQ");
 	}
 	
 }
