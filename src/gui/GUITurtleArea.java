@@ -90,10 +90,19 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     }
     private void turtleObserved(GUITurtle turtle) {
         myTurtles.clear();
-        myTurtles.add(turtle);
+        if (turtle.isShowing()) {
+            myTurtles.add(turtle);
+        }
         myPaths.clear();
-        myPaths.addAll(turtle.getHistory());
-        myPaths.addAll(turtle.getPaths());
+        if (!turtle.isClear()) {
+            for (SlogoPath path: turtle.getHistory()) {
+                checkPen(path);
+            }
+            for (SlogoPath path: turtle.getPaths()) {
+                checkPen(path);
+            }
+        }
+        System.out.println(myTurtles.get(0).getCoordinate().getY());
         drawAll();
         //myPaths.stream().forEach(s -> System.out.println(s.toString()));
 //        if (turtle.getPaths().size()>0){
@@ -102,6 +111,11 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
 //            }
 //        }
         }
+    private void checkPen(SlogoPath path) {
+        if (path.getPen().isDown()) {
+            myPaths.add(path);
+        }
+    }
     private void drawPaths() {
         //TODO: set path colors (gc.setStroke(penColor));
         for (SlogoPath path: myPaths) {
