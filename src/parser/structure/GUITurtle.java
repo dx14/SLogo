@@ -15,6 +15,8 @@ public interface GUITurtle {
 	
 	public List<SlogoPath> getPaths();
 	
+	public List<SlogoPath> getHistory();
+	
 	public GUIPen getPen();
 	
 	public boolean isShowing();

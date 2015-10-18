@@ -19,13 +19,14 @@ public class Coordinate implements GUICoordinate{
 	}
 	
 	// TODO: add wrapper
-	public void update(double distance, double angle){
+	public Coordinate update(double distance, double angle){
 		myX += distance * Math.sin(Math.toRadians(angle));
 		myY += distance * Math.cos(Math.toRadians(angle));
+		return this;
 	}
 	
-	public Coordinate updateAndCopy(double distance, double angle){
-		return new Coordinate(myX + distance * Math.sin(Math.toRadians(angle)),	myY + distance * Math.cos(Math.toRadians(angle)));
+	public Coordinate clone(){
+		return new Coordinate(myX, myY);
 	}
 	
 	public double set(double x, double y){

@@ -2,6 +2,7 @@ package parser.structure;
 
 import util.Coordinate;
 import util.SlogoPath;
+import util.StraightPath;
 
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +42,7 @@ public class Turtle extends Observable implements GUITurtle{
 	
 	public void move(double distance){
 		System.out.print("Moving turtle from " + myCoord);
-		myCoord.update(distance, myHeading);
+		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading), myPen.clone()));
 		System.out.println(" to " + myCoord);
 	}
 
@@ -109,6 +110,11 @@ public class Turtle extends Observable implements GUITurtle{
 	@Override
 	public List<SlogoPath> getPaths() {
 		return Collections.unmodifiableList(myCurrentPaths);
+	}
+	
+	@Override
+	public List<SlogoPath> getHistory() {
+		return Collections.unmodifiableList(myHistory);
 	}
 
 	@Override
