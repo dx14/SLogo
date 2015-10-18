@@ -1,37 +1,35 @@
 package gui;
 
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-
+import java.util.List;
+import parser.structure.GUIPen;
+import util.GUICoordinate;
+import util.SlogoPath;
 
 public interface GUITurtle {
+	
+	public int getID();
 
-    public Image getImage ();
-
-    public void setImage (Image image);
-
-    /**
-     * Will these grid values be for the center of the turtle, or the top left corner, etc.?
-     * @return
-     */
-    public double getXOnGrid ();
-
-    public void setXOnGrid (double x);
-
-    public double getYOnGrid ();
-
-    public void setYOnGrid (double y);
-
-    public void setWidth (double width);
-
-    public Color getPenColor ();
-
-    public void setPenColor (Color penCol);
-
-    public double getWidth ();
-
-    public double getAngle ();
-
-    public boolean getIsVisible ();
-
+	public double getHeading();
+	
+	public GUICoordinate getCoordinate();
+	
+	public List<SlogoPath> getPaths();
+	
+	public List<SlogoPath> getHistory();
+	
+	public GUIPen getPen();
+	public void setPenColor(String color);
+	
+	public boolean isShowing();
+	
+	public boolean isClear();
+	
+	public void completeUpdate();
+	
+	public boolean usingImage();
+	public void setUsingImage(boolean useImage);
+	
+	public String getDisplayString();
+	public void setDisplayString(String display);
+	
 }
