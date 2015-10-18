@@ -13,20 +13,28 @@ public class CommandInterpreter {
 	private CommandList myCommandList;
 	private CommandTreeNode myRoot;
 	private SlogoParser myParser;
+	private ResourceParser myResourceParser;
 	
 	private static final ArrayList<String> commandTypes = new ArrayList<>(Arrays.asList("turtlecommand.", "turtlequery.", "math.", "booleancommand.", "control.", "display.", "turtles.", "syntax."));
 
 	
-	public CommandInterpreter(String command, SlogoParser parser) throws ParserException{
+	public CommandInterpreter(SlogoParser parser, ResourceParser resourceParser){
 		
 		myParser = parser;
+		myResourceParser = resourceParser;
 		
+	}
+	
+	public void interpret(String command) throws ParserException{
 		System.out.println(command);
 		
-		ResourceParser translator = new ResourceParser();
-		myCommandList = translator.buildCommandList(command);
+		myCommandList = myResourceParser.buildCommandList(command);
 		
-		System.out.println(myCommandList);
+		interpret(myCommandList);
+	}
+	
+	public void interpret(CommandList command) throws ParserException{
+		System.out.println(command);
 		
 		myRoot = new CommandTreeNode(myCommandList.copy(), myParser);
 		myRoot.build();

@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
+import parser.resource.ResourceParser;
 import parser.structure.CommandContainer;
 import parser.structure.Turtle;
 import parser.structure.TurtleContainer;
@@ -18,21 +19,26 @@ public class SlogoParser implements ParserInterface{
 	private VariableContainer myVariableContainer;
 	private CommandContainer myCommandContainer;
 	
-/*	public static void main(String args[]) throws ParserException{
-		
-		SlogoParser p = new SlogoParser();
-		
-		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
-		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
-		//p.loadCommand("examples/simple/forward_complex.logo");
-		p.getVariableContainer().debug();
-		p.getCommandContainer().debug();
-	}*/
-
+	private ResourceParser myResourceParser;
+	private CommandInterpreter myCommandInterpreter;
+	
+//	public static void main(String args[]) throws ParserException{
+//		
+//		SlogoParser p = new SlogoParser();
+//		
+//		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
+//		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+//		//p.loadCommand("examples/simple/forward_complex.logo");
+//		p.getVariableContainer().debug();
+//		p.getCommandContainer().debug();
+//	}
+	
 	public SlogoParser(){
 		myTurtleContainer = new TurtleContainer();
 		myVariableContainer = new VariableContainer();
 		myCommandContainer = new CommandContainer();
+		myResourceParser = new ResourceParser();
+		myCommandInterpreter = new CommandInterpreter(this, myResourceParser);
 	}
 	
 	public Turtle getCurrentTurtle(){
@@ -59,26 +65,33 @@ public class SlogoParser implements ParserInterface{
 	
 	@Override
 	public void runCommand(String command) throws ParserException {
-		
-		new CommandInterpreter(command, this);
-		
+		myCommandInterpreter.interpret(command);
 	}
 
 	@Override
 	public void runCommand(CommandList command) throws ParserException {
-		
+		myCommandInterpreter.interpret(command);
 	}
 
 	@Override
 	public void setLanguage(String language) throws ParserException {
-		// TODO Auto-generated method stub
-		
+		myResourceParser.setLanguage(language);
 	}
 	
 	@Override
 	public void addVariableObserver(Observer o){
 	//	System.out.println(myVariableContainer == null);
 		myVariableContainer.addObserver(o);
+	}
+	
+	@Override
+	public void addCommandObserver(Observer o){
+		myCommandContainer.addObserver(o);
+	}
+	
+	@Override
+	public void addTurtleObserver(Observer o){
+		myTurtleContainer.addObserver(o);
 	}
 
 	@Override
