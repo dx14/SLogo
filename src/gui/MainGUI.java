@@ -81,7 +81,6 @@ public class MainGUI implements GUIInterface {
 	}
 
 	public void draw() {
-
 		mainRoot.setCenter(myGUITurtleArea.returnNodeToDraw());
 		mainRoot.setLeft(new VBox(new Label("History"), myGUIHistory.returnNodeToDraw(), 
 				new Label("Variables"),	myGUIVariables.returnNodeToDraw(), 
@@ -95,7 +94,6 @@ public class MainGUI implements GUIInterface {
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());
-
 	}
 
 	public void updateTurtleArea() {
