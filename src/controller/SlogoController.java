@@ -53,6 +53,7 @@ public class SlogoController implements GUIController{
 	    myGUI = gui;
 	    System.out.println(myGUI.showObserverVariables() == null);
 	    myParser.addVariableObserver(myGUI.showObserverVariables());
+	    myParser.addTurtleObserver(myGUI.showTurtleArea());
 	    //myParser.addCommandObserver(myGUI.showObserverUserDefinedCommands());
 	}
 }

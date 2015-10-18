@@ -105,6 +105,10 @@ public class MainGUI implements GUIInterface {
 	public Observer showObserverVariables() {
 		return (Observer) myGUIVariables;
 	}
+	
+	       public Observer showTurtleArea() {
+	                return (Observer) myGUITurtleArea;
+	        }
 
 	public Observer showUserDefinedCommands() {
 		return (Observer) myUserDefinedCommands;
