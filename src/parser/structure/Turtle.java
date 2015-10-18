@@ -6,9 +6,6 @@ import util.StraightPath;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
-import gui.GUITurtle;
-
 import gui.GUITurtle;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
@@ -95,12 +92,12 @@ public class Turtle implements GUITurtle{
 	}
 
 	public void turn(double angle) {
-		myHeading = myHeading + angle;
+		myHeading = myHeading - angle;
 		update();
 	}
 
 	public double setHeading(double angle) {
-		double diff = myHeading - angle;
+		double diff = angle - myHeading;
 		myHeading = angle;
 		update();
 		return diff;
