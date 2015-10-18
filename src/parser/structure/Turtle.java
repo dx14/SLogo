@@ -12,7 +12,7 @@ import gui.GUITurtle;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
-public class Turtle extends Observable implements GUITurtle{
+public class Turtle implements GUITurtle{
 	
 	private static int id = 1;
 	int myID;
@@ -30,7 +30,11 @@ public class Turtle extends Observable implements GUITurtle{
 	List<SlogoPath> myCurrentPaths;
 	boolean clear;
 	
-	public Turtle(){
+	TurtleContainer myContainer;
+	
+	public Turtle(TurtleContainer container){
+		myContainer = container;
+		
 		myID = id++;
 		
 		myCoord = new Coordinate(0,0);
@@ -40,28 +44,35 @@ public class Turtle extends Observable implements GUITurtle{
 		
 		visible = true;
 		clear = false;
+		update();
 	}
 	
 	public void move(double distance){
 		System.out.print("Moving turtle from " + myCoord);
 		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading), myPen.clone()));
 		System.out.println(" to " + myCoord);
+		update();
 	}
 
 	public void show() {
 		visible = true;
+		update();
 	}
 	
 	public void hide() {
 		visible = false;
+		update();
 	}
 	
 	public void penUp() {
 		myPen.setDown(false);
+		update();
 	}
 	
 	public void penDown() {
-		myPen.setDown(true);	}
+		myPen.setDown(true);
+		update();
+	}
 	
 	public boolean isPenDown() {
 		return myPen.isDown();
@@ -71,22 +82,25 @@ public class Turtle extends Observable implements GUITurtle{
 		return myHeading;
 	}
 
-
 	public double setPosition(double x, double y) {
+		update();
 		return myCoord.set(x, y);
 	}
 
 	public void clear() {
 		clear = true;
+		update();
 	}
 
 	public void turn(double angle) {
 		myHeading = myHeading + angle;
+		update();
 	}
 
 	public double setHeading(double angle) {
 		double diff = myHeading - angle;
 		myHeading = angle;
+		update();
 		return diff;
 	}
 
@@ -144,6 +158,7 @@ public class Turtle extends Observable implements GUITurtle{
 	@Override
 	public void setPenColor(String color) {
 		myPen.setColor(color);
+		update();
 	}
 
 	@Override
@@ -154,6 +169,7 @@ public class Turtle extends Observable implements GUITurtle{
 	@Override
 	public void setUsingImage(boolean useImage) {
 		this.useImage = useImage;
+		update();
 	}
 
 	@Override
@@ -164,5 +180,10 @@ public class Turtle extends Observable implements GUITurtle{
 	@Override
 	public void setDisplayString(String display) {
 		myImageOrShape = display;
+		update();
+	}
+	
+	private void update(){
+		myContainer.update();
 	}
 }
