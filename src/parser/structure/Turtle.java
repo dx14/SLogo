@@ -40,6 +40,7 @@ public class Turtle implements GUITurtle{
 		
 		myPen = new Pen();
 		myCurrentPaths = new ArrayList<SlogoPath>();
+		myHistory = new ArrayList<SlogoPath>();
 		
 		visible = true;
 		clear = false;
@@ -47,9 +48,10 @@ public class Turtle implements GUITurtle{
 	}
 	
 	public void move(double distance){
-		System.out.print("Moving turtle from " + myCoord);
+		//System.out.print("Moving turtle from " + myCoord);
 		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading).clone(), myPen.clone()));
-		System.out.println(" to " + myCoord);
+		//myCurrentPaths.stream().forEach(s -> System.out.println(s));
+		//System.out.println(" to " + myCoord);
 		update();
 	}
 
