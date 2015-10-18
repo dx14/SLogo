@@ -12,6 +12,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import parser.structure.CommandContainer;
+import parser.structure.GUICommand;
+import parser.structure.GUICommandContainer;
 import parser.structure.VariableContainer;
 import util.GUIVariable;
 
@@ -45,7 +48,7 @@ public class GUIUserDefinedCommands extends GUIComponent implements Observer{
 		whatToGive.setOnMouseClicked(new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-            guiConsole.changeText(whatToGive.getSelectionModel().getSelectedItem().toString());
+            guiConsole.changeText(whatToGive.getSelectionModel().getSelectedItem().toString().split("\\n+")[0]);
             
         }
     });
@@ -57,9 +60,9 @@ public class GUIUserDefinedCommands extends GUIComponent implements Observer{
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		if(o instanceof VariableContainer){
-			List<GUIVariable> oo = ((VariableContainer) o).getVariables();
-		oo.stream().forEach(e -> {if(!whatToShow.contains(e.toString())){whatToShow.add(e.toString());}   });
+		if(o instanceof GUICommandContainer){
+			List<GUICommand> oo = ((GUICommandContainer) o).getCommands();
+		oo.stream().forEach(e -> {if(!whatToShow.contains(e.toString())){whatToShow.add(e.getInputString() + "\n" + e.getCommandText());}   });
 		
 		}
 		
