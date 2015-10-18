@@ -10,15 +10,11 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	private Turtle myCurrentTurtle;
 	
 	public TurtleContainer(){
-		myCurrentTurtle = new Turtle(myTurtles.size());
+		myCurrentTurtle = new Turtle();
 		myTurtles.add(myCurrentTurtle);
 	}
 	
 	@Override
-	public GUITurtle2 getTurtle() {
-		return myCurrentTurtle;
-	}
-	
 	public Turtle getCurrentTurtle(){
 		return myCurrentTurtle;
 	}

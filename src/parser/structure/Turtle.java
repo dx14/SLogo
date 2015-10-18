@@ -9,8 +9,9 @@ import java.util.Observable;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
-public class Turtle extends Observable implements GUITurtle2{
+public class Turtle extends Observable implements GUITurtle{
 	
+	private static int id = 1;
 	int myID;
 	
 	Coordinate myCoord;
@@ -26,9 +27,8 @@ public class Turtle extends Observable implements GUITurtle2{
 	List<SlogoPath> myCurrentPaths;
 	boolean clear;
 	
-	public Turtle(int id){
-		myID = id;
-		
+	public Turtle(){
+		myID = id++;
 		
 		myCoord = new Coordinate(0,0);
 		myHeading = 0;
