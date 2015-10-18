@@ -9,9 +9,13 @@ public class Pen implements GUIPen{
 	private boolean down;
 	
 	public Pen(){
-		myColor = "black";
-		myWidth = 1;
-		down = true;
+		this("#000000", 1, true);
+	}
+	
+	public Pen(String color, double width, boolean down){
+		myColor = color;
+		myWidth = width;
+		this.down = down;
 	}
 	
 	public void setDown(boolean down){
@@ -45,5 +49,9 @@ public class Pen implements GUIPen{
 	@Override
 	public String getColor() {
 		return myColor;
+	}
+	
+	public Pen clone() {
+		return new Pen(myColor, myWidth, down);
 	}
 }

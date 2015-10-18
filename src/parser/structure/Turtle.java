@@ -22,6 +22,7 @@ public class Turtle extends Observable implements GUITurtle2{
 	boolean useImage;
 	String myImageOrShape;
 	
+	List<SlogoPath> myHistory;
 	List<SlogoPath> myCurrentPaths;
 	boolean clear;
 	
@@ -74,17 +75,10 @@ public class Turtle extends Observable implements GUITurtle2{
 	}
 
 	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public double setPosition(int i, int j) {
-		// TODO Auto-generated method stub
-		return 0;
+		clear = true;
 	}
 
 	public void turn(double angle) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -101,9 +95,14 @@ public class Turtle extends Observable implements GUITurtle2{
 		return myCoord;
 	}
 
-	public double setTowards(double evaluate, double evaluate2) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double setTowards(double x, double y) {
+		
+		double adjacent = x - myCoord.getX();
+		double opposite = y - myCoord.getY();
+		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
+		double theta = Math.asin(opposite/hypotenuse);
+		
+		return setHeading(Math.toDegrees(theta));
 	}
 
 
@@ -124,12 +123,12 @@ public class Turtle extends Observable implements GUITurtle2{
 
 	@Override
 	public boolean isClear() {
-		// TODO Auto-generated method stub
-		return false;
+		return clear;
 	}
 
 	@Override
 	public void completeUpdate() {
+		myHistory.addAll(myCurrentPaths);
 		myCurrentPaths.clear();
 		clear = false;
 	}

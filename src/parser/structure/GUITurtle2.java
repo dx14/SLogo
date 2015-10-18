@@ -2,6 +2,7 @@ package parser.structure;
 
 import java.util.List;
 
+import util.GUICoordinate;
 import util.SlogoPath;
 
 public interface GUITurtle2 {

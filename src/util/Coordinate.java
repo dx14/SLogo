@@ -1,7 +1,5 @@
 package util;
 
-import parser.structure.GUICoordinate;
-
 public class Coordinate implements GUICoordinate{
 	
 	private double myX;
@@ -24,6 +22,10 @@ public class Coordinate implements GUICoordinate{
 	public void update(double distance, double angle){
 		myX += distance * Math.sin(Math.toRadians(angle));
 		myY += distance * Math.cos(Math.toRadians(angle));
+	}
+	
+	public Coordinate updateAndCopy(double distance, double angle){
+		return new Coordinate(myX + distance * Math.sin(Math.toRadians(angle)),	myY + distance * Math.cos(Math.toRadians(angle)));
 	}
 	
 	public void set(double x, double y){

@@ -15,7 +15,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	}
 	
 	@Override
-	public GUITurtle2 whatChanged() {
+	public GUITurtle2 getTurtle() {
 		return myCurrentTurtle;
 	}
 	

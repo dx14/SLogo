@@ -1,30 +1,45 @@
 package util;
 
+import parser.structure.GUIPen;
+import parser.structure.Pen;
+
 public abstract class SlogoPath {
 
-	private Coordinate start;
-	private Coordinate end;
+	private GUICoordinate start;
+	private GUICoordinate end;
+	
+	private GUIPen myPen;
 	
 	
-	public SlogoPath(Coordinate start, Coordinate end){
-		this.start = start;
-		this.end = end;
+	public SlogoPath(GUICoordinate start, GUICoordinate end){
+		this(start, end, new Pen());
 	}
 	
-	public Coordinate getStart(){
+	public SlogoPath(GUICoordinate start, GUICoordinate end, GUIPen pen){
+		this.start = start;
+		this.end = end;
+		myPen = pen;
+	}
+	
+	public GUICoordinate getStart(){
 		return start;
 	}
 	
-	public Coordinate getEnd(){
+	public GUICoordinate getEnd(){
 		return end;
 	}
 	
 	public double getXLength() {
 	    return end.getX()-start.getX();
 	}
-        public double getYLength() {
-            return end.getY()-start.getY();
-        }
+    
+	public double getYLength() {
+        return end.getY()-start.getY();
+    }
+	
+	public GUIPen getPen(){
+		return myPen;
+	}
 
 	@Override
 	public String toString(){

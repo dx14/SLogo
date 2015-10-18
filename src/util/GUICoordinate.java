@@ -1,4 +1,4 @@
-package parser.structure;
+package util;
 
 public interface GUICoordinate {
 
