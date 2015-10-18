@@ -90,6 +90,9 @@ public class Turtle implements GUITurtle{
 
 	public void clear() {
 		clear = true;
+		myCurrentPaths.clear();
+		myHistory.clear();
+		myCoord.set(0, 0);
 		update();
 	}
 

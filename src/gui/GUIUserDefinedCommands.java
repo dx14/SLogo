@@ -62,7 +62,8 @@ public class GUIUserDefinedCommands extends GUIComponent implements Observer{
 		
 		if(o instanceof GUICommandContainer){
 			List<GUICommand> oo = ((GUICommandContainer) o).getCommands();
-		oo.stream().forEach(e -> {if(!whatToShow.contains(e.toString())){whatToShow.add(e.getInputString() + "\n" + e.getCommandText());}   });
+			whatToShow.clear();
+		oo.stream().forEach(e -> { whatToShow.add(e.getInputString() + "\n" + e.getCommandText());   });
 		
 		}
 		
