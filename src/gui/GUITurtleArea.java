@@ -91,25 +91,36 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private void turtleObserved(GUITurtle turtle) {
         myTurtles.clear();
         myTurtles.add(turtle);
-        myPaths = turtle.getPaths();
+        myPaths.clear();
+        myPaths.addAll(turtle.getHistory());
+        myPaths.addAll(turtle.getPaths());
         drawAll();
-    }
+        //myPaths.stream().forEach(s -> System.out.println(s.toString()));
+//        if (turtle.getPaths().size()>0){
+//            for(SlogoPath p : turtle.getPaths()){
+//                drawPath(p);
+//            }
+//        }
+        }
     private void drawPaths() {
         //TODO: set path colors (gc.setStroke(penColor));
         for (SlogoPath path: myPaths) {
-            //TODO: be able to draw arcs
-            Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),-1*path.getStart().getY());
-            Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),-1*path.getEnd().getY());
-            gc.setStroke(Color.valueOf(path.getPen().getColor()));
-            gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
+            drawPath(path);
         }
+    }
+    private void drawPath(SlogoPath path) {
+        //TODO: be able to draw arcs
+        Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),-1*path.getStart().getY());
+        Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),-1*path.getEnd().getY());
+        gc.setStroke(Color.valueOf(path.getPen().getColor()));
+        gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
     }
     @Override
     public void update (Observable o, Object arg) {
         // TODO Auto-generated method stub
         if(o instanceof TurtleContainer){
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
-            System.out.println("OUTPUTTING");
+            //System.out.println("OUTPUTTING");
             turtleObserved(turtle);
             turtle.completeUpdate();
         }
