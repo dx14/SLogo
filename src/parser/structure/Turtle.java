@@ -49,7 +49,7 @@ public class Turtle implements GUITurtle{
 	
 	public void move(double distance){
 		System.out.print("Moving turtle from " + myCoord);
-		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading), myPen.clone()));
+		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading).clone(), myPen.clone()));
 		System.out.println(" to " + myCoord);
 		update();
 	}
