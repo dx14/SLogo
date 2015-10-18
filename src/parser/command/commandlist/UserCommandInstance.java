@@ -5,8 +5,9 @@ import java.util.List;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.Evaluable;
+import parser.structure.GUICommand;
 
-public class UserCommandInstance extends Command implements Evaluable {
+public class UserCommandInstance extends Command implements Evaluable, GUICommand {
 
 	private List<String> myVariables;
 	Evaluable myCommands;
@@ -47,6 +48,16 @@ public class UserCommandInstance extends Command implements Evaluable {
 	@Override
 	public String toString(){
 		return myCommands.toString();
+	}
+
+	@Override
+	public String getInputString() {
+		return myName + myVariables.stream().reduce("", (s1, s2) -> s2 + ", " + s2);
+	}
+
+	@Override
+	public String getCommandText() {
+		return myCommands.toString(false);
 	}
 
 }
