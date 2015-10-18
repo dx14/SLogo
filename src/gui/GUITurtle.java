@@ -27,7 +27,7 @@ public interface GUITurtle {
 	public void completeUpdate();
 	
 	public boolean usingImage();
-	public void setUsingImage(boolean useImage);
+	public void setUsingImage(boolean useImage);   
 	
 	public String getDisplayString();
 	public void setDisplayString(String display);

@@ -67,21 +67,20 @@ public class MainGUI implements GUIInterface {
 		// allGUIComponents.add(myGUIVariables);
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
 		// temporary test seeds
-		Turtle t = new Turtle();
-		t.setXOnGrid(0);
-		t.setYOnGrid(0);
-		turtleList.add(t);
-		t = new Turtle();
-		t.setXOnGrid(-100);
-		t.setYOnGrid(150);
-		t.setAngle(160);
-		turtleList.add(t);
-		SlogoPath p = new StraightPath(new Coordinate(150, -100), new Coordinate(0, 0));
-		pathList.add(p);
+//		Turtle t = new Turtle();
+//		t.setXOnGrid(0);
+//		t.setYOnGrid(0);
+//		turtleList.add(t);
+//		t = new Turtle();
+//		t.setXOnGrid(-100);
+//		t.setYOnGrid(150);
+//		t.setAngle(160);
+//		turtleList.add(t);
+//		SlogoPath p = new StraightPath(new Coordinate(150, -100), new Coordinate(0, 0));
+//		pathList.add(p);
 	}
 
 	public void draw() {
-
 		mainRoot.setCenter(myGUITurtleArea.returnNodeToDraw());
 		mainRoot.setLeft(new VBox(new Label("History"), myGUIHistory.returnNodeToDraw(), 
 				new Label("Variables"),	myGUIVariables.returnNodeToDraw(), 
@@ -95,7 +94,6 @@ public class MainGUI implements GUIInterface {
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());
-
 	}
 
 	public void updateTurtleArea() {

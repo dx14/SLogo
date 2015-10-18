@@ -3,10 +3,9 @@ package parser.structure;
 import util.Coordinate;
 import util.SlogoPath;
 import util.StraightPath;
-
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import gui.GUITurtle;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
@@ -40,6 +39,7 @@ public class Turtle implements GUITurtle{
 		myHeading = 0;
 		
 		myPen = new Pen();
+		myCurrentPaths = new ArrayList<SlogoPath>();
 		
 		visible = true;
 		clear = false;
