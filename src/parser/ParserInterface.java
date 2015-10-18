@@ -14,6 +14,10 @@ public interface ParserInterface {
 	
 	public void addVariableObserver(Observer o);
 	
+	public void addCommandObserver(Observer o);
+	
+	public void addTurtleObserver(Observer o);
+	
 	public void debug();
 	
 }
