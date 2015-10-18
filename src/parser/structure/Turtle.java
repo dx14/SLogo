@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
+import gui.GUITurtle;
+
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
 public class Turtle extends Observable implements GUITurtle{
@@ -137,5 +139,30 @@ public class Turtle extends Observable implements GUITurtle{
 		myHistory.addAll(myCurrentPaths);
 		myCurrentPaths.clear();
 		clear = false;
+	}
+
+	@Override
+	public void setPenColor(String color) {
+		myPen.setColor(color);
+	}
+
+	@Override
+	public boolean usingImage() {
+		return useImage;
+	}
+
+	@Override
+	public void setUsingImage(boolean useImage) {
+		this.useImage = useImage;
+	}
+
+	@Override
+	public String getDisplayString() {
+		return myImageOrShape;
+	}
+
+	@Override
+	public void setDisplayString(String display) {
+		myImageOrShape = display;
 	}
 }
