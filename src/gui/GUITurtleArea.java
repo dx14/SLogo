@@ -101,7 +101,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
 
         else{
             //make this an exception
-            System.out.println("update didnt update it; it might not be an instance of GUIVariableContainer");
+            System.out.println("update didnt update it; it might not be an instance of GUITurtleContainer");
         }
     }
 
