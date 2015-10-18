@@ -147,7 +147,8 @@ public class GUIToolbar extends GUIComponent {
             try {
                 Image image = new Image("file:"+selectedFile.getAbsolutePath());
                 for (GUITurtle t: myTurtles) {
-                    t.setImage(image);
+                    t.setUsingImage(true);
+                    t.setDisplayString(selectedFile.getAbsolutePath());
                 }
                 myTurtleArea.drawAll();
             }

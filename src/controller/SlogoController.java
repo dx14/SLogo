@@ -13,7 +13,6 @@ import parser.SlogoParser;
 import parser.command.CommandList;
 import parser.structure.Variable;
 import turtle.BackendTurtle;
-import turtle.Turtle;
 import util.SlogoPath;
 
 public class SlogoController implements GUIController{

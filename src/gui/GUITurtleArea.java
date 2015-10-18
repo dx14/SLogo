@@ -66,23 +66,20 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     }
     private void drawTurtles () {
         for (GUITurtle turtle: myTurtles) {
-            gc.save();
-            Double[] offsetCoords=findImageCenter(turtle.getXOnGrid(),turtle.getYOnGrid(), turtle.getImage());
-            Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
-            Double[] guiCoords=realToGUICoordinates(turtle.getXOnGrid(),turtle.getYOnGrid());
-            setGCTransform(turtle.getAngle(), guiCoords[0], guiCoords[1]);
-            gc.drawImage(turtle.getImage(), offsetguiCoords[0], offsetguiCoords[1]);
-            gc.restore();
+            drawTurtle(turtle);
         }
     }
     private void drawTurtle (GUITurtle turtle) {
+        if (turtle.usingImage()) {
+            Image image = new Image("file:"+turtle.getDisplayString());
             gc.save();
-            Double[] offsetCoords=findImageCenter(turtle.getXOnGrid(),turtle.getYOnGrid(), turtle.getImage());
+            Double[] offsetCoords=findImageCenter(turtle.getCoordinate().getX(),turtle.getCoordinate().getY(), image);
             Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
-            Double[] guiCoords=realToGUICoordinates(turtle.getXOnGrid(),turtle.getYOnGrid());
-            setGCTransform(turtle.getAngle(), guiCoords[0], guiCoords[1]);
-            gc.drawImage(turtle.getImage(), offsetguiCoords[0], offsetguiCoords[1]);
+            Double[] guiCoords=realToGUICoordinates(turtle.getCoordinate().getX(),turtle.getCoordinate().getY());
+            setGCTransform(turtle.getHeading(), guiCoords[0], guiCoords[1]);
+            gc.drawImage(image, offsetguiCoords[0], offsetguiCoords[1]);
             gc.restore();
+        }
     }
     private void drawPaths() {
         //TODO: set path colors (gc.setStroke(penColor));
@@ -100,14 +97,14 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         if(o instanceof TurtleContainer){
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
             drawTurtle(turtle);
-    }
-    
-    else{
+        }
+
+        else{
             //make this an exception
             System.out.println("update didnt update it; it might not be an instance of GUIVariableContainer");
+        }
     }
-    }
-    
+
     //___helper functions___
     private Double[] realToGUICoordinates (double xOnGrid, double yOnGrid) {
         Double[] d = new Double[2];
