@@ -63,7 +63,7 @@ public class MainGUI implements GUIInterface {
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea,
 				myGUIController);
-		myGUIVariables = new GUIVariableList();
+		myGUIVariables = new GUIVariableList(myGUIController);
 		// allGUIComponents.add(myGUIVariables);
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
 		// temporary test seeds
