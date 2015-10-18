@@ -9,6 +9,7 @@ import gui.GUIInterface;
 import gui.GUITurtle;
 import parser.ParserException;
 import parser.ParserInterface;
+import parser.SlogoParser;
 import parser.command.CommandList;
 import parser.structure.Variable;
 import turtle.BackendTurtle;
@@ -20,11 +21,19 @@ public class SlogoController implements GUIController{
 	private ParserInterface myParser;
 	private GUIInterface myGUI;
 	
+
 	public void moveTurtle(int turtleId, List<SlogoPath> paths){
 	}
 	
 	public BackendTurtle getTurtle(int turtleId){
 		return null;
+		
+		
+	}
+	
+	public SlogoController(){
+		myParser = new SlogoParser();
+		
 	}
 	
 	// throws exception if a turtle with that ID already exists
@@ -35,7 +44,13 @@ public class SlogoController implements GUIController{
 	}
 	
 	public void runCommand (String command) throws ParserException {
+		
+		
+		myParser.runCommand(command);
+		
+		myGUI.showHistory().addToHistory(command);
 	}
+
 	
 	public void updateHistory(int turtleId, CommandList command) {
 	}
@@ -52,6 +67,7 @@ public class SlogoController implements GUIController{
 		
 	}
 
+
 //	@Override
 //	public List<GUITurtle> getGUITurtles() {
 //		List<GUITurtle> myGUITurtles = new ArrayList<GUITurtle>();
@@ -63,4 +79,11 @@ public class SlogoController implements GUIController{
 //		return myGUITurtles;
 //	}
 	
+	public void setGUI(GUIInterface gui) {
+	    myGUI = gui;
+	    System.out.println(myGUI.showObserverVariables() == null);
+	    myParser.addVariableObserver(myGUI.showObserverVariables());
+	    myParser.addVariableObserver(myGUI.showTurtleArea());
+	    //myParser.addCommandObserver(myGUI.showObserverUserDefinedCommands());
+	}
 }

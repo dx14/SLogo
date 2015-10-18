@@ -1,6 +1,8 @@
 package gui;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -8,10 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import parser.structure.VariableContainer;
+import util.GUIVariable;
 import util.SlogoPath;
 
 
-public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaRedrawInterface {
+public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaRedrawInterface, Observer {
 
     private List<GUITurtle> myTurtles;
     private List<SlogoPath> myPaths;
@@ -26,6 +30,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private double heightBackground=yCanvas;
 
     public GUITurtleArea (Stage mainStage, Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
+        //TODO: figure out a better way to set the below values
+        xCanvas=mainStage.getScene().getWidth()-300;
+        widthBackground=xCanvas;
+        yCanvas=mainStage.getScene().getHeight()-200;
+        heightBackground=yCanvas;
+
         backgroundColor = turtleAreaColor;
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
@@ -69,8 +79,23 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
             //TODO: be able to draw arcs
             Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),path.getStart().getY());
             Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),path.getEnd().getY());
-            gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);;
+            //gc.setStroke(path.getPenColor());
+            gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
         }
+    }
+    @Override
+    public void update (Observable o, Object arg) {
+        // TODO Auto-generated method stub
+        if(o instanceof TurtleContainer){
+            List<GUIVariable> oo = ((VariableContainer) o).getVariables();
+    oo.stream().forEach(e -> {if(!whatToShow.contains(e.toString())){whatToShow.add(e.toString());}   });
+    
+    }
+    
+    else{
+            //make this an exception
+            System.out.println("update didnt update it; it might not be an instance of GUIVariableContainer");
+    }
     }
     
     //___helper functions___
@@ -90,4 +115,5 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         Rotate r = new Rotate(angle, x, y);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
+
 }

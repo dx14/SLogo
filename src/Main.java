@@ -2,6 +2,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import controller.SlogoController;
 import gui.GUIController;
+import gui.GUIInterface;
 import gui.MainGUI;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -40,8 +41,6 @@ public class Main extends Application{
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
 	
 		SlogoController controller = new SlogoController();
 		
@@ -50,16 +49,19 @@ public class Main extends Application{
 
 
 	    	
-	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
-                myGui.draw();
-	    	
-	    	Scene scene = new Scene(root, 600, 600);
 
+	    	
+	    	Scene scene = new Scene(root, 1000, 800);
+
+	    	//1366x768
+	    	
 	        primaryStage.setTitle("Hello World!");
 	        primaryStage.setScene(scene);
 	        primaryStage.show(); 
 	               
-	        
+	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
+	        controller.setGUI((GUIInterface)myGui);
+	        myGui.draw();
 		
 		
 		

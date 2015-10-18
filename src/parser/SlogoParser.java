@@ -18,17 +18,17 @@ public class SlogoParser implements ParserInterface{
 	private VariableContainer myVariableContainer;
 	private CommandContainer myCommandContainer;
 	
-//	public static void main(String args[]) throws ParserException{
-//		
-//		SlogoParser p = new SlogoParser();
-//		
-//		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
-//		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
-//		//p.loadCommand("examples/simple/forward_complex.logo");
-//		p.getVariableContainer().debug();
-//		p.getCommandContainer().debug();
-//	}
-	
+/*	public static void main(String args[]) throws ParserException{
+		
+		SlogoParser p = new SlogoParser();
+		
+		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
+		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+		//p.loadCommand("examples/simple/forward_complex.logo");
+		p.getVariableContainer().debug();
+		p.getCommandContainer().debug();
+	}*/
+
 	public SlogoParser(){
 		myTurtleContainer = new TurtleContainer();
 		myVariableContainer = new VariableContainer();
@@ -77,6 +77,7 @@ public class SlogoParser implements ParserInterface{
 	
 	@Override
 	public void addVariableObserver(Observer o){
+	//	System.out.println(myVariableContainer == null);
 		myVariableContainer.addObserver(o);
 	}
 
