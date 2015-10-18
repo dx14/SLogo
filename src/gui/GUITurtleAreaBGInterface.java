@@ -6,6 +6,6 @@ public interface GUITurtleAreaBGInterface {
 
 	public void updateBackgroundColor(Color c);
 	
-	
+	public void drawAll();
 	
 }

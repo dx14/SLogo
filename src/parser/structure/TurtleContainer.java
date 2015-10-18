@@ -1,5 +1,6 @@
 package parser.structure;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
@@ -10,6 +11,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	private Turtle myCurrentTurtle;
 	
 	public TurtleContainer(){
+		myTurtles = new ArrayList<Turtle>();
 		myCurrentTurtle = new Turtle();
 		myTurtles.add(myCurrentTurtle);
 	}

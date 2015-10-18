@@ -3,20 +3,26 @@ package gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import java.util.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import parser.ParserException;
 
-public class GUIHistory extends GUIComponent{
+public class GUIHistory extends GUIComponent implements UpdatableHistory{
 
 	
 	//private StackPane historyBox;
@@ -24,67 +30,47 @@ public class GUIHistory extends GUIComponent{
 	private List<String> formattedTextHistory;
 	private Hyperlink[] hpls;
 	
-	GUIController guiController;
-
+	private ObservableList<String> myList;
 	
-	public GUIHistory(){
-		
+	private GUIController guiController;
+	private GUIConsoleTextEditable guiConsole;
+	
+	
+	public GUIHistory(GUIConsoleTextEditable myGUIConsole) {
+		// TODO Auto-generated constructor stub
 		textHistory = new ArrayList<String>();
-		textHistory.add("fw 50");
-		textHistory.add("fw 200");
-		textHistory.add("fw 200");
-		}
-	
+		myList = FXCollections.observableList(textHistory);
+		guiConsole = myGUIConsole;
+		
+		
+	}
 	@Override
 	public Node returnNodeToDraw() {
 	
-		//historyBox.getChildren().add(link);
-		hpls = new Hyperlink[textHistory.size()];
+	
+		ListView<String> whatToGive = new ListView<String>(myList);
+		whatToGive.setPlaceholder(new Label("No commands entered")); //move to resources
+		
+
+		//this will be guiController.getObservableHistory();
+    
+		whatToGive.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+	        @Override
+	        public void handle(MouseEvent event) {
+	            guiConsole.changeText(whatToGive.getSelectionModel().getSelectedItem().toString());
+	            
+	        }
+	    });
 		
 		
-		 for (int i = 0; i < textHistory.size(); i++) {
-            final Hyperlink hpl = new Hyperlink(textHistory.get(i));
-            hpls[i] = hpl;
-            final int j = i;
-            
-            hpl.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent e) {
-                    try {
-                    	
-                    	//right now guiController is null;
-                    	
-						guiController.runCommand(hpls[j].getText());
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						//e1.printStackTrace();
-					}
-                    System.out.println("Hey, you did something amazing by clicking on " + hpls[j].getText() );
-                }
-            });
-        }
-		
-		 
-		  VBox vbox = new VBox();
-		  
-		  vbox.setPrefSize(100, 100);
-		  
-		
-		  
-		  
-	        vbox.getChildren().addAll(hpls);
-	        vbox.setSpacing(5);
-	        
-	        ScrollPane historyBox = new ScrollPane();
-	        //historyBox.setTranslateX(-100);
-	        //historyBox.setTranslateY(-100);
-	        historyBox.setMaxSize(100, 200);
-	        
-	        
-	        historyBox.setContent(vbox);
-	        
-		
-		return historyBox; 
+		return whatToGive; 
 	}
+	
+	public void addToHistory(String arg){
+		myList.add(arg);
+	}
+	
+	
 
 }

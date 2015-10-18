@@ -26,6 +26,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private double heightBackground=yCanvas;
 
     public GUITurtleArea (Stage mainStage, Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
+        //TODO: figure out a better way to set the below values
+        xCanvas=mainStage.getScene().getWidth()-300;
+        widthBackground=xCanvas;
+        yCanvas=mainStage.getScene().getHeight()-200;
+        heightBackground=yCanvas;
+
         backgroundColor = turtleAreaColor;
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
@@ -69,7 +75,8 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
             //TODO: be able to draw arcs
             Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),path.getStart().getY());
             Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),path.getEnd().getY());
-            gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);;
+            //gc.setStroke(path.getPenColor());
+            gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
         }
     }
     

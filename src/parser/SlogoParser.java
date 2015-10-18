@@ -80,6 +80,7 @@ public class SlogoParser implements ParserInterface{
 	
 	@Override
 	public void addVariableObserver(Observer o){
+	//	System.out.println(myVariableContainer == null);
 		myVariableContainer.addObserver(o);
 	}
 	
