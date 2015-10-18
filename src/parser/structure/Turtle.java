@@ -6,7 +6,6 @@ import util.StraightPath;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Observable;
 
 import gui.GUITurtle;
 
