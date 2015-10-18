@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import parser.structure.GUITurtleContainer;
+import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 import util.GUIVariable;
 import util.SlogoPath;
@@ -73,6 +75,15 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
             gc.restore();
         }
     }
+    private void drawTurtle (GUITurtle turtle) {
+            gc.save();
+            Double[] offsetCoords=findImageCenter(turtle.getXOnGrid(),turtle.getYOnGrid(), turtle.getImage());
+            Double[] offsetguiCoords=realToGUICoordinates(offsetCoords[0],offsetCoords[1]);
+            Double[] guiCoords=realToGUICoordinates(turtle.getXOnGrid(),turtle.getYOnGrid());
+            setGCTransform(turtle.getAngle(), guiCoords[0], guiCoords[1]);
+            gc.drawImage(turtle.getImage(), offsetguiCoords[0], offsetguiCoords[1]);
+            gc.restore();
+    }
     private void drawPaths() {
         //TODO: set path colors (gc.setStroke(penColor));
         for (SlogoPath path: myPaths) {
@@ -87,9 +98,8 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     public void update (Observable o, Object arg) {
         // TODO Auto-generated method stub
         if(o instanceof TurtleContainer){
-            List<GUIVariable> oo = ((VariableContainer) o).getVariables();
-    oo.stream().forEach(e -> {if(!whatToShow.contains(e.toString())){whatToShow.add(e.toString());}   });
-    
+            GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
+            drawTurtle(turtle);
     }
     
     else{

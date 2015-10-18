@@ -12,7 +12,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	
 	public TurtleContainer(){
 		myTurtles = new ArrayList<Turtle>();
-		myCurrentTurtle = new Turtle();
+		myCurrentTurtle = new Turtle(this);
 		myTurtles.add(myCurrentTurtle);
 	}
 	
@@ -23,6 +23,11 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	
 	public void debug(){
 		myTurtles.stream().forEach(t -> System.out.println(t));
+	}
+	
+	protected void update(){
+		setChanged();
+		notifyObservers();
 	}
 	
 }
