@@ -11,7 +11,6 @@ import gui.GUITurtle;
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
 public class Turtle implements GUITurtle{
-	
 	private static int id = 1;
 	int myID;
 	
@@ -119,8 +118,8 @@ public class Turtle implements GUITurtle{
 
 	public double setTowards(double x, double y) {
 		
-		double adjacent = x - myCoord.getX();
-		double opposite = y - myCoord.getY();
+		double opposite = x - myCoord.getX();
+		double adjacent = y - myCoord.getY();
 		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
 		double theta = Math.atan2(opposite, adjacent);
 		
