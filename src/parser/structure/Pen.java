@@ -1,5 +1,6 @@
 package parser.structure;
 
+import gui.GUIPen;
 import parser.ParserException;
 
 public class Pen implements GUIPen{

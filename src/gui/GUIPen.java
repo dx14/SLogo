@@ -1,4 +1,4 @@
-package parser.structure;
+package gui;
 
 public interface GUIPen {
 

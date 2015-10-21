@@ -9,5 +9,5 @@ public interface GUIInterface {
 	public Observer showTurtleArea();
 	public UpdatableHistory showHistory();
 	public Observer showUserDefinedCommands();
-	
+	public Observer showTurtlePen();
 }

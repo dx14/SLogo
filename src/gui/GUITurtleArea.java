@@ -102,7 +102,6 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
                 checkPen(path);
             }
         }
-        System.out.println(myTurtles.get(0).getCoordinate().getY());
         drawAll();
         //myPaths.stream().forEach(s -> System.out.println(s.toString()));
 //        if (turtle.getPaths().size()>0){

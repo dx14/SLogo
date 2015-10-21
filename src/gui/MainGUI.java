@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
+import gui.pen.GUIPenDisplay;
+import gui.pen.GUIPenDisplayContainer;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -35,7 +36,7 @@ public class MainGUI implements GUIInterface {
 	private GUITurtleArea myGUITurtleArea;
 	private GUIHistory myGUIHistory;
 	private GUIPaletteBackground myGUIPaletteBackground;
-	private GUIPaletteTurtle myGUIPaletteTurtle;
+	private GUIPenDisplayContainer myGUIPen;
 	private GUIToolbar myGUIToolbar;
 	private GUIConsole myGUIConsole;
 	private GUIVariableList myGUIVariables;
@@ -58,7 +59,7 @@ public class MainGUI implements GUIInterface {
 		myGUIHistory = new GUIHistory((GUIConsoleTextEditable) myGUIConsole);
 		allGUIComponents.add(myGUIHistory);
 		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
-		myGUIPaletteTurtle = new GUIPaletteTurtle(turtleList, (GUITurtleAreaBGInterface) myGUITurtleArea);
+		myGUIPen = new GUIPenDisplayContainer(turtleList, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea,
 				myGUIController);
@@ -89,7 +90,7 @@ public class MainGUI implements GUIInterface {
 																	// file
 				myGUIPaletteBackground.returnNodeToDraw(), new Label("Pen Color:"), // resource
 																					// file
-				myGUIPaletteTurtle.returnNodeToDraw()));
+				myGUIPen.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());
@@ -114,5 +115,9 @@ public class MainGUI implements GUIInterface {
 	public UpdatableHistory showHistory() {
 		return (UpdatableHistory) myGUIHistory;
 	}
+	
+	       public Observer showTurtlePen() {
+	                return (Observer) myGUIPen;
+	        }
 
 }
