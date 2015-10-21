@@ -28,7 +28,7 @@ public class CommandContainer extends Observable implements GUICommandContainer{
 		if(!myCommands.containsKey(name)){
 			throw new ParserException("Error: don't know how to " + name);
 		}
-		System.out.println("Loading command: " + name);
+		//System.out.println("Loading command: " + name);
 		return myCommands.get(name).clone();
 	}
 	

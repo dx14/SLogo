@@ -92,6 +92,7 @@ public class SlogoParser implements ParserInterface{
 	@Override
 	public void addTurtleObserver(Observer o){
 		myTurtleContainer.addObserver(o);
+		myTurtleContainer.update();
 	}
 
 	@Override

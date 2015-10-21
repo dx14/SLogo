@@ -40,6 +40,7 @@ public class Turtle implements GUITurtle{
 		
 		myPen = new Pen();
 		myCurrentPaths = new ArrayList<SlogoPath>();
+		myHistory = new ArrayList<SlogoPath>();
 		
 		visible = true;
 		clear = false;
@@ -47,9 +48,10 @@ public class Turtle implements GUITurtle{
 	}
 	
 	public void move(double distance){
-		System.out.print("Moving turtle from " + myCoord);
-		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading), myPen.clone()));
-		System.out.println(" to " + myCoord);
+		//System.out.print("Moving turtle from " + myCoord);
+		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading).clone(), myPen.clone()));
+		//myCurrentPaths.stream().forEach(s -> System.out.println(s));
+		//System.out.println(" to " + myCoord);
 		update();
 	}
 
@@ -82,12 +84,16 @@ public class Turtle implements GUITurtle{
 	}
 
 	public double setPosition(double x, double y) {
-		update();
-		return myCoord.set(x, y);
+		double distance = myCoord.set(x, y);
+	        update();
+	        return distance;
 	}
 
 	public void clear() {
 		clear = true;
+		myCurrentPaths.clear();
+		myHistory.clear();
+		myCoord.set(0, 0);
 		update();
 	}
 
@@ -116,7 +122,7 @@ public class Turtle implements GUITurtle{
 		double adjacent = x - myCoord.getX();
 		double opposite = y - myCoord.getY();
 		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
-		double theta = Math.asin(opposite/hypotenuse);
+		double theta = Math.atan2(opposite, adjacent);
 		
 		return setHeading(Math.toDegrees(theta));
 	}

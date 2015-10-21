@@ -26,7 +26,7 @@ public class CommandInterpreter {
 	}
 	
 	public void interpret(String command) throws ParserException{
-		System.out.println(command);
+		//System.out.println(command);
 		
 		myCommandList = myResourceParser.buildCommandList(command);
 		
@@ -34,11 +34,11 @@ public class CommandInterpreter {
 	}
 	
 	public void interpret(CommandList command) throws ParserException{
-		System.out.println(command);
+		//System.out.println(command);
 		
 		myRoot = new CommandTreeNode(myCommandList.copy(), myParser);
 		myRoot.build();
-		System.out.println(myRoot.toString());
+		//System.out.println(myRoot.toString());
 		
 		myRoot.evaluate();
 	}

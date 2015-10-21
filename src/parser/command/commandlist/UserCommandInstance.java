@@ -52,7 +52,7 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 
 	@Override
 	public String getInputString() {
-		return myName + myVariables.stream().reduce("", (s1, s2) -> s2 + ", " + s2);
+		return myName + " " + myVariables.stream().reduce("", (s1, s2) -> s1 + " " + s2);
 	}
 
 	@Override

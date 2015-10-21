@@ -9,7 +9,7 @@ public abstract class Command implements Evaluable{
 	protected SlogoParser myParser;
 	protected CommandElement myCommand;
 	
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	public Command(){
 		myTree = null;
