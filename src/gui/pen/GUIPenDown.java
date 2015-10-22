@@ -32,10 +32,10 @@ public class GUIPenDown extends GUIPenDisplay{
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent()) {
             try{
-                if (result.get().getText().equals(up)) {
+                if (result.get().getText().equals(down)) {
                     getTurtles().get(0).penDown();
                 }
-                else if (result.get().getText().equals(down)) {
+                else if (result.get().getText().equals(up)) {
                     getTurtles().get(0).penUp();
                 }
             }

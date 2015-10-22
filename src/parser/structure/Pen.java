@@ -2,12 +2,14 @@ package parser.structure;
 
 import gui.GUIPen;
 import parser.ParserException;
+import util.LineStyle;
 
 public class Pen implements GUIPen{
 
 	private double myWidth;
 	private String myColor;
 	private boolean down;
+	private LineStyle myStyle = LineStyle.SOLID;
 	
 	public Pen(){
 		this("#000000", 1, true);
@@ -54,5 +56,12 @@ public class Pen implements GUIPen{
 	
 	public Pen clone() {
 		return new Pen(myColor, myWidth, down);
+	}
+	
+	public LineStyle getStyle() {
+	    return myStyle;
+	}
+	public void setStyle(LineStyle style) {
+	    myStyle=style;
 	}
 }

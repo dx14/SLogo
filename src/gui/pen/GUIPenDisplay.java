@@ -38,7 +38,8 @@ public abstract class GUIPenDisplay extends GUIPaletteTurtle{
             }
     });
         redraw();
-        VBox out = new VBox(super.returnNodeToDraw(),whatToGive);
+        whatToGive.setMaxHeight(30);
+        VBox out = new VBox(whatToGive);
         return out;
     }
     

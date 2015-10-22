@@ -20,6 +20,8 @@ public class GUIPenDisplayContainer extends GUIPaletteTurtle{
         super(turtles, guiTurtleArea);
         displays=new ArrayList<GUIPenDisplay>();
         displays.add(new GUIPenDown(turtles,guiTurtleArea));
+        displays.add(new GUIPenWidth(turtles,guiTurtleArea));
+        displays.add(new GUIPenStyle(turtles, guiTurtleArea));
     }
 
     @Override
