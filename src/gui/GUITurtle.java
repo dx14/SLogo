@@ -1,7 +1,6 @@
 package gui;
 
 import java.util.List;
-import parser.structure.GUIPen;
 import util.GUICoordinate;
 import util.SlogoPath;
 
@@ -18,7 +17,10 @@ public interface GUITurtle {
 	public List<SlogoPath> getHistory();
 	
 	public GUIPen getPen();
+	
 	public void setPenColor(double color);
+	public void penUp();
+	public void penDown();
 	
 	public boolean isShowing();
 	

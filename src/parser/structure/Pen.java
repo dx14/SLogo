@@ -1,12 +1,15 @@
 package parser.structure;
 
+import gui.GUIPen;
 import parser.ParserException;
+import util.LineStyle;
 
 public class Pen implements GUIPen{
 
 	private double myWidth;
 	private double myColor;
 	private boolean down;
+	private LineStyle myStyle = LineStyle.SOLID;
 	
 	public Pen(){
 		this(0, 1, true);
@@ -32,9 +35,13 @@ public class Pen implements GUIPen{
 		return myWidth;
 	}
 
-	@Override
 	public void setColor(double d) {
 		myColor = d;
+	}
+	
+	@Override
+	public void setColor(String d){
+		myColor = Double.parseDouble(d);
 	}
 	
 	public void setWidth(double width) throws ParserException {
@@ -47,11 +54,22 @@ public class Pen implements GUIPen{
 	}
 
 	@Override
-	public double getColor() {
+	public String getColor() {
+		return ((Double)myColor).toString();
+	}
+	
+	public double getColor(boolean useIndex){
 		return myColor;
 	}
 	
 	public Pen clone() {
 		return new Pen(myColor, myWidth, down);
+	}
+	
+	public LineStyle getStyle() {
+	    return myStyle;
+	}
+	public void setStyle(LineStyle style) {
+	    myStyle=style;
 	}
 }

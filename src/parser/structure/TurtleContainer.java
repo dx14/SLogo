@@ -28,7 +28,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	
 	public void setCurrent(List<Integer> turtleIDs){
 		turtleIDs.stream().forEach((i) -> initializeTurtle(i));
-		myCurrentTurtle = new CompoundTurtle(turtleIDs.stream().map(this::getTurtle).collect(Collectors.toList()));
+		myCurrentTurtle = new CompoundTurtle(this, turtleIDs.stream().map(this::getTurtle).collect(Collectors.toList()));
 	}
 	
 	private void initializeTurtle(int id){

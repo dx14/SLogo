@@ -12,10 +12,9 @@ import gui.GUITurtle;
 import parser.ParserException;
 import parser.command.Evaluable;
 
-// TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
 public class SimpleTurtle implements FullTurtle, GUITurtle{
-	
+
 	private static int id = 1;
 	int myID;
 	
@@ -125,7 +124,6 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 		return myCoord;
 	}
 
-	@Override
 	public double setTowards(Evaluable x, Evaluable y) throws ParserException{
 		double adjacent = x.evaluate() - myCoord.getX();
 		double opposite = y.evaluate() - myCoord.getY();

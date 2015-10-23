@@ -8,6 +8,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import parser.structure.GUITurtleContainer;
@@ -19,6 +20,7 @@ import util.SlogoPath;
 
 public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaRedrawInterface, Observer {
 
+    private static final double DASH_LENGTH = 10;
     private List<GUITurtle> myTurtles;
     private List<SlogoPath> myPaths;
     private Color backgroundColor;
@@ -102,7 +104,6 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
                 checkPen(path);
             }
         }
-        System.out.println(myTurtles.get(0).getCoordinate().getY());
         drawAll();
         //myPaths.stream().forEach(s -> System.out.println(s.toString()));
 //        if (turtle.getPaths().size()>0){
@@ -127,6 +128,22 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),-1*path.getStart().getY());
         Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),-1*path.getEnd().getY());
         gc.setStroke(Color.valueOf(path.getPen().getColor()));
+        gc.setLineWidth(path.getPen().getWidth());
+        switch (path.getPen().getStyle()) {
+            case DOTTED:
+                gc.setLineDashes(1,path.getPen().getWidth());
+                gc.setLineCap(StrokeLineCap.ROUND);
+                break;
+            case DASHED:
+                gc.setLineDashes(DASH_LENGTH,DASH_LENGTH);
+                gc.setLineCap(StrokeLineCap.SQUARE);
+                break;
+            default:
+                gc.setLineDashes(0);
+                gc.setLineCap(StrokeLineCap.SQUARE);
+                break;
+        }
+        System.out.println(path.getPen().getStyle().toString());
         gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
     }
     @Override
