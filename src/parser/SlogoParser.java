@@ -9,7 +9,7 @@ import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.resource.ResourceParser;
 import parser.structure.CommandContainer;
-import parser.structure.Turtle;
+import parser.structure.SimpleTurtle;
 import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 
@@ -41,7 +41,7 @@ public class SlogoParser implements ParserInterface{
 		myCommandInterpreter = new CommandInterpreter(this, myResourceParser);
 	}
 	
-	public Turtle getCurrentTurtle(){
+	public SimpleTurtle getCurrentTurtle(){
 		return myTurtleContainer.getCurrentTurtle();
 	}
 	

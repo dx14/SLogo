@@ -8,7 +8,7 @@ public class SetHeadingCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		return myParser.getCurrentTurtle().setHeading(myTree.get(0).evaluate());
+		return myParser.getCurrentTurtle().setHeading(myTree.get(0));
 	}
 
 	@Override

@@ -8,9 +8,7 @@ public class LeftCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		double angle = myTree.get(0).evaluate();
-		myParser.getCurrentTurtle().turn(angle);
-		return angle;
+		return myParser.getCurrentTurtle().turn(myTree.get(0), (d) -> d);
 	}
 
 	@Override
