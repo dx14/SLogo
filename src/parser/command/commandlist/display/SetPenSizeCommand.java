@@ -1,14 +1,14 @@
-package parser.command.commandlist.displaycommand;
+package parser.command.commandlist.display;
 
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class SetBackgroundCommand extends Command {
+public class SetPenSizeCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		 return myParser.setBackgroundColor(myTree.get(0));
+		 return myParser.getCurrentTurtle().setPenSize(myTree.get(0));
 	}
 
 	@Override

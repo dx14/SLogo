@@ -22,7 +22,8 @@ public class CompoundTurtle implements FullTurtle, GUITurtle{
 		myContainer = container;
 		myTurtles = turtles.stream()
 				.collect(Collectors.toMap((t) -> t.getID(), Function.identity()));
-		currentTurtleID = myTurtles.get(myTurtles.values().size()).getID();
+		currentTurtleID = myTurtles.values().stream().reduce( (t1, t2) -> t2 ).get().getID();
+		System.out.println("CURRENT TURTLE ID: " + currentTurtleID);
 	}
 	
 	private double recursiveSet(TurtleFunction<FullTurtle, Double> operation) throws ParserException{

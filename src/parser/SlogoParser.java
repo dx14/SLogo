@@ -28,10 +28,12 @@ public class SlogoParser implements ParserInterface{
 		SlogoParser p = new SlogoParser();
 		
 		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
-		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
+		p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
 		p.getVariableContainer().debug();
 		p.getCommandContainer().debug();
+		p.getTurtleContainer().debug();
 	}
 	
 	public SlogoParser(){
@@ -52,6 +54,10 @@ public class SlogoParser implements ParserInterface{
 	
 	public CommandContainer getCommandContainer(){
 		return myCommandContainer;
+	}
+	
+	public TurtleContainer getTurtleContainer() {
+		return myTurtleContainer;
 	}
 	
 	public void loadCommand(String filename) throws ParserException {

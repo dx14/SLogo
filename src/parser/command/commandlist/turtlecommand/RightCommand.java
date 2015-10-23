@@ -8,7 +8,7 @@ public class RightCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		return myParser.getCurrentTurtle().right(myTree.get(0));
+		return myParser.getCurrentTurtle().turn(myTree.get(0), (a)-> a*-1);
 	}
 
 	@Override

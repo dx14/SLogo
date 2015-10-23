@@ -1,4 +1,4 @@
-package parser.command.commandlist.displaycommand;
+package parser.command.commandlist.display;
 
 import parser.ParserException;
 import parser.command.Command;
