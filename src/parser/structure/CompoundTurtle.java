@@ -30,6 +30,7 @@ public class CompoundTurtle implements FullTurtle, GUITurtle{
 		for(FullTurtle t : myTurtles.values()){
 			currentTurtleID = t.getID();
 			result = operation.apply(t);
+			System.out.println("Applying operation to turtle " + currentTurtleID);
 			update();
 		}
 		return result;
