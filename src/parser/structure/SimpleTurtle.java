@@ -167,9 +167,14 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 	}
 
 	@Override
-	public void setPenColor(String color) {
-		myPen.setColor(color);
+	public void setPenColor(Evaluable color) throws ParserException{
+		myPen.setColor(color.evaluate());
 		update();
+	}
+	
+	@Override
+	public void setPenColor(double color) {
+		myPen.setColor(color);
 	}
 
 	@Override

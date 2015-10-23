@@ -6,8 +6,8 @@ public interface GUIPen {
 	
 	public double getWidth();
 	
-	public String getColor();
+	public double getColor();
 	
-	public void setColor(String color);
+	public void setColor(double color);
 	
 }

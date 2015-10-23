@@ -3,6 +3,7 @@ package parser.structure;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import java.util.stream.Collectors;
 
 public class TurtleContainer extends Observable implements GUITurtleContainer {
 
@@ -26,7 +27,19 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 	}
 	
 	public void setCurrent(List<Integer> turtleIDs){
-		
+		turtleIDs.stream().forEach((i) -> initializeTurtle(i));
+		myCurrentTurtle = new CompoundTurtle(turtleIDs.stream().map(this::getTurtle).collect(Collectors.toList()));
+	}
+	
+	private void initializeTurtle(int id){
+		while(myTurtles.size() < id){
+			myTurtles.add(new SimpleTurtle(this));
+			update();
+		}
+	}
+	
+	private FullTurtle getTurtle(int id){
+		return myTurtles.get(id - 1);
 	}
 	
 	public void update(){

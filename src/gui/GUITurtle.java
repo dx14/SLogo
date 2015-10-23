@@ -18,7 +18,7 @@ public interface GUITurtle {
 	public List<SlogoPath> getHistory();
 	
 	public GUIPen getPen();
-	public void setPenColor(String color);
+	public void setPenColor(double color);
 	
 	public boolean isShowing();
 	
