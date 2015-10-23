@@ -9,6 +9,6 @@ public class ClearScreenCommand extends Command {
 	@Override
 	public double evaluate() throws ParserException {
 		myParser.getCurrentTurtle().clear();
-		return myParser.getCurrentTurtle().setPosition(0,0);
+		return myParser.getCurrentTurtle().goHome();
 	}
 }

@@ -6,11 +6,20 @@ import util.StraightPath;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.UnaryOperator;
+
 import gui.GUITurtle;
+import parser.ParserException;
+import parser.command.Evaluable;
 
 // TODO: modify GUI turtle -> change JavaFX specific commands to Strings
 
+<<<<<<< HEAD:src/parser/structure/Turtle.java
 public class Turtle implements GUITurtle{
+=======
+public class SimpleTurtle implements FullTurtle, GUITurtle{
+	
+>>>>>>> aceb6269122a17a45acf68dedc80d4a874183994:src/parser/structure/SimpleTurtle.java
 	private static int id = 1;
 	int myID;
 	
@@ -29,7 +38,7 @@ public class Turtle implements GUITurtle{
 	
 	TurtleContainer myContainer;
 	
-	public Turtle(TurtleContainer container){
+	public SimpleTurtle(TurtleContainer container){
 		myContainer = container;
 		
 		myID = id++;
@@ -46,48 +55,46 @@ public class Turtle implements GUITurtle{
 		update();
 	}
 	
-	public void move(double distance){
+	public double move(Evaluable distance, UnaryOperator<Double> operator) throws ParserException{
 		//System.out.print("Moving turtle from " + myCoord);
-		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading).clone(), myPen.clone()));
+		double distanceMoved = distance.evaluate();
+		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(operator.apply(distanceMoved), myHeading).clone(), myPen.clone()));
 		//myCurrentPaths.stream().forEach(s -> System.out.println(s));
 		//System.out.println(" to " + myCoord);
 		update();
+		return distanceMoved;
 	}
 
-	public void show() {
-		visible = true;
-		update();
+	@Override
+	public boolean visible(){
+		return visible;
 	}
 	
-	public void hide() {
-		visible = false;
-		update();
-	}
-	
-	public void penUp() {
-		myPen.setDown(false);
-		update();
-	}
-	
-	public void penDown() {
-		myPen.setDown(true);
-		update();
-	}
-	
-	public boolean isPenDown() {
-		return myPen.isDown();
+	@Override
+	public boolean visible(boolean visible){
+		this.visible = visible;
+		return visible;
 	}
 
 	public double getHeading() {
 		return myHeading;
 	}
 
-	public double setPosition(double x, double y) {
-		double distance = myCoord.set(x, y);
+	@Override
+	public double setPosition(Evaluable x, Evaluable y) throws ParserException{
+		double distance = myCoord.set(x.evaluate(), y.evaluate());
 	        update();
 	        return distance;
 	}
 
+	@Override
+	public double goHome() {
+		double distance = myCoord.set(0, 0);
+		update();
+		return distance;
+	}
+	
+	@Override
 	public void clear() {
 		clear = true;
 		myCurrentPaths.clear();
@@ -96,36 +103,48 @@ public class Turtle implements GUITurtle{
 		update();
 	}
 
-	public void turn(double angle) {
-		myHeading = myHeading - angle;
+	@Override
+	public double turn(Evaluable angle, UnaryOperator<Double> operator) throws ParserException{
+		double degreesTurned = angle.evaluate();
+		myHeading = myHeading - operator.apply(degreesTurned);
 		update();
+		return degreesTurned;
 	}
 
-	public double setHeading(double angle) {
+	@Override
+	public double setHeading(Evaluable angle) throws ParserException {
+		double newAngle = angle.evaluate();
+		return setHeading(newAngle);
+	}
+
+	private double setHeading (double angle){
 		double diff = angle - myHeading;
 		myHeading = angle;
 		update();
 		return diff;
 	}
-
-	public boolean isShowing() {
-		return visible;
-	}
-
+	
+	@Override
 	public Coordinate getCoordinate() {
 		return myCoord;
 	}
 
+<<<<<<< HEAD:src/parser/structure/Turtle.java
 	public double setTowards(double x, double y) {
 		
 		double opposite = x - myCoord.getX();
 		double adjacent = y - myCoord.getY();
 		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
+=======
+	@Override
+	public double setTowards(Evaluable x, Evaluable y) throws ParserException{
+		double adjacent = x.evaluate() - myCoord.getX();
+		double opposite = y.evaluate() - myCoord.getY();
+>>>>>>> aceb6269122a17a45acf68dedc80d4a874183994:src/parser/structure/SimpleTurtle.java
 		double theta = Math.atan2(opposite, adjacent);
 		
 		return setHeading(Math.toDegrees(theta));
 	}
-
 
 	@Override
 	public List<SlogoPath> getPaths() {
@@ -187,7 +206,28 @@ public class Turtle implements GUITurtle{
 		update();
 	}
 	
-	private void update(){
+	protected void update(){
 		myContainer.update();
+	}
+
+	@Override
+	public boolean isShowing() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void penDown() {
+		myPen.setDown(true);
+	}
+
+	@Override
+	public void penUp() {
+		myPen.setDown(false);
+	}
+
+	@Override
+	public boolean isPenDown() {
+		return myPen.isDown();
 	}
 }

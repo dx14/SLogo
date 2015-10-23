@@ -9,7 +9,7 @@ import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.resource.ResourceParser;
 import parser.structure.CommandContainer;
-import parser.structure.Turtle;
+import parser.structure.SimpleTurtle;
 import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 
@@ -22,16 +22,16 @@ public class SlogoParser implements ParserInterface{
 	private ResourceParser myResourceParser;
 	private CommandInterpreter myCommandInterpreter;
 	
-//	public static void main(String args[]) throws ParserException{
-//		
-//		SlogoParser p = new SlogoParser();
-//		
-//		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
-//		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
-//		//p.loadCommand("examples/simple/forward_complex.logo");
-//		p.getVariableContainer().debug();
-//		p.getCommandContainer().debug();
-//	}
+	public static void main(String args[]) throws ParserException{
+		
+		SlogoParser p = new SlogoParser();
+		
+		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
+		p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+		//p.loadCommand("examples/simple/forward_complex.logo");
+		p.getVariableContainer().debug();
+		p.getCommandContainer().debug();
+	}
 	
 	public SlogoParser(){
 		myTurtleContainer = new TurtleContainer();
@@ -41,7 +41,7 @@ public class SlogoParser implements ParserInterface{
 		myCommandInterpreter = new CommandInterpreter(this, myResourceParser);
 	}
 	
-	public Turtle getCurrentTurtle(){
+	public SimpleTurtle getCurrentTurtle(){
 		return myTurtleContainer.getCurrentTurtle();
 	}
 	

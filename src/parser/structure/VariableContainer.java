@@ -13,9 +13,11 @@ import util.GUIVariable;
 public class VariableContainer extends Observable implements GUIVariableContainer{
 	
 	private Map<String, Variable> myVariables;
+	private VariableContainer myParent;
 	
 	public VariableContainer(){
 		myVariables = new HashMap<>();
+		myParent = null;
 	}
 	
 	public void setVariable(String name, double value){
@@ -38,6 +40,15 @@ public class VariableContainer extends Observable implements GUIVariableContaine
 			setVariable(name, 0.0);
 		}
 		return myVariables.get(name);
+	}
+	
+	private boolean contains(String name){
+		if(myParent == null){
+			return myVariables.containsKey(name);
+		}
+		else{
+			return (myVariables.containsKey(name))?true:myParent.contains(name);
+		}
 	}
 	
 	public Variable getVariable(Evaluable var){

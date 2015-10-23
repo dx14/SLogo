@@ -6,23 +6,27 @@ import java.util.Observable;
 
 public class TurtleContainer extends Observable implements GUITurtleContainer {
 
-	private List<Turtle> myTurtles;
+	private List<FullTurtle> myTurtles;
 
-	private Turtle myCurrentTurtle;
+	private FullTurtle myCurrentTurtle;
 	
 	public TurtleContainer(){
-		myTurtles = new ArrayList<Turtle>();
-		myCurrentTurtle = new Turtle(this);
+		myTurtles = new ArrayList<FullTurtle>();
+		myCurrentTurtle = new SimpleTurtle(this);
 		myTurtles.add(myCurrentTurtle);
 	}
 	
 	@Override
-	public Turtle getCurrentTurtle(){
+	public FullTurtle getCurrentTurtle(){
 		return myCurrentTurtle;
 	}
 	
 	public void debug(){
 		myTurtles.stream().forEach(t -> System.out.println(t));
+	}
+	
+	public void setCurrent(List<Integer> turtleIDs){
+		
 	}
 	
 	public void update(){
