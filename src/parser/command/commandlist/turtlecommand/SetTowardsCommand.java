@@ -8,7 +8,7 @@ public class SetTowardsCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		return myParser.getCurrentTurtle().setTowards(myTree.get(0).evaluate(), myTree.get(1).evaluate());
+		return myParser.getCurrentTurtle().setTowards(myTree.get(0), myTree.get(1));
 	}
 
 	@Override

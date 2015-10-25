@@ -40,6 +40,10 @@ public class VariableContainer extends Observable implements GUIVariableContaine
 		return myVariables.get(name);
 	}
 	
+	public boolean contains(String name){
+		return myVariables.containsKey(name);
+	}
+	
 	public Variable getVariable(Evaluable var){
 		return getVariable(var.getCommandElement().getRawText());
 	}

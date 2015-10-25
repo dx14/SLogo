@@ -26,7 +26,8 @@ public class MakeUserInstructionCommand extends Command{
 
 	@Override
 	public CommandList build() throws ParserException {
-		CommandList remainder = myTree.buildNext().buildNext().buildNext().getRemainder();
+		// only build two branches to start, so we can add it to the tree in case of recursion
+		CommandList remainder = myTree.buildNext().buildNext().getRemainder();
 		myVariables = new ArrayList<>();
 		
 		if(!(myTree.get(0).getCommand() instanceof UserDefinedCommand)){
@@ -37,16 +38,21 @@ public class MakeUserInstructionCommand extends Command{
 			throw new ParserException("Error: " + myCommand.getRawText() + " expected list of variables but got: " + myTree.get(1).getCommandElement().getRawText());
 		}
 		
+		myName = myTree.get(0).getCommandElement().getRawText();
+		parseVariables(myTree.get(1));
+		
+		UserCommandInstance myInstance = new UserCommandInstance(myName, myVariables, myCommands);
+		myParser.getCommandContainer().addCommand(myInstance);
+		
+		// build commands here so that recursive commands will operate
+		remainder = myTree.buildNext().getRemainder();
+		
 		if(!(myTree.get(2).getCommand() instanceof ListStartCommand)){
 			throw new ParserException("Error: " + myCommand.getRawText() + " expected list of commands but got: " + myTree.get(2).getCommandElement().getRawText());
 		}
 		
-		myName = myTree.get(0).getCommandElement().getRawText();
-		parseVariables(myTree.get(1));
 		myCommands = myTree.get(2);
-		
-		UserCommandInstance myInstance = new UserCommandInstance(myName, myVariables, myCommands);
-		myParser.getCommandContainer().addCommand(myInstance);
+		myInstance.setCommandTree(myCommands);
 		
 		return remainder;
 	}

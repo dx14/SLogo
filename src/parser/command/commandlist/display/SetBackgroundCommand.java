@@ -1,14 +1,14 @@
-package parser.command.commandlist.turtlecommand;
+package parser.command.commandlist.display;
 
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class SetHeadingCommand extends Command {
+public class SetBackgroundCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		return myParser.getCurrentTurtle().setHeading(myTree.get(0));
+		 return myParser.setBackgroundColor(myTree.get(0).evaluate());
 	}
 
 	@Override

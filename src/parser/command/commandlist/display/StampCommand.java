@@ -1,15 +1,14 @@
-package parser.command.commandlist.turtlecommand;
+package parser.command.commandlist.display;
 
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
 
-public class ShowTurtleCommand extends Command {
+public class StampCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		myParser.getCurrentTurtle().visible(true);
-		return 1;
+		 return myParser.getTurtleContainer().getCurrentTurtle().stamp();
 	}
 
 }

@@ -16,6 +16,9 @@ public interface GUIController {
 
 	public void changeGUI(int i);
 	
+	public GUITurtle getTurtle(int turtleId);
+	
+	public void outputCommandContainer(String filename) throws ParserException;
 	//public List<GUITurtle> getGUITurtles();
 	
 	

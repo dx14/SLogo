@@ -7,9 +7,7 @@ import parser.command.CommandList;
 public class ForwardCommand extends Command {
 	@Override
 	public double evaluate() throws ParserException {
-		double distance = myTree.get(0).evaluate();
-		myParser.getCurrentTurtle().move(distance);
-		return distance;
+		return myParser.getCurrentTurtle().move(myTree.get(0), (d) -> d);
 	}
 
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 
 import gui.GUIController;
 import gui.GUIInterface;
+import gui.GUITurtle;
 import gui.MainGUI;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -17,6 +18,8 @@ import parser.command.CommandList;
 import turtle.BackendTurtle;
 import util.SlogoPath;
 
+// TODO: backend controller interface
+
 public class SlogoController implements GUIController{
 	
 	private Stage myPrimaryStage;
@@ -26,18 +29,7 @@ public class SlogoController implements GUIController{
 	private GUIInterface myGUI; //
 	
 	private List<GUIInterface> myGUIs;
-	private List<GUIInterface> myParsers;
-	
-
-
-	public void moveTurtle(int turtleId, List<SlogoPath> paths){
-	}
-	
-	public BackendTurtle getTurtle(int turtleId){
-		return null;
-		
-		
-	}
+	private List<ParserInterface> myParsers;
 	
 	public SlogoController(Stage primaryStage){
         myGUIs = new ArrayList<GUIInterface>();
@@ -46,7 +38,7 @@ public class SlogoController implements GUIController{
 		
 		//initialize with one parser and one GUI
 		
-		myParser = new SlogoParser();
+		myParser = new SlogoParser(this);
 		root = new BorderPane();
 	    	
 	    	Scene scene = new Scene(root, 1000, 800);
@@ -70,13 +62,12 @@ public class SlogoController implements GUIController{
 	public void addGUI(){
 		
 		root.getChildren().clear(); 
-		
         MainGUI myGui = new MainGUI(root, myPrimaryStage, (GUIController)this);
         setGUI((GUIInterface)myGui);
         myGui.draw();
         
         myGUIs.add(myGui);
- 	   myGUIs.stream().forEachOrdered(s -> s.updateGUINumber());
+ 	   	myGUIs.stream().forEachOrdered(s -> s.updateGUINumber());
 
 	}
 	
@@ -122,5 +113,32 @@ public class SlogoController implements GUIController{
 		setGUI(myGUIs.get(i));
         myGUI.draw();
 
+	}
+	
+	
+	// TODO: implement these (front-end team)
+	public void clearStamps(){
+		
+	}
+	
+	public void setBackgroundColor(double index){
+		
+	}
+	
+	public void setPaletteColor(double index, double r, double g, double b){
+		
+	}
+	
+	
+	// TODO: implement this function
+	@Override
+	public GUITurtle getTurtle(int turtleId){
+		return null;
+	}
+	
+	// TODO: implement this function
+	@Override
+	public void outputCommandContainer(String filename) throws ParserException{
+		myParser.outputCommandContainer(filename);
 	}
 }

@@ -1,11 +1,14 @@
 package parser.command.commandlist;
 
 import parser.ParserException;
+
+import java.util.ArrayList;
 import java.util.List;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.Evaluable;
 import parser.structure.GUICommand;
+import parser.structure.LocalVariableContainer;
 
 public class UserCommandInstance extends Command implements Evaluable, GUICommand {
 
@@ -13,14 +16,21 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 	Evaluable myCommands;
 	private String myName;
 	
+	private LocalVariableContainer myVariableContainer;
+	
+	private List<UserCommandInstance> myChildren;
+	
 	public UserCommandInstance(String name, List<String> variables, Evaluable commands){
 		myName = name;
 		myVariables = variables;
 		myCommands = commands;
+		myChildren = new ArrayList<>();
 	}
 	
 	public UserCommandInstance clone(){
-		return new UserCommandInstance(myName, myVariables, myCommands);
+		UserCommandInstance copy = new UserCommandInstance(myName, myVariables, myCommands);
+		myChildren.add(copy);
+		return copy;
 	}
 	
 	public String getName(){
@@ -29,10 +39,18 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 	
 	@Override
 	public double evaluate() throws ParserException {
+		System.out.println("EVALUATING " + myName);
+		System.out.println(myCommands);
+		myVariableContainer = new LocalVariableContainer(myParser.getVariableContainer());
+		myParser.setVariableContainer(myVariableContainer);
 		for(int i = 0; i<myVariables.size(); i++){
 			myParser.getVariableContainer().setVariable(myVariables.get(i), myTree.get(i).evaluate());
 		}
-		return myCommands.evaluate();
+		System.out.println("COMMANDS " + myCommands.toString());
+		myVariableContainer.debug();
+		double result = myCommands.evaluate();
+		myParser.setVariableContainer(myVariableContainer.getParent());
+		return result;
 	}
 
 	@Override
@@ -58,6 +76,11 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 	@Override
 	public String getCommandText() {
 		return myCommands.toString(false);
+	}
+	
+	public void setCommandTree(Evaluable commands){
+		myCommands = commands;
+		myChildren.stream().forEach((u) -> u.setCommandTree(commands));
 	}
 
 }

@@ -1,193 +1,44 @@
 package parser.structure;
 
-import util.Coordinate;
-import util.SlogoPath;
-import util.StraightPath;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.function.UnaryOperator;
+
 import gui.GUITurtle;
+import parser.ParserException;
+import parser.command.Evaluable;
+import util.Coordinate;
 
-// TODO: modify GUI turtle -> change JavaFX specific commands to Strings
-
-public class Turtle implements GUITurtle{
-	private static int id = 1;
-	int myID;
+public interface Turtle extends GUITurtle {
 	
-	Coordinate myCoord;
-	double myHeading;
+	public int getID();
 	
-	Pen myPen;
-	boolean visible;
+	public double move(Evaluable distance, UnaryOperator<Double> operator) throws ParserException;
+
+	public boolean visible();
+	public boolean visible(boolean visible);
 	
-	boolean useImage;
-	String myImageOrShape;
+	public void penDown();
+	public void penUp();
+	public boolean isPenDown();
 	
-	List<SlogoPath> myHistory;
-	List<SlogoPath> myCurrentPaths;
-	boolean clear;
+	public Pen getPen();
+	public double setPenSize(Evaluable size) throws ParserException;
+	public double setPenColor(Evaluable color) throws ParserException;
 	
-	TurtleContainer myContainer;
+	public double setShape(Evaluable shape) throws ParserException;
+	public double getShape();
 	
-	public Turtle(TurtleContainer container){
-		myContainer = container;
-		
-		myID = id++;
-		
-		myCoord = new Coordinate(0,0);
-		myHeading = 0;
-		
-		myPen = new Pen();
-		myCurrentPaths = new ArrayList<SlogoPath>();
-		myHistory = new ArrayList<SlogoPath>();
-		
-		visible = true;
-		clear = false;
-		update();
-	}
+	public double getHeading();
+	public double setPosition(Evaluable x, Evaluable y) throws ParserException;
+	public double setHeading(Evaluable angle) throws ParserException;
+	public double setTowards(Evaluable x, Evaluable y) throws ParserException;
 	
-	public void move(double distance){
-		//System.out.print("Moving turtle from " + myCoord);
-		myCurrentPaths.add(new StraightPath(myCoord.clone(), myCoord.update(distance, myHeading).clone(), myPen.clone()));
-		//myCurrentPaths.stream().forEach(s -> System.out.println(s));
-		//System.out.println(" to " + myCoord);
-		update();
-	}
+	public void clear();
+	public double goHome();
 
-	public void show() {
-		visible = true;
-		update();
-	}
+	public double turn(Evaluable angle, UnaryOperator<Double> operator) throws ParserException;
+
+	public Coordinate getCoordinate();
 	
-	public void hide() {
-		visible = false;
-		update();
-	}
-	
-	public void penUp() {
-		myPen.setDown(false);
-		update();
-	}
-	
-	public void penDown() {
-		myPen.setDown(true);
-		update();
-	}
-	
-	public boolean isPenDown() {
-		return myPen.isDown();
-	}
+	public double stamp();
 
-	public double getHeading() {
-		return myHeading;
-	}
-
-	public double setPosition(double x, double y) {
-		double distance = myCoord.set(x, y);
-	        update();
-	        return distance;
-	}
-
-	public void clear() {
-		clear = true;
-		myCurrentPaths.clear();
-		myHistory.clear();
-		myCoord.set(0, 0);
-		update();
-	}
-
-	public void turn(double angle) {
-		myHeading = myHeading - angle;
-		update();
-	}
-
-	public double setHeading(double angle) {
-		double diff = angle - myHeading;
-		myHeading = angle;
-		update();
-		return diff;
-	}
-
-	public boolean isShowing() {
-		return visible;
-	}
-
-	public Coordinate getCoordinate() {
-		return myCoord;
-	}
-
-	public double setTowards(double x, double y) {
-		
-		double opposite = x - myCoord.getX();
-		double adjacent = y - myCoord.getY();
-		double hypotenuse = Math.sqrt( Math.pow(adjacent, 2) + Math.pow(opposite, 2) );
-		double theta = Math.atan2(opposite, adjacent);
-		
-		return setHeading(Math.toDegrees(theta));
-	}
-
-
-	@Override
-	public List<SlogoPath> getPaths() {
-		return Collections.unmodifiableList(myCurrentPaths);
-	}
-	
-	@Override
-	public List<SlogoPath> getHistory() {
-		return Collections.unmodifiableList(myHistory);
-	}
-
-	@Override
-	public Pen getPen() {
-		return myPen;
-	}
-	
-	@Override
-	public int getID(){
-		return myID;
-	}
-
-	@Override
-	public boolean isClear() {
-		return clear;
-	}
-
-	@Override
-	public void completeUpdate() {
-		myHistory.addAll(myCurrentPaths);
-		myCurrentPaths.clear();
-		clear = false;
-	}
-
-	@Override
-	public void setPenColor(String color) {
-		myPen.setColor(color);
-		update();
-	}
-
-	@Override
-	public boolean usingImage() {
-		return useImage;
-	}
-
-	@Override
-	public void setUsingImage(boolean useImage) {
-		this.useImage = useImage;
-		update();
-	}
-
-	@Override
-	public String getDisplayString() {
-		return myImageOrShape;
-	}
-
-	@Override
-	public void setDisplayString(String display) {
-		myImageOrShape = display;
-		update();
-	}
-	
-	private void update(){
-		myContainer.update();
-	}
 }

@@ -7,15 +7,15 @@ import util.LineStyle;
 public class Pen implements GUIPen{
 
 	private double myWidth;
-	private String myColor;
+	private double myColor;
 	private boolean down;
 	private LineStyle myStyle = LineStyle.SOLID;
 	
 	public Pen(){
-		this("#000000", 1, true);
+		this(0, 1, true);
 	}
 	
-	public Pen(String color, double width, boolean down){
+	public Pen(double color, double width, boolean down){
 		myColor = color;
 		myWidth = width;
 		this.down = down;
@@ -35,9 +35,13 @@ public class Pen implements GUIPen{
 		return myWidth;
 	}
 
+	public void setColor(double d) {
+		myColor = d;
+	}
+	
 	@Override
-	public void setColor(String color) {
-		myColor = color;
+	public void setColor(String d){
+		myColor = Double.parseDouble(d);
 	}
 	
 	public void setWidth(double width) throws ParserException {
@@ -51,6 +55,10 @@ public class Pen implements GUIPen{
 
 	@Override
 	public String getColor() {
+		return ((Double)myColor).toString();
+	}
+	
+	public double getColor(boolean useIndex){
 		return myColor;
 	}
 	

@@ -8,7 +8,7 @@ public class HideTurtleCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		myParser.getCurrentTurtle().hide();
+		myParser.getCurrentTurtle().visible(false);
 		return 0;
 	}
 }

@@ -8,7 +8,7 @@ public class PenDownCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		myParser.getCurrentTurtle().penDown();
+		myParser.getCurrentTurtle().getPen().setDown(true);
 		return 1;
 	}
 }
