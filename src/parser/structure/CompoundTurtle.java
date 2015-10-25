@@ -71,11 +71,6 @@ public class CompoundTurtle implements FullTurtle, GUITurtle{
 	}
 
 	@Override
-	public void setPenColor(Evaluable color) throws ParserException{
-		recursiveSet( (t) -> {t.setPenColor(color); return 0.0;});
-	}
-
-	@Override
 	public boolean isShowing() {
 		return myTurtles.get(currentTurtleID).isShowing();
 	}
@@ -189,6 +184,36 @@ public class CompoundTurtle implements FullTurtle, GUITurtle{
 	@Override
 	public void setPenColor(double color) {
 		myTurtles.get(currentTurtleID).setPenColor(color);
+	}
+
+	@Override
+	public boolean isStamped() {
+		return myTurtles.get(currentTurtleID).isStamped();
+	}
+
+	@Override
+	public double setPenSize(Evaluable size) throws ParserException {
+		return recursiveSet((t) -> t.setPenSize(size));
+	}
+
+	@Override
+	public double setPenColor(Evaluable color) throws ParserException {
+		return recursiveSet((t) -> t.setPenColor(color));
+	}
+
+	@Override
+	public double setShape(Evaluable shape) throws ParserException {
+		return recursiveSet((t) -> t.setShape(shape));
+	}
+
+	@Override
+	public double getShape() {
+		return myTurtles.get(currentTurtleID).getShape();
+	}
+
+	@Override
+	public double stamp() {
+		return recursiveSet((t) -> t.stamp(), false);
 	}
 
 }

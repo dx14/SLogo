@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Observer;
 
+import controller.SlogoController;
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.resource.ResourceParser;
@@ -23,6 +24,8 @@ public class SlogoParser implements ParserInterface{
 	private ResourceParser myResourceParser;
 	private CommandInterpreter myCommandInterpreter;
 	
+	private SlogoController myController;
+	
 	public static void main(String args[]) throws ParserException{
 		
 		SlogoParser p = new SlogoParser();
@@ -37,6 +40,11 @@ public class SlogoParser implements ParserInterface{
 	}
 	
 	public SlogoParser(){
+		this(null);
+	}
+	
+	public SlogoParser(SlogoController controller){
+		myController = controller;
 		myTurtleContainer = new TurtleContainer();
 		myVariableContainer = new VariableContainer();
 		myCommandContainer = new CommandContainer();
@@ -83,6 +91,21 @@ public class SlogoParser implements ParserInterface{
 	@Override
 	public void setLanguage(String language) throws ParserException {
 		myResourceParser.setLanguage(language);
+	}
+	
+	public double setBackgroundColor(double color){
+		myController.setBackgroundColor(color);
+		return color;
+	}
+	
+	public double setPaletteColor(double index, double r, double g, double b){
+		myController.setPaletteColor(((Double)index).intValue(), ((Double)r).intValue()%255, ((Double)g).intValue()%255, ((Double)b).intValue()%255);
+		return index;
+	}
+	
+	public double clearStamps(){
+		myController.clearStamps();
+		return 1;
 	}
 	
 	@Override

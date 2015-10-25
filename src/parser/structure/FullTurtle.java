@@ -21,10 +21,13 @@ public interface FullTurtle extends GUITurtle {
 	public boolean isPenDown();
 	
 	public Pen getPen();
-	public void setPenColor(Evaluable color) throws ParserException;
+	public double setPenSize(Evaluable size) throws ParserException;
+	public double setPenColor(Evaluable color) throws ParserException;
+	
+	public double setShape(Evaluable shape) throws ParserException;
+	public double getShape();
 	
 	public double getHeading();
-
 	public double setPosition(Evaluable x, Evaluable y) throws ParserException;
 	public double setHeading(Evaluable angle) throws ParserException;
 	public double setTowards(Evaluable x, Evaluable y) throws ParserException;
@@ -35,5 +38,7 @@ public interface FullTurtle extends GUITurtle {
 	public double turn(Evaluable angle, UnaryOperator<Double> operator) throws ParserException;
 
 	public Coordinate getCoordinate();
+	
+	public double stamp();
 
 }

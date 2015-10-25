@@ -8,7 +8,7 @@ public class GetPenColorCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		 return myParser.getCurrentTurtle().getPenColor();
+		 return myParser.getCurrentTurtle().getPen().getColor(true);
 	}
 
 }

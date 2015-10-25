@@ -25,11 +25,12 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 	boolean visible;
 	
 	boolean useImage;
-	String myImageOrShape;
+	double myShape;
 	
 	List<SlogoPath> myHistory;
 	List<SlogoPath> myCurrentPaths;
 	boolean clear;
+	boolean stamp;
 	
 	TurtleContainer myContainer;
 	
@@ -45,8 +46,11 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 		myCurrentPaths = new ArrayList<SlogoPath>();
 		myHistory = new ArrayList<SlogoPath>();
 		
+		myShape = 0;
+		
 		visible = true;
 		clear = false;
+		stamp = false;
 		update();
 	}
 	
@@ -162,12 +166,15 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 		myHistory.addAll(myCurrentPaths);
 		myCurrentPaths.clear();
 		clear = false;
+		stamp = false;
 	}
 
 	@Override
-	public void setPenColor(Evaluable color) throws ParserException{
-		myPen.setColor(color.evaluate());
+	public double setPenColor(Evaluable color) throws ParserException{
+		double newColor = color.evaluate();
+		myPen.setColor(newColor);
 		update();
+		return newColor;
 	}
 	
 	@Override
@@ -188,12 +195,12 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 
 	@Override
 	public String getDisplayString() {
-		return myImageOrShape;
+		return ((Double)myShape).toString();
 	}
 
 	@Override
 	public void setDisplayString(String display) {
-		myImageOrShape = display;
+		myShape = Double.parseDouble(display);
 		update();
 	}
 	
@@ -220,5 +227,37 @@ public class SimpleTurtle implements FullTurtle, GUITurtle{
 	@Override
 	public boolean isPenDown() {
 		return myPen.isDown();
+	}
+
+	@Override
+	public double setPenSize(Evaluable size) throws ParserException {
+		double newSize = size.evaluate();
+		myPen.setWidth(newSize);
+		return newSize;
+	}
+
+	@Override
+	public double setShape(Evaluable shape) throws ParserException {
+		double newShape = shape.evaluate();
+		myShape = newShape;
+		update();
+		return newShape;
+	}
+
+	@Override
+	public double getShape() {
+		return myShape;
+	}
+
+	@Override
+	public double stamp() {
+		stamp = true;
+		update();
+		return 0;
+	}
+	
+	@Override
+	public boolean isStamped() {
+		return stamp;
 	}
 }

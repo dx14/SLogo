@@ -8,7 +8,7 @@ public class SetPaletteCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		 return myParser.setPaletteColor(myTree.get(0), myTree.get(1), myTree.get(2), myTree.get(3));
+		 return myParser.setPaletteColor(myTree.get(0).evaluate(), myTree.get(1).evaluate(), myTree.get(2).evaluate(), myTree.get(3).evaluate());
 	}
 
 	@Override

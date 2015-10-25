@@ -8,7 +8,7 @@ public class SetBackgroundCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		 return myParser.setBackgroundColor(myTree.get(0));
+		 return myParser.setBackgroundColor(myTree.get(0).evaluate());
 	}
 
 	@Override

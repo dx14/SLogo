@@ -8,7 +8,7 @@ public class StampCommand extends Command {
 
 	@Override
 	public double evaluate() throws ParserException {
-		 return myParser.getCurrentTurtle().stamp();
+		 return myParser.getTurtleContainer().getCurrentTurtle().stamp();
 	}
 
 }
