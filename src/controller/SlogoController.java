@@ -5,6 +5,7 @@ import java.util.List;
 
 import gui.GUIController;
 import gui.GUIInterface;
+import gui.GUITurtle;
 import gui.MainGUI;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
@@ -26,17 +27,11 @@ public class SlogoController implements GUIController{
 	private GUIInterface myGUI; //
 	
 	private List<GUIInterface> myGUIs;
-	private List<GUIInterface> myParsers;
+	private List<ParserInterface> myParsers;
 	
-
-
-	public void moveTurtle(int turtleId, List<SlogoPath> paths){
-	}
-	
-	public BackendTurtle getTurtle(int turtleId){
+	// TODO: implement this funtion
+	public GUITurtle getTurtle(int turtleId){
 		return null;
-		
-		
 	}
 	
 	public SlogoController(Stage primaryStage){
