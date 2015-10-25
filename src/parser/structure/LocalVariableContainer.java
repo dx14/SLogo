@@ -1,12 +1,7 @@
 package parser.structure;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import parser.command.Evaluable;
-import util.GUIVariable;
 
 public class LocalVariableContainer extends VariableContainer {
 
@@ -46,5 +41,9 @@ public class LocalVariableContainer extends VariableContainer {
 		System.out.println("Local User Variable List:");
 		myVariables.keySet().stream().forEach(s -> System.out.printf("%13s = %f %n", s, myVariables.get(s).getValue()));
 		myParent.debug();
+	}
+	
+	public VariableContainer getParent(){
+		return myParent;
 	}
 }

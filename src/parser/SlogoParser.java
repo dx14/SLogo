@@ -110,6 +110,10 @@ public class SlogoParser implements ParserInterface{
 		return 1;
 	}
 	
+	public void setVariableContainer(VariableContainer container){
+		myVariableContainer = container;
+	}
+	
 	@Override
 	public void addVariableObserver(Observer o){
 	//	System.out.println(myVariableContainer == null);
