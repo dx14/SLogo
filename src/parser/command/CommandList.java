@@ -27,6 +27,10 @@ public class CommandList {
 		return myCommandList.get(index);
 	}
 	
+	public void insert(int index, CommandElement element){
+		myCommandList.add(index, element);
+	}
+	
 
 	public CommandList copy(){
 		return new CommandList(new ArrayList<>(myCommandList));

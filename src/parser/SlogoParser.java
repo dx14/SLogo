@@ -36,7 +36,7 @@ public class SlogoParser implements ParserInterface{
 		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
 		//p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
-		p.runCommand("make :iteration 5 to recurse [ ] [ fd :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse ] ] recurse");
+		p.runCommand("make :iteration 5 to recurse [ :testvar ] [ fd :iteration make :localvar :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse :iteration ] ] recurse :iteration");
 		//p.runCommand("make :i 5 to test [ ] [ make :i 4 ] test");
 		p.getVariableContainer().debug();
 		p.getCommandContainer().debug();
