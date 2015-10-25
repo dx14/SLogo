@@ -1,9 +1,19 @@
 package gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -26,6 +36,7 @@ import parser.ParserException;
 
 public class GUIToolbar extends GUIComponent {
 
+    private final String TURTLE_DISPLAY_FILE = "src/resources/guitext/TurtleDisplay.properties";
     private final String languagesFileDirectoryName;
     private SLogoLanguage myLanguage;
     private List<GUITurtle> myTurtles;
@@ -34,6 +45,8 @@ public class GUIToolbar extends GUIComponent {
     private Stage myStage;
     private GUIController myGUIController;
     private ComboBox<Integer> guiDropdown;
+    private Scanner scanner;
+    private PrintWriter out;
 
     private int numberOfGUIs;
     
@@ -191,10 +204,21 @@ public class GUIToolbar extends GUIComponent {
         File selectedFile = fileChooser.showOpenDialog(myStage);
         if (selectedFile!=null) {
             try {
-                Image image = new Image("file:"+selectedFile.getAbsolutePath());
+                scanner=new Scanner(new BufferedReader(new FileReader(TURTLE_DISPLAY_FILE)));
+                double indexes = 0;
+                while (scanner.hasNextLine()) {
+                    indexes++;
+                    scanner.nextLine();
+                }
+                scanner.close();
+                String newImage = ((Double)indexes).intValue()+" = "+selectedFile.getAbsolutePath();
+                out = new PrintWriter(new BufferedWriter(new FileWriter(TURTLE_DISPLAY_FILE, true)));
+                out.println(newImage);
+                out.flush();
+                out.close();
+                System.out.println(newImage);
                 for (GUITurtle t: myTurtles) {
-                    t.setUsingImage(true);
-                    t.setDisplayString(selectedFile.getAbsolutePath());
+                    t.setDisplayIndex(indexes);
                 }
                 myTurtleArea.drawAll();
             }

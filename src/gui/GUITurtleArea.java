@@ -3,6 +3,7 @@ package gui;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.ResourceBundle;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -32,6 +33,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private int yBackground=0;
     private double widthBackground=xCanvas;
     private double heightBackground=yCanvas;
+    private String imageFileDirectoryName;
 
     public GUITurtleArea (Stage mainStage, Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
         //TODO: figure out a better way to set the below values
@@ -45,6 +47,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         gc = canvas.getGraphicsContext2D();
         myTurtles=turtles;
         myPaths=paths;
+        setTextResources(ResourceBundle.getBundle("resources.guitext.TurtleDisplay"));
     }
 
     @Override
@@ -72,14 +75,21 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         }
     }
     private void drawTurtle (GUITurtle turtle) {
-        if (turtle.usingImage()) {
-            Image image = new Image("file:"+turtle.getDisplayString());
+        try {
+            Image image = new Image("file:"+getTextResources().getString(String.valueOf(turtle.getDisplayIndex())));
             drawTurtleImage(turtle, image);
         }
-        else { //default
-            Image image = new Image("http://el.media.mit.edu/logo-foundation/what_is_logo/graphics/image4.jpg");
-            drawTurtleImage(turtle, image);
-        }
+        catch (Exception e) {
+            try {
+                Image image = new Image(getTextResources().getString(String.valueOf(turtle.getDisplayIndex())));
+                drawTurtleImage(turtle, image);
+            }
+            catch (Exception ee) {
+                handleException(ee);
+                Image image = new Image("http://el.media.mit.edu/logo-foundation/what_is_logo/graphics/image4.jpg");
+                drawTurtleImage(turtle, image);
+            }
+        }            
     }
     private void drawTurtleImage(GUITurtle turtle, Image image) {
         gc.save();
@@ -106,12 +116,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         }
         drawAll();
         //myPaths.stream().forEach(s -> System.out.println(s.toString()));
-//        if (turtle.getPaths().size()>0){
-//            for(SlogoPath p : turtle.getPaths()){
-//                drawPath(p);
-//            }
-//        }
-        }
+        //        if (turtle.getPaths().size()>0){
+        //            for(SlogoPath p : turtle.getPaths()){
+        //                drawPath(p);
+        //            }
+        //        }
+    }
     private void checkPen(SlogoPath path) {
         if (path.getPen().isDown()) {
             myPaths.add(path);

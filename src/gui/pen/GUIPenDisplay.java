@@ -37,7 +37,9 @@ public abstract class GUIPenDisplay extends GUIPaletteTurtle{
                 setVariable();
             }
     });
+        if (getTurtles().size()>0) {
         redraw();
+        }
         whatToGive.setMaxHeight(30);
         VBox out = new VBox(whatToGive);
         return out;
@@ -50,6 +52,9 @@ public abstract class GUIPenDisplay extends GUIPaletteTurtle{
     public void update (Observable o, Object arg) {
         if(o instanceof TurtleContainer){
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
+            if (getTurtles().size()==0) {
+                getTurtles().add(0,null); //TODO: workaround
+            }
             getTurtles().set(0, turtle);
             redraw();
             turtle.completeUpdate();
