@@ -12,6 +12,8 @@ public interface ParserInterface {
 	
 	public void setLanguage(String language) throws ParserException;
 	
+	public void outputCommandContainer(String filename) throws ParserException;
+	
 	public void addVariableObserver(Observer o);
 	
 	public void addCommandObserver(Observer o);

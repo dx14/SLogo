@@ -24,7 +24,6 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	Pen myPen;
 	boolean visible;
 	
-	boolean useImage;
 	double myShape;
 	
 	List<SlogoPath> myHistory;
@@ -183,24 +182,13 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	}
 
 	@Override
-	public boolean usingImage() {
-		return useImage;
+	public double getDisplayIndex() {
+		return myShape;
 	}
 
 	@Override
-	public void setUsingImage(boolean useImage) {
-		this.useImage = useImage;
-		update();
-	}
-
-	@Override
-	public String getDisplayString() {
-		return ((Double)myShape).toString();
-	}
-
-	@Override
-	public void setDisplayString(String display) {
-		myShape = Double.parseDouble(display);
+	public void setDisplayIndex(double display) {
+		myShape = display;
 		update();
 	}
 	

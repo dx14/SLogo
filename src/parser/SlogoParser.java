@@ -15,8 +15,9 @@ import parser.structure.SimpleTurtle;
 import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 
+// TODO: add save file
 
-//TODO: implement controller functions
+// TODO: implement controller functions
 public class SlogoParser implements ParserInterface{
 
 	private TurtleContainer myTurtleContainer;
@@ -30,7 +31,7 @@ public class SlogoParser implements ParserInterface{
 	
 	public static void main(String args[]) throws ParserException{
 		
-		SlogoParser p = new SlogoParser();
+		SlogoParser p = new SlogoParser(null);
 		
 		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
 		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
@@ -41,10 +42,6 @@ public class SlogoParser implements ParserInterface{
 		p.getVariableContainer().debug();
 		p.getCommandContainer().debug();
 		p.getTurtleContainer().debug();
-	}
-	
-	public SlogoParser(){
-		this(null);
 	}
 	
 	public SlogoParser(SlogoController controller){
@@ -98,17 +95,17 @@ public class SlogoParser implements ParserInterface{
 	}
 	
 	public double setBackgroundColor(double color){
-		//myController.setBackgroundColor(color);
+		myController.setBackgroundColor(color);
 		return color;
 	}
 	
 	public double setPaletteColor(double index, double r, double g, double b){
-		//myController.setPaletteColor(((Double)index).intValue(), ((Double)r).intValue()%255, ((Double)g).intValue()%255, ((Double)b).intValue()%255);
+		myController.setPaletteColor(((Double)index).intValue(), ((Double)r).intValue()%255, ((Double)g).intValue()%255, ((Double)b).intValue()%255);
 		return index;
 	}
 	
 	public double clearStamps(){
-		//myController.clearStamps();
+		myController.clearStamps();
 		return 1;
 	}
 	
@@ -118,7 +115,6 @@ public class SlogoParser implements ParserInterface{
 	
 	@Override
 	public void addVariableObserver(Observer o){
-	//	System.out.println(myVariableContainer == null);
 		myVariableContainer.addObserver(o);
 	}
 	
