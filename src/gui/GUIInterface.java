@@ -10,4 +10,6 @@ public interface GUIInterface {
 	public UpdatableHistory showHistory();
 	public Observer showUserDefinedCommands();
 	public Observer showTurtlePen();
+	public void draw();
+	public Object updateGUINumber();
 }

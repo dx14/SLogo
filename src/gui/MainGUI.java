@@ -120,4 +120,11 @@ public class MainGUI implements GUIInterface {
 	                return (Observer) myGUIPen;
 	        }
 
+		@Override
+		public Object updateGUINumber() {
+			myGUIToolbar.updateGUINumber();
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 }

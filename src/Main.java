@@ -39,26 +39,10 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 	
-		SlogoController controller = new SlogoController();
+		SlogoController controller = new SlogoController(primaryStage);
 		
-	        BorderPane root = new BorderPane();
-	    	//run(root);
-
-
-	    	
-
-	    	
-	    	Scene scene = new Scene(root, 1000, 800);
-
-	    	//1366x768
-	    	
-	        primaryStage.setTitle("Hello World!");
-	        primaryStage.setScene(scene);
-	        primaryStage.show(); 
-	               
-	        MainGUI myGui = new MainGUI(root, primaryStage, (GUIController)controller);
-	        controller.setGUI((GUIInterface)myGui);
-	        myGui.draw();
+		
+	       
 		
 		
 		
