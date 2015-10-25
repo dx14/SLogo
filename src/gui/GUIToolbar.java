@@ -33,7 +33,10 @@ public class GUIToolbar extends GUIComponent {
     private GUITurtleAreaRedrawInterface myTurtleArea;
     private Stage myStage;
     private GUIController myGUIController;
+    private ComboBox<Integer> guiDropdown;
 
+    private int numberOfGUIs;
+    
     public GUIToolbar (Stage stage, List<GUITurtle> turtles, GUITurtleAreaRedrawInterface turtleArea, GUIController GUIController) {
         myTurtles=turtles;
         myTurtleArea=turtleArea;
@@ -55,6 +58,10 @@ public class GUIToolbar extends GUIComponent {
         toolBar.getItems().add(imageFileLoader());
         toolBar.getItems().add(new Separator());
         toolBar.getItems().add(helpButton());
+        toolBar.getItems().add(new Separator());
+        toolBar.getItems().add(addGUIButton());
+        toolBar.getItems().add(new Separator());
+        toolBar.getItems().add(guiDropDown());
     }
     
     /**
@@ -67,6 +74,10 @@ public class GUIToolbar extends GUIComponent {
 
     @Override
     public Node returnNodeToDraw () {
+    	
+    	toolBar.getItems().clear();
+    	initializeToolBar();
+    	
         return toolBar;
     }
 
@@ -75,11 +86,46 @@ public class GUIToolbar extends GUIComponent {
         help.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
+            	
                 displayHelp();
             }
         });
         return help;
     }
+    
+    private Button addGUIButton(){
+    	 Button help = new Button(getTextResources().getString("addGUI"));
+         help.setOnAction(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle (ActionEvent event) {
+             	
+            	 	myGUIController.addGUI();
+             }
+         });
+         return help;
+    }
+    
+    
+    private ComboBox<Integer> guiDropDown(){
+    	
+        guiDropdown = new ComboBox<Integer>();
+        
+        for(int i = 0; i < myGUIController.getNumberOfGUIs(); i++){
+        	guiDropdown.getItems().add(i + 1);
+        }
+        
+        guiDropdown.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle (ActionEvent event) {
+            	myGUIController.changeGUI(guiDropdown.getValue() - 1); //to align indexing
+            }
+        });
+    	
+		return guiDropdown;
+    	
+    	
+    }
+    
     private void displayHelp() {
         Popup popup = new Popup();
         popup.setX(myStage.getX());
@@ -157,4 +203,13 @@ public class GUIToolbar extends GUIComponent {
             }
         }
     }
+
+	public void updateGUINumber() {
+		
+		guiDropdown.getItems().clear();
+		  for(int i = 0; i < myGUIController.getNumberOfGUIs(); i++){
+	        	guiDropdown.getItems().add(i + 1);
+	        }
+		
+	}
 }
