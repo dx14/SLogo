@@ -7,7 +7,7 @@ import parser.ParserException;
 import parser.command.Evaluable;
 import util.Coordinate;
 
-public interface FullTurtle extends GUITurtle {
+public interface Turtle extends GUITurtle {
 	
 	public int getID();
 	

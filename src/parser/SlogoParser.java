@@ -10,7 +10,7 @@ import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.resource.ResourceParser;
 import parser.structure.CommandContainer;
-import parser.structure.FullTurtle;
+import parser.structure.Turtle;
 import parser.structure.SimpleTurtle;
 import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
@@ -35,7 +35,9 @@ public class SlogoParser implements ParserInterface{
 		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
 		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
 		//p.loadCommand("examples/simple/forward_complex.logo");
-		p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
+		//p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
+		p.runCommand("make :iteration 5 to recurse [ ] [ fd :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse ] ] recurse");
+		//p.runCommand("make :i 5 to test [ ] [ make :i 4 ] test");
 		p.getVariableContainer().debug();
 		p.getCommandContainer().debug();
 		p.getTurtleContainer().debug();
@@ -54,7 +56,7 @@ public class SlogoParser implements ParserInterface{
 		myCommandInterpreter = new CommandInterpreter(this, myResourceParser);
 	}
 	
-	public FullTurtle getCurrentTurtle(){
+	public Turtle getCurrentTurtle(){
 		return myTurtleContainer.getCurrentTurtle();
 	}
 	

@@ -12,13 +12,13 @@ import parser.command.Evaluable;
 import util.Coordinate;
 import util.SlogoPath;
 
-public class CompoundTurtle implements FullTurtle, GUITurtle{
+public class CompoundTurtle implements Turtle, GUITurtle{
 
-	private Map<Integer, FullTurtle> myTurtles;
+	private Map<Integer, Turtle> myTurtles;
 	private int currentTurtleID;
 	private TurtleContainer myContainer;
 	
-	public CompoundTurtle(TurtleContainer container, List<FullTurtle> turtles){
+	public CompoundTurtle(TurtleContainer container, List<Turtle> turtles){
 		myContainer = container;
 		myTurtles = turtles.stream()
 				.collect(Collectors.toMap((t) -> t.getID(), Function.identity()));
@@ -26,9 +26,9 @@ public class CompoundTurtle implements FullTurtle, GUITurtle{
 		System.out.println("CURRENT TURTLE ID: " + currentTurtleID);
 	}
 	
-	private double recursiveSet(TurtleFunction<FullTurtle, Double> operation) throws ParserException{
+	private double recursiveSet(TurtleFunction<Turtle, Double> operation) throws ParserException{
 		double result = 0;
-		for(FullTurtle t : myTurtles.values()){
+		for(Turtle t : myTurtles.values()){
 			currentTurtleID = t.getID();
 			result = operation.apply(t);
 			System.out.println("Applying operation to turtle " + currentTurtleID);
@@ -37,7 +37,7 @@ public class CompoundTurtle implements FullTurtle, GUITurtle{
 		return result;
 	}
 	
-	private double recursiveSet(TurtleFunction<FullTurtle, Double> operation, boolean exceptionsOn){
+	private double recursiveSet(TurtleFunction<Turtle, Double> operation, boolean exceptionsOn){
 		double result = 0;
 		try{
 			result = recursiveSet(operation);

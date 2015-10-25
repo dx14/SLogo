@@ -12,19 +12,19 @@ import parser.command.Evaluable;
 
 public class TurtleContainer extends Observable implements GUITurtleContainer {
 
-	private List<FullTurtle> myTurtles;
+	private List<Turtle> myTurtles;
 
-	private List<FullTurtle> myTurtleExecList;
+	private List<Turtle> myTurtleExecList;
 	
 	public TurtleContainer(){
-		myTurtles = new ArrayList<FullTurtle>();
-		myTurtleExecList = new ArrayList<FullTurtle>();
+		myTurtles = new ArrayList<Turtle>();
+		myTurtleExecList = new ArrayList<Turtle>();
 		initializeTurtle(1);
 		myTurtleExecList.add(getTurtle(1));
 	}
 	
 	@Override
-	public FullTurtle getCurrentTurtle(){
+	public Turtle getCurrentTurtle(){
 		return myTurtleExecList.get(myTurtleExecList.size()-1);
 	}
 	
@@ -65,7 +65,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 		}
 	}
 	
-	private boolean test(FullTurtle t, Evaluable condition) {
+	private boolean test(Turtle t, Evaluable condition) {
 		addToExecList(Arrays.asList(t.getID()));
 		boolean result = false;
 		try {
@@ -78,7 +78,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 		return result;
 	}
 	
-	private FullTurtle getTurtle(int id){
+	private Turtle getTurtle(int id){
 		return myTurtles.get(id - 1);
 	}
 	

@@ -13,6 +13,19 @@ public class LocalVariableContainer extends VariableContainer {
 		myParent = parent;
 	}
 	
+	public void setVariable(String name, double value){
+		if(myParent.contains(name)){
+			myParent.setVariable(name, value);
+		}
+		else{
+			if(!myVariables.containsKey(name)){
+				
+				myVariables.put(name, new Variable(name, value));
+			} 
+			myVariables.get(name).setValue(value);
+		}
+	}
+	
 	public double getVariableValue(String name){
 		if(!myVariables.containsKey(name)){
 			if(myParent.contains(name)){

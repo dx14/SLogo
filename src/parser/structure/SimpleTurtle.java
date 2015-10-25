@@ -13,7 +13,7 @@ import parser.ParserException;
 import parser.command.Evaluable;
 
 
-public class SimpleTurtle implements FullTurtle, GUITurtle{
+public class SimpleTurtle implements Turtle, GUITurtle{
 
 	private static int id = 1;
 	int myID;
