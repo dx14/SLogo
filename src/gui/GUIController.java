@@ -10,6 +10,12 @@ public interface GUIController {
 	
 	public void changeLanguage (String commang) throws ParserException;
 	
+	public void addGUI();
+	
+	public int getNumberOfGUIs();
+
+	public void changeGUI(int i);
+	
 	//public List<GUITurtle> getGUITurtles();
 	
 	

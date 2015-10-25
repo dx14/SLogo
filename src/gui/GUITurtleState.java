@@ -24,10 +24,10 @@ public class GUITurtleState extends GUIComponent implements Observer{
     
     @Override
     public void update (Observable o, Object arg) {
-        ListView<String> whatToGive = new ListView<String>(whatToShow);
+  /*      ListView<String> whatToGive = new ListView<String>(whatToShow);
         whatToGive.setPlaceholder(new Label("No variables In List")); // move to
 
-        return whatToGive;
+        return whatToGive; */
     }
 
     @Override
