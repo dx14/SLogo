@@ -15,6 +15,8 @@ import parser.structure.SimpleTurtle;
 import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 
+
+//TODO: implement controller functions
 public class SlogoParser implements ParserInterface{
 
 	private TurtleContainer myTurtleContainer;
@@ -94,17 +96,17 @@ public class SlogoParser implements ParserInterface{
 	}
 	
 	public double setBackgroundColor(double color){
-		myController.setBackgroundColor(color);
+		//myController.setBackgroundColor(color);
 		return color;
 	}
 	
 	public double setPaletteColor(double index, double r, double g, double b){
-		myController.setPaletteColor(((Double)index).intValue(), ((Double)r).intValue()%255, ((Double)g).intValue()%255, ((Double)b).intValue()%255);
+		//myController.setPaletteColor(((Double)index).intValue(), ((Double)r).intValue()%255, ((Double)g).intValue()%255, ((Double)b).intValue()%255);
 		return index;
 	}
 	
 	public double clearStamps(){
-		myController.clearStamps();
+		//myController.clearStamps();
 		return 1;
 	}
 	
