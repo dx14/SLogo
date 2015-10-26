@@ -1,6 +1,8 @@
 package parser;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Observer;
@@ -39,11 +41,13 @@ public class SlogoParser implements ParserInterface{
 //		//p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
 //		p.runCommand("make :iteration 5 to recurse [ :testvar ] [ fd :iteration make :localvar :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse :iteration ] ] recurse :iteration");
 //		//p.runCommand("make :i 5 to test [ ] [ make :i 4 ] test");
+//		//p.runCommand("make :test ( sum 10 20 30 40 100 [ 30 40 50 ] )");
 //		p.getVariableContainer().debug();
 //		p.getCommandContainer().debug();
 //		p.getTurtleContainer().debug();
+//		p.outputCommandContainer("test");
 //	}
-	
+//	
 	public SlogoParser(SlogoController controller){
 		myController = controller;
 		myTurtleContainer = new TurtleContainer();
@@ -95,7 +99,7 @@ public class SlogoParser implements ParserInterface{
 	}
 	
 	public double setBackgroundColor(double color){
-		myController.setBackgroundColor(color);
+		myController.setBackgroundColor(((Double)color).intValue());
 		return color;
 	}
 	
@@ -138,7 +142,14 @@ public class SlogoParser implements ParserInterface{
 
 	@Override
 	public void outputCommandContainer(String filename) throws ParserException {
-		// TODO Auto-generated method stub
-		
+		try{
+			PrintWriter writer = new PrintWriter("userfiles/" + filename + ".logo", "UTF-8");
+			myCommandContainer.output(writer);
+			writer.close();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			throw new ParserException("Error opening file: " + filename);
+		}
 	}
 }

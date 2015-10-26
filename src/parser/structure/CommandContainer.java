@@ -1,5 +1,6 @@
 package parser.structure;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,7 +35,6 @@ public class CommandContainer extends Observable implements GUICommandContainer{
 	
 	public void addCommand(UserCommandInstance c){
 		myCommands.put(c.getName(), c);
-		update();
 	}
 	
 	public void debug(){
@@ -43,11 +43,16 @@ public class CommandContainer extends Observable implements GUICommandContainer{
 			.forEach(s -> System.out.printf("%13s -> %n\t%s%n%n", s, myCommands.get(s)));
 	}
 	
-	private void update(){
+	public void update(){
 		setChanged();
 		notifyObservers();
 	}
 
+	public void output(PrintWriter writer){
+		myCommands.keySet().stream()
+			.forEach(s -> writer.println(myCommands.get(s).toString(false)));
+	}
+	
 	@Override
 	public List<GUICommand> getCommands() {
 		final ArrayList<GUICommand> userCommandList = new ArrayList<>();

@@ -3,9 +3,9 @@ package parser.command.commandlist.control;
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
-import parser.command.CommandTreeNode;
 import parser.command.commandlist.syntax.ListStartCommand;
 import parser.command.commandlist.syntax.VariableCommand;
+import parser.command.tree.CommandTreeNode;
 import parser.structure.Variable;
 
 public class DoTimesCommand extends Command {
