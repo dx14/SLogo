@@ -2,6 +2,7 @@ package parser.command;
 
 import parser.ParserException;
 import parser.SlogoParser;
+import parser.command.tree.CommandTreeNode;
 
 public interface Evaluable {
 	

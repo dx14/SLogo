@@ -67,6 +67,10 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 	public String toString(){
 		return myCommands.toString();
 	}
+	
+	public String toString(boolean useDelimeter){
+		return "to " + myName + " [ " + myVariables.stream().reduce("", (s1, s2) -> s1 + " " + s2) + " ] \n" + myCommands.toString(useDelimeter);
+	}
 
 	@Override
 	public String getInputString() {

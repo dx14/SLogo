@@ -1,7 +1,7 @@
 package parser;
 
 import parser.command.CommandElement;
-import parser.command.CommandTreeNode;
+import parser.command.tree.CommandTreeNode;
 
 public class Validator {
 

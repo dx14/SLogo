@@ -6,12 +6,12 @@ import java.util.List;
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
-import parser.command.CommandTreeNode;
 import parser.command.Evaluable;
 import parser.command.commandlist.UserCommandInstance;
 import parser.command.commandlist.syntax.ListStartCommand;
 import parser.command.commandlist.syntax.UserDefinedCommand;
 import parser.command.commandlist.syntax.VariableCommand;
+import parser.command.tree.CommandTreeNode;
 
 public class MakeUserInstructionCommand extends Command{
 

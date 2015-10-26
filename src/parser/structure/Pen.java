@@ -35,6 +35,7 @@ public class Pen implements GUIPen{
 		return myWidth;
 	}
 
+	@Override
 	public void setColor(int d) {
 		myColor = d;
 	}

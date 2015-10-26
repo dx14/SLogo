@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import parser.ParserException;
 import parser.SlogoParser;
+import parser.command.tree.CommandTreeNode;
 import parser.resource.ResourceParser;
 
 public class CommandInterpreter {
