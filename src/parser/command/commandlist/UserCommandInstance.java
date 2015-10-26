@@ -75,6 +75,7 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 
 	@Override
 	public String getCommandText() {
+		System.out.println(myCommands);
 		return myCommands.toString(false);
 	}
 	
