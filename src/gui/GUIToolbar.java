@@ -1,9 +1,19 @@
 package gui;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -34,6 +44,8 @@ public class GUIToolbar extends GUIComponent {
     private Stage myStage;
     private GUIController myGUIController;
     private ComboBox<Integer> guiDropdown;
+    private Scanner scanner;
+    private PrintWriter out;
 
     private int numberOfGUIs;
     
@@ -191,10 +203,10 @@ public class GUIToolbar extends GUIComponent {
         File selectedFile = fileChooser.showOpenDialog(myStage);
         if (selectedFile!=null) {
             try {
-                Image image = new Image("file:"+selectedFile.getAbsolutePath());
+                myTurtleArea.getImages().add(selectedFile.getAbsolutePath());
                 for (GUITurtle t: myTurtles) {
-                    //t.setUsingImage(true);
-                    //t.setDisplayString(selectedFile.getAbsolutePath());
+
+                    t.setDisplayIndex(myTurtleArea.getImages().size()-1);
                 }
                 myTurtleArea.drawAll();
             }

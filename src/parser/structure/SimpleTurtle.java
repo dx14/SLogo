@@ -1,6 +1,7 @@
 package parser.structure;
 
 import util.Coordinate;
+import util.LineStyle;
 import util.SlogoPath;
 import util.StraightPath;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	Pen myPen;
 	boolean visible;
 	
-	double myShape;
+	int myShape;
 	
 	List<SlogoPath> myHistory;
 	List<SlogoPath> myCurrentPaths;
@@ -171,23 +172,23 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	@Override
 	public double setPenColor(Evaluable color) throws ParserException{
 		double newColor = color.evaluate();
-		myPen.setColor(newColor);
+		myPen.setColor(((Double)newColor).intValue());
 		update();
 		return newColor;
 	}
 	
 	@Override
-	public void setPenColor(double color) {
+	public void setPenColor(int color) {
 		myPen.setColor(color);
 	}
 
 	@Override
-	public double getDisplayIndex() {
+	public int getDisplayIndex() {
 		return myShape;
 	}
 
 	@Override
-	public void setDisplayIndex(double display) {
+	public void setDisplayIndex(int display) {
 		myShape = display;
 		update();
 	}
@@ -198,8 +199,8 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 
 	@Override
 	public boolean isShowing() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("UPDATING FRONT END " + visible);
+		return visible;
 	}
 
 	@Override
@@ -227,7 +228,7 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	@Override
 	public double setShape(Evaluable shape) throws ParserException {
 		double newShape = shape.evaluate();
-		myShape = newShape;
+		myShape = ((Double)newShape).intValue();
 		update();
 		return newShape;
 	}
@@ -247,5 +248,15 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	@Override
 	public boolean isStamped() {
 		return stamp;
+	}
+
+	@Override
+	public void setPenStyle(LineStyle style) {
+		myPen.setStyle(style);
+	}
+
+	@Override
+	public LineStyle getPenStyle() {
+		return myPen.getStyle();
 	}
 }
