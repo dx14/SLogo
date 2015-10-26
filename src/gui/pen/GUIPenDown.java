@@ -7,9 +7,11 @@ import gui.GUITurtleAreaBGInterface;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
-public class GUIPenDown extends GUIPenDisplay{
+
+public class GUIPenDown extends GUIPenDisplay {
     String up = "Pen Up";
     String down = "Pen Down";
+
     public GUIPenDown (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
         super(turtles, guiTurtleArea);
     }
@@ -28,10 +30,9 @@ public class GUIPenDown extends GUIPenDisplay{
         ButtonType downButtonType = new ButtonType(down);
         dialog.getDialogPane().getButtonTypes().add(downButtonType);
 
-        // Traditional way to get the response value.
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent()) {
-            try{
+            try {
                 if (result.get().getText().equals(down)) {
                     getTurtles().get(0).penDown();
                 }
@@ -40,10 +41,10 @@ public class GUIPenDown extends GUIPenDisplay{
                 }
                 redraw();
             }
-            catch (Exception e){
+            catch (Exception e) {
                 handleException(e);
             }
-        }        
+        }
     }
 
 }

@@ -23,7 +23,6 @@ public class GUIPenWidth extends GUIPenDisplay {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setContentText("Enter new pen width:");
 
-        // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()) {
             try {

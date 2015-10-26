@@ -43,6 +43,7 @@ public class GUIPaletteTurtle extends GUIPalette implements Observer {
 
     @Override
     public void update (Observable o, Object arg) {
+        System.out.println("work");
         if (o instanceof TurtleContainer) {
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
             myTurtles.set(0, turtle);

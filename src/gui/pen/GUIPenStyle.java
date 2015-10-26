@@ -8,7 +8,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import util.LineStyle;
 
-public class GUIPenStyle extends GUIPenDisplay{
+
+public class GUIPenStyle extends GUIPenDisplay {
     public GUIPenStyle (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
         super(turtles, guiTurtleArea);
     }
@@ -18,19 +19,20 @@ public class GUIPenStyle extends GUIPenDisplay{
         getWhatToShow().clear();
         getWhatToShow().add("Pen Style: " + getTurtles().get(0).getPenStyle().toString());
     }
+
+    @Override
     void setVariable () {
         Dialog<ButtonType> dialog = new Dialog<ButtonType>();
-        for (LineStyle s: LineStyle.values()) {
+        for (LineStyle s : LineStyle.values()) {
             dialog.getDialogPane().getButtonTypes().add(new ButtonType(s.toString()));
         }
 
-        // Traditional way to get the response value.
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent()) {
-            try{
+            try {
                 getTurtles().get(0).setPenStyle(LineStyle.valueOf(result.get().getText()));
             }
-            catch (Exception e){
+            catch (Exception e) {
                 handleException(e);
             }
         }
