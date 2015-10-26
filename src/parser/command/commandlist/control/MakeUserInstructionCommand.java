@@ -6,12 +6,12 @@ import java.util.List;
 import parser.ParserException;
 import parser.command.Command;
 import parser.command.CommandList;
-import parser.command.CommandTreeNode;
 import parser.command.Evaluable;
 import parser.command.commandlist.UserCommandInstance;
 import parser.command.commandlist.syntax.ListStartCommand;
 import parser.command.commandlist.syntax.UserDefinedCommand;
 import parser.command.commandlist.syntax.VariableCommand;
+import parser.command.tree.CommandTreeNode;
 
 public class MakeUserInstructionCommand extends Command{
 
@@ -43,7 +43,7 @@ public class MakeUserInstructionCommand extends Command{
 		
 		UserCommandInstance myInstance = new UserCommandInstance(myName, myVariables, myCommands);
 		myParser.getCommandContainer().addCommand(myInstance);
-		
+
 		// build commands here so that recursive commands will operate
 		remainder = myTree.buildNext().getRemainder();
 		
@@ -53,6 +53,8 @@ public class MakeUserInstructionCommand extends Command{
 		
 		myCommands = myTree.get(2);
 		myInstance.setCommandTree(myCommands);
+		
+		myParser.getCommandContainer().update();
 		
 		return remainder;
 	}

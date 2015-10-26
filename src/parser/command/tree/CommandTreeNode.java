@@ -1,10 +1,14 @@
-package parser.command;
+package parser.command.tree;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import parser.ParserException;
 import parser.SlogoParser;
+import parser.command.CommandElement;
+import parser.command.CommandInterpreter;
+import parser.command.CommandList;
+import parser.command.Evaluable;
 
 public class CommandTreeNode implements Evaluable {
 
@@ -45,6 +49,10 @@ public class CommandTreeNode implements Evaluable {
 	
 	public CommandTreeNode buildNext() throws ParserException{
 		CommandTreeNode newBranch = new CommandTreeNode(mySource, myParser, this);
+		return buildNext(newBranch);
+	}
+	
+	public CommandTreeNode buildNext(CommandTreeNode newBranch) throws ParserException{
 		myBranches.add(newBranch);
 		mySource = newBranch.build();
 		return this;
@@ -100,5 +108,23 @@ public class CommandTreeNode implements Evaluable {
 	
 	public int getNumBranches(){
 		return myBranches.size();
+	}
+	
+	// USED BY CHILD CLASSES
+	
+	protected SlogoParser getParser(){
+		return myParser;
+	}
+	
+	protected CommandList getSource(){
+		return mySource;
+	}
+	
+	protected List<CommandTreeNode> getBranches(){
+		return myBranches;
+	}
+	
+	protected void setSource(CommandList source){
+		mySource = source;
 	}
 }

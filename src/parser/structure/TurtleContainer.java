@@ -78,7 +78,7 @@ public class TurtleContainer extends Observable implements GUITurtleContainer {
 		return result;
 	}
 	
-	private Turtle getTurtle(int id){
+	public Turtle getTurtle(int id){
 		return myTurtles.get(id - 1);
 	}
 	

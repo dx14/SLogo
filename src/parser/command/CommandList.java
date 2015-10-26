@@ -9,7 +9,6 @@ import parser.ParserException;
 public class CommandList {
 
 	private List<CommandElement> myCommandList;
-	String rawString;
 	
 	public CommandList(List<CommandElement> commandList){
 		myCommandList = commandList;
@@ -31,7 +30,6 @@ public class CommandList {
 		myCommandList.add(index, element);
 	}
 	
-
 	public CommandList copy(){
 		return new CommandList(new ArrayList<>(myCommandList));
 	}
