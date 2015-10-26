@@ -36,7 +36,6 @@ import parser.ParserException;
 
 public class GUIToolbar extends GUIComponent {
 
-    private final String TURTLE_DISPLAY_FILE = "src/resources/guitext/TurtleDisplay.properties";
     private final String languagesFileDirectoryName;
     private SLogoLanguage myLanguage;
     private List<GUITurtle> myTurtles;
@@ -204,21 +203,9 @@ public class GUIToolbar extends GUIComponent {
         File selectedFile = fileChooser.showOpenDialog(myStage);
         if (selectedFile!=null) {
             try {
-                scanner=new Scanner(new BufferedReader(new FileReader(TURTLE_DISPLAY_FILE)));
-                int indexes = 0;
-                while (scanner.hasNextLine()) {
-                    indexes++;
-                    scanner.nextLine();
-                }
-                scanner.close();
-                String newImage = indexes +" = "+selectedFile.getAbsolutePath();
-                out = new PrintWriter(new BufferedWriter(new FileWriter(TURTLE_DISPLAY_FILE, true)));
-                out.println(newImage);
-                out.flush();
-                out.close();
-                System.out.println(newImage);
+                myTurtleArea.getImages().add(selectedFile.getAbsolutePath());
                 for (GUITurtle t: myTurtles) {
-                    t.setDisplayIndex(indexes);
+                    t.setDisplayIndex(myTurtleArea.getImages().size()-1);
                 }
                 myTurtleArea.drawAll();
             }
