@@ -199,8 +199,8 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 
 	@Override
 	public boolean isShowing() {
-		// TODO Auto-generated method stub
-		return false;
+		System.out.println("UPDATING FRONT END " + visible);
+		return visible;
 	}
 
 	@Override
