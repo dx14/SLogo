@@ -13,7 +13,9 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -29,7 +31,7 @@ import util.GUIVariable;
 import util.SlogoPath;
 
 
-public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaImagesInterface, Observer {
+public class GUITurtleArea extends GUIComponent implements GUITurtleAreaImagesInterface, GUITurtleAreaPaletteInterface, Observer {
 
     private static final double DASH_LENGTH = 10;
     private List<GUITurtle> myTurtles;
@@ -45,6 +47,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private double heightBackground=yCanvas;
     private String imageFileDirectoryName;
     private ObservableList<String> images;
+    private ObservableMap<Integer,String> palette;
     private int numResourceImages;
     private final String TURTLE_DISPLAY_FILE = "src/resources/guitext/TurtleDisplay.properties";
 
@@ -80,7 +83,8 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         images = FXCollections.observableArrayList(imagePaths);
         System.out.println(imagePaths);
         numResourceImages=images.size();
-
+        palette = FXCollections.observableHashMap();
+        palette.put(0, "0xff00ffff");
     }
 
     @Override
@@ -169,7 +173,8 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),-1*path.getStart().getY());
         Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),-1*path.getEnd().getY());
         // TODO: replace this with a function to look up the color index
-        gc.setStroke(Color.valueOf("#000000"));
+        System.out.println(path.getPen().getColor());
+        gc.setStroke(Color.valueOf(palette.get(path.getPen().getColor())));
         gc.setLineWidth(path.getPen().getWidth());
         switch (path.getPen().getStyle()) {
             case DOTTED:
@@ -256,4 +261,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
 	    images.addListener(l);
 	}
 
+    @Override
+    public Map<Integer, String> getColorMap () {
+        return palette;
+    }
+    @Override
+    public void addPaletteListener(MapChangeListener l) {
+        palette.addListener(l);
+    }
 }

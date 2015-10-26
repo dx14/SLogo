@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Optional;
-import gui.GUIPaletteTurtle;
 import gui.GUITurtle;
 import gui.GUITurtleAreaBGInterface;
 import javafx.collections.FXCollections;

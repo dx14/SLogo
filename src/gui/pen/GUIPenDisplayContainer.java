@@ -3,7 +3,6 @@ package gui.pen;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-import gui.GUIPaletteTurtle;
 import gui.GUITurtle;
 import gui.GUITurtleAreaBGInterface;
 import javafx.scene.Node;

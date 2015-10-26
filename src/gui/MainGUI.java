@@ -43,6 +43,7 @@ public class MainGUI implements GUIInterface {
 	private GUIVariableList myGUIVariables;
 	private GUIUserDefinedCommands myUserDefinedCommands;
 	private GUIImageDisplay myGUIImageDisplay;
+	private GUIPaletteDisplay myGUIPaletteDisplay;
 
 	private GUIParameter myParams;
 
@@ -80,7 +81,7 @@ public class MainGUI implements GUIInterface {
 		myGUIHistory = new GUIHistory((GUIConsoleTextEditable) myGUIConsole);
 		allGUIComponents.add(myGUIHistory);
 		myGUIPaletteBackground = new GUIPaletteBackground(myParams.getDefaultBackground(),
-				(GUITurtleAreaBGInterface) myGUITurtleArea);
+				(GUITurtleAreaPaletteInterface) myGUITurtleArea);
 		myGUIPen = new GUIPenDisplayContainer(turtleList, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea,
@@ -89,6 +90,7 @@ public class MainGUI implements GUIInterface {
 		// allGUIComponents.add(myGUIVariables);
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
 		myGUIImageDisplay = new GUIImageDisplay((GUITurtleAreaImagesInterface)myGUITurtleArea);
+		myGUIPaletteDisplay = new GUIPaletteDisplay((GUITurtleAreaPaletteInterface)myGUITurtleArea);
 	}
 
 	public void draw() {
@@ -102,7 +104,8 @@ public class MainGUI implements GUIInterface {
 				myGUIPaletteBackground.returnNodeToDraw(), new Label("Pen Color:"), // resource
 																					// file
 				myGUIPen.returnNodeToDraw(),
-				myGUIImageDisplay.returnNodeToDraw()));
+				myGUIImageDisplay.returnNodeToDraw(),
+				myGUIPaletteDisplay.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());

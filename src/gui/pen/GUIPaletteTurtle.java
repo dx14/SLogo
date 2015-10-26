@@ -1,8 +1,13 @@
-package gui;
+package gui.pen;
 
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Observable;
 import java.util.Observer;
+import gui.GUIPalette;
+import gui.GUITurtle;
+import gui.GUITurtleAreaBGInterface;
+import gui.GUITurtleAreaPaletteInterface;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -16,11 +21,10 @@ import parser.structure.TurtleContainer;
 public class GUIPaletteTurtle extends GUIPalette implements Observer {
 
     private List<GUITurtle> myTurtles;
-    private GUITurtleAreaBGInterface myGuiTurtleArea;
 
     public GUIPaletteTurtle (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
+        super(guiTurtleArea);
         myTurtles = turtles;
-        myGuiTurtleArea = guiTurtleArea;
     }
 
     @Override
@@ -30,28 +34,16 @@ public class GUIPaletteTurtle extends GUIPalette implements Observer {
         colorPicker.setOnAction(new EventHandler<ActionEvent>() {
             public void handle (ActionEvent t) {
                 Color penColor = (colorPicker.getValue());
+                int i=addToPalette(penColor);
                 for (GUITurtle turtle : myTurtles) {
                     //TODO: which turtle to set color? Right now it sets all turtles. Also does it change the color or already drawn paths?
-                    turtle.setPenColor(toColorIndex(penColor));
+                    turtle.setPenColor(i);
                 }
             }
         });
         return colorPicker;
     }
-    
-    // TODO: implement this to return actual index
-    
-    private static int toColorIndex (Color color) {
-    	return 0;
-    }
 
-    private static String toRGBCode( Color color )
-    {
-        return String.format( "#%02X%02X%02X",
-            (int)( color.getRed() * 255 ),
-            (int)( color.getGreen() * 255 ),
-            (int)( color.getBlue() * 255 ) );
-    }
 
     @Override
     public void update (Observable o, Object arg) {

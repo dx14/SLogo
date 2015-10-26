@@ -9,14 +9,11 @@ import javafx.scene.paint.Color;
 
 public class GUIPaletteBackground extends GUIPalette{
 
-	private Color backgroundColor;
-	private GUITurtleAreaBGInterface myGuiTurtleArea;
-	
+	private Color backgroundColor;	
 	
 	public GUIPaletteBackground(Color col, GUITurtleAreaBGInterface guiTurtleArea){
+	    super(guiTurtleArea);
 		backgroundColor = col;
-		myGuiTurtleArea = guiTurtleArea;
-		
 	}
 
 	@Override
@@ -29,7 +26,8 @@ public class GUIPaletteBackground extends GUIPalette{
 	        colorPicker.setOnAction(new EventHandler<ActionEvent>() {
 	            public void handle(ActionEvent t) {
 	                backgroundColor = (colorPicker.getValue());
-	                myGuiTurtleArea.updateBackgroundColor(backgroundColor);
+	                addToPalette(backgroundColor);
+	                getMyGuiTurtleArea().updateBackgroundColor(backgroundColor);
 	                //let GUITurtleArea know
 	                //System.out.println(backgroundColor);
 	            }
