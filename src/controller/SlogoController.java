@@ -31,6 +31,7 @@ public class SlogoController implements GUIController{
 	private List<GUIInterface> myGUIs;
 	private List<ParserInterface> myParsers;
 	
+	
 	public SlogoController(Stage primaryStage){
         myGUIs = new ArrayList<GUIInterface>();
 

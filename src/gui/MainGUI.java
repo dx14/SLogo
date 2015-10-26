@@ -1,5 +1,6 @@
 package gui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -41,8 +42,22 @@ public class MainGUI implements GUIInterface {
 	private GUIConsole myGUIConsole;
 	private GUIVariableList myGUIVariables;
 	private GUIUserDefinedCommands myUserDefinedCommands;
+	
+	private GUIParameter myParams;
 
 	public MainGUI(BorderPane root, Stage stage, GUIController controller) {
+		
+		try {
+			XMLParser a = new XMLParser(new File("resources.XML"));
+		} catch (GUIException e) {
+			e.printStackTrace();
+		}
+		
+	
+		
+		
+		
+		
 		myGUIController = controller;
 		// turtleList=myGUIController.getGUITurtles();
 		turtleList = new ArrayList<GUITurtle>();
@@ -66,18 +81,8 @@ public class MainGUI implements GUIInterface {
 		myGUIVariables = new GUIVariableList(myGUIController);
 		// allGUIComponents.add(myGUIVariables);
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
-		// temporary test seeds
-//		Turtle t = new Turtle();
-//		t.setXOnGrid(0);
-//		t.setYOnGrid(0);
-//		turtleList.add(t);
-//		t = new Turtle();
-//		t.setXOnGrid(-100);
-//		t.setYOnGrid(150);
-//		t.setAngle(160);
-//		turtleList.add(t);
-//		SlogoPath p = new StraightPath(new Coordinate(150, -100), new Coordinate(0, 0));
-//		pathList.add(p);
+
+		
 	}
 
 	public void draw() {
