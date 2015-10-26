@@ -16,7 +16,7 @@ public class GUIPenStyle extends GUIPenDisplay{
     @Override
     void redraw () {
         getWhatToShow().clear();
-        getWhatToShow().add("Pen Style: " + getTurtles().get(0).getPen().getStyle().toString());
+        getWhatToShow().add("Pen Style: " + getTurtles().get(0).getPenStyle().toString());
     }
     void setVariable () {
         Dialog<ButtonType> dialog = new Dialog<ButtonType>();
@@ -28,7 +28,7 @@ public class GUIPenStyle extends GUIPenDisplay{
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent()) {
             try{
-                getTurtles().get(0).getPen().setStyle(LineStyle.valueOf(result.get().getText()));
+                getTurtles().get(0).setPenStyle(LineStyle.valueOf(result.get().getText()));
                 System.out.println(result.get().getText());
             }
             catch (Exception e){

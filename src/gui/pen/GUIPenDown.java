@@ -38,6 +38,7 @@ public class GUIPenDown extends GUIPenDisplay{
                 else if (result.get().getText().equals(up)) {
                     getTurtles().get(0).penUp();
                 }
+                redraw();
             }
             catch (Exception e){
                 handleException(e);
