@@ -43,7 +43,7 @@ public class MakeUserInstructionCommand extends Command{
 		
 		UserCommandInstance myInstance = new UserCommandInstance(myName, myVariables, myCommands);
 		myParser.getCommandContainer().addCommand(myInstance);
-		
+
 		// build commands here so that recursive commands will operate
 		remainder = myTree.buildNext().getRemainder();
 		
@@ -53,6 +53,8 @@ public class MakeUserInstructionCommand extends Command{
 		
 		myCommands = myTree.get(2);
 		myInstance.setCommandTree(myCommands);
+		
+		myParser.getCommandContainer().update();
 		
 		return remainder;
 	}

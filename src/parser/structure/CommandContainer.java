@@ -34,7 +34,6 @@ public class CommandContainer extends Observable implements GUICommandContainer{
 	
 	public void addCommand(UserCommandInstance c){
 		myCommands.put(c.getName(), c);
-		update();
 	}
 	
 	public void debug(){
@@ -43,7 +42,7 @@ public class CommandContainer extends Observable implements GUICommandContainer{
 			.forEach(s -> System.out.printf("%13s -> %n\t%s%n%n", s, myCommands.get(s)));
 	}
 	
-	private void update(){
+	public void update(){
 		setChanged();
 		notifyObservers();
 	}
