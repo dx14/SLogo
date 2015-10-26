@@ -45,8 +45,9 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private int numResourceImages;
     private final String TURTLE_DISPLAY_FILE = "src/resources/guitext/TurtleDisplay.properties";
 
-
-    public GUITurtleArea (Stage mainStage, Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths) {
+    
+    
+    public GUITurtleArea (Stage mainStage, Color turtleAreaColor, List<GUITurtle> turtles, List<SlogoPath> paths, List<String> imagePaths) {
         //TODO: figure out a better way to set the below values
         xCanvas=mainStage.getScene().getWidth()-300;
         widthBackground=xCanvas;
@@ -59,7 +60,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         myTurtles=turtles;
         myPaths=paths;
         setTextResources(ResourceBundle.getBundle("resources.guitext.TurtleDisplay"));
-        images = new ArrayList<String>();
+    /*    images = new ArrayList<String>();
         Scanner scanner = null;
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(TURTLE_DISPLAY_FILE)));
@@ -71,7 +72,12 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         catch (FileNotFoundException e) {
             handleException(e);
         }
-        scanner.close();
+        scanner.close();*/
+        
+        images = imagePaths;
+        System.out.println(imagePaths);
+        numResourceImages=images.size();
+
     }
 
     @Override
@@ -229,4 +235,20 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     public int getImagesSize () {
         return images.size();
     }
+
+	@Override
+	public String getBGColor() {
+		// TODO Auto-generated method stub
+		return backgroundColor.toString();
+	}
+
+	@Override
+	public String getImagePathsAsAString() {
+		// TODO Auto-generated method stub
+		return images.stream().reduce((t, u) -> t + "," + u).
+		            get();
+	}
+	
+	
+
 }

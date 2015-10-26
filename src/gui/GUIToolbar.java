@@ -33,194 +33,257 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import parser.ParserException;
 
-
 public class GUIToolbar extends GUIComponent {
 
-    private final String languagesFileDirectoryName;
-    private SLogoLanguage myLanguage;
-    private List<GUITurtle> myTurtles;
-    private ToolBar toolBar;
-    private GUITurtleAreaRedrawInterface myTurtleArea;
-    private Stage myStage;
-    private GUIController myGUIController;
-    private ComboBox<Integer> guiDropdown;
-    private Scanner scanner;
-    private PrintWriter out;
+	private final String languagesFileDirectoryName;
+	private SLogoLanguage myLanguage;
+	private List<GUITurtle> myTurtles;
+	private ToolBar toolBar;
+	private GUITurtleAreaRedrawInterface myTurtleArea;
+	private Stage myStage;
+	private GUIController myGUIController;
+	private ComboBox<Integer> guiDropdown;
+	private Scanner scanner;
+	private PrintWriter out;
+	
+	
+	private String defaultLanguage;
+	private String currentLanguage;
+	
+	private int numberOfGUIs;
 
-    private int numberOfGUIs;
-    
-    public GUIToolbar (Stage stage, List<GUITurtle> turtles, GUITurtleAreaRedrawInterface turtleArea, GUIController GUIController) {
-        myTurtles=turtles;
-        myTurtleArea=turtleArea;
-        myStage=stage;
-        myGUIController=GUIController;
-        setTextResources(ResourceBundle.getBundle("resources.guitext.Toolbar"));
-        languagesFileDirectoryName = getTextResources().getString("languagesdirectory");
-        
-        toolBar = new ToolBar();
-        initializeToolBar();
-    }
-    
-    /**
-     * Override this if you want to create a new toolbar setup
-     */
-    protected void initializeToolBar() {
-        toolBar.getItems().add(languageDropDown());
-        toolBar.getItems().add(new Separator());
-        toolBar.getItems().add(imageFileLoader());
-        toolBar.getItems().add(new Separator());
-        toolBar.getItems().add(helpButton());
-        toolBar.getItems().add(new Separator());
-        toolBar.getItems().add(addGUIButton());
-        toolBar.getItems().add(new Separator());
-        toolBar.getItems().add(guiDropDown());
-    }
-    
-    /**
-     * Adds a control element (such as a Button, must inherit from Node) to the end of the toolbar
-     * @param the Control element
-     */
-    public void addControlElement(Control c) {
-        toolBar.getItems().add(c);
-    }
+	public GUIToolbar(Stage stage, List<GUITurtle> turtles, GUITurtleAreaRedrawInterface turtleArea,
+			GUIController GUIController, String defLang) {
+		myTurtles = turtles;
+		myTurtleArea = turtleArea;
+		myStage = stage;
+		myGUIController = GUIController;
+		setTextResources(ResourceBundle.getBundle("resources.guitext.Toolbar"));
+		languagesFileDirectoryName = getTextResources().getString("languagesdirectory");
 
-    @Override
-    public Node returnNodeToDraw () {
-    	
-    	toolBar.getItems().clear();
-    	initializeToolBar();
-    	
-        return toolBar;
-    }
+		defaultLanguage = defLang;
+		toolBar = new ToolBar();
+		initializeToolBar();
+	}
 
-    private Button helpButton () {
-        Button help = new Button(getTextResources().getString("help"));
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-            	
-                displayHelp();
-            }
-        });
-        return help;
-    }
-    
-    private Button addGUIButton(){
-    	 Button help = new Button(getTextResources().getString("addGUI"));
-         help.setOnAction(new EventHandler<ActionEvent>() {
-             @Override
-             public void handle (ActionEvent event) {
-             	
-            	 	myGUIController.addGUI();
-             }
-         });
-         return help;
-    }
-    
-    
-    private ComboBox<Integer> guiDropDown(){
-    	
-        guiDropdown = new ComboBox<Integer>();
-        
-        for(int i = 0; i < myGUIController.getNumberOfGUIs(); i++){
-        	guiDropdown.getItems().add(i + 1);
-        }
-        
-        guiDropdown.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-            	myGUIController.changeGUI(guiDropdown.getValue() - 1); //to align indexing
-            }
-        });
-    	
+	/**
+	 * Override this if you want to create a new toolbar setup
+	 */
+	protected void initializeToolBar() {
+		toolBar.getItems().add(languageDropDown());
+		toolBar.getItems().add(new Separator());
+		toolBar.getItems().add(imageFileLoader());
+		toolBar.getItems().add(new Separator());
+		toolBar.getItems().add(helpButton());
+		toolBar.getItems().add(new Separator());
+		toolBar.getItems().add(addGUIButton());
+		toolBar.getItems().add(new Separator());
+		toolBar.getItems().add(guiDropDown());
+		toolBar.getItems().add(new Separator());
+		toolBar.getItems().add(saveXML());
+	}
+
+	private Node saveXML() {
+		// TODO Auto-generated method stub
+		Button help = new Button(getTextResources().getString("savexml"));
+		help.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				try {
+					XMLParser a = new XMLParser(new File("src/resources/default.xml"));
+					
+					String imageList = getImageList();
+					String backgroundColor = getBGColor();
+					
+					a.saveToXML("src/resources/default.xml", backgroundColor,
+							imageList, currentLanguage); 
+					
+					
+				} catch (GUIException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+			//	String output = myParams.getImageList().stream().reduce((t, u) -> t + "," + u).
+	         //   get();
+				
+				
+			}
+
+			
+		});
+		return help;
+		
+			}
+	
+	private String getBGColor() {
+		
+		return myTurtleArea.getBGColor();
+		// TODO Auto-generated method stub
+	}
+
+	private String getImageList() {
+		// TODO Auto-generated method stub
+		return myTurtleArea.getImagePathsAsAString();
+	}
+
+	/**
+	 * Adds a control element (such as a Button, must inherit from Node) to the
+	 * end of the toolbar
+	 * 
+	 * @param the
+	 *            Control element
+	 */
+	public void addControlElement(Control c) {
+		toolBar.getItems().add(c);
+	}
+
+	@Override
+	public Node returnNodeToDraw() {
+
+		toolBar.getItems().clear();
+		initializeToolBar();
+
+		return toolBar;
+	}
+
+	private Button helpButton() {
+		Button help = new Button(getTextResources().getString("help"));
+		help.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				displayHelp();
+			}
+		});
+		return help;
+	}
+
+	private Button addGUIButton() {
+		Button help = new Button(getTextResources().getString("addGUI"));
+		help.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+
+				myGUIController.addGUI();
+			}
+		});
+		return help;
+	}
+
+	private ComboBox<Integer> guiDropDown() {
+
+		guiDropdown = new ComboBox<Integer>();
+
+		for (int i = 0; i < myGUIController.getNumberOfGUIs(); i++) {
+			guiDropdown.getItems().add(i + 1);
+		}
+
+		guiDropdown.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				myGUIController.changeGUI(guiDropdown.getValue() - 1); // to
+																		// align
+																		// indexing
+			}
+		});
+
 		return guiDropdown;
-    	
-    	
-    }
-    
-    private void displayHelp() {
-        Popup popup = new Popup();
-        popup.setX(myStage.getX());
-        popup.setY(myStage.getY());
-        Button hide = new Button(getTextResources().getString("hide"));
-        hide.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                popup.hide();
-            }
-        });
-        WebView html = new WebView();
-        html.getEngine().load(getTextResources().getString("helpurl"));
-        popup.getContent().addAll(html);
-        popup.getContent().addAll(hide);
-        popup.show(myStage);
-    }
+	}
 
-    private ComboBox<String> languageDropDown () {
-        ComboBox<String> languageDropdown = new ComboBox<String>();
-        File folder = new File("./" + languagesFileDirectoryName);
-        File[] listOfFiles = folder.listFiles();
-        ArrayList<String> languagesList = new ArrayList<String>();
-        for (File file : listOfFiles) {
-            if (!file.getName().equals(getTextResources().getString("ignoredsyntaxfile"))) {
-                languagesList.add(file.getName().split(getTextResources().getString("regexforlanguagename"))[0]);
-            }
-        }
-        languageDropdown.getItems().addAll(languagesList);
-        languageDropdown.setValue(getTextResources().getString("defaultlanguage"));
-        languageDropdown.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                updateLanguage(languageDropdown.getValue());
-            }
-        });
-        return languageDropdown;
-    }
-    private void updateLanguage (String language) {
-        try {
-            myGUIController.changeLanguage(language);
-        }
-        catch (ParserException e) {
-            handleException(e);
-        }
-    }
+	private void displayHelp() {
+		Popup popup = new Popup();
+		popup.setX(myStage.getX());
+		popup.setY(myStage.getY());
+		Button hide = new Button(getTextResources().getString("hide"));
+		hide.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				popup.hide();
+			}
+		});
+		WebView html = new WebView();
+		html.getEngine().load(getTextResources().getString("helpurl"));
+		popup.getContent().addAll(html);
+		popup.getContent().addAll(hide);
+		popup.show(myStage);
+	}
 
-    private Button imageFileLoader () {
-        Button openImage = new Button(getTextResources().getString("openimage"));
-        openImage.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                updateTurtleImage();
-            }
-        });
-        return openImage;
-    }
-    private void updateTurtleImage () {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(getTextResources().getString("imagebrowsertitle"));
-        fileChooser.getExtensionFilters().addAll(new ExtensionFilter(getTextResources().getString("imageextensionlabel"), 
-                                                                     getTextResources().getString("imageextensions").split(getTextResources().getString("imageextensiondelimiter"))));
-        File selectedFile = fileChooser.showOpenDialog(myStage);
-        if (selectedFile!=null) {
-            try {
-                myTurtleArea.addImage(selectedFile.getAbsolutePath());
-                for (GUITurtle t: myTurtles) {
-                    t.setDisplayIndex(myTurtleArea.getImagesSize());
-                }
-                myTurtleArea.drawAll();
-            }
-            catch (Exception e) {
-                handleException(e);
-            }
-        }
-    }
+	private ComboBox<String> languageDropDown() {
+		ComboBox<String> languageDropdown = new ComboBox<String>();
+		File folder = new File("./" + languagesFileDirectoryName);
+		File[] listOfFiles = folder.listFiles();
+		ArrayList<String> languagesList = new ArrayList<String>();
+		for (File file : listOfFiles) {
+			if (!file.getName().equals(getTextResources().getString("ignoredsyntaxfile"))) {
+				languagesList.add(file.getName().split(getTextResources().getString("regexforlanguagename"))[0]);
+			}
+		}
+		languageDropdown.getItems().addAll(languagesList);
+
+		languageDropdown.setValue(defaultLanguage);
+		updateLanguage(defaultLanguage);
+		
+		currentLanguage = defaultLanguage;
+		
+		languageDropdown.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				updateLanguage(languageDropdown.getValue());
+				currentLanguage = languageDropdown.getValue();
+			}
+		});
+		return languageDropdown;
+	}
+
+	private void updateLanguage(String language) {
+		try {
+			myGUIController.changeLanguage(language);
+		} catch (ParserException e) {
+			handleException(e);
+		}
+	}
+
+	private Button imageFileLoader() {
+		Button openImage = new Button(getTextResources().getString("openimage"));
+		openImage.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				updateTurtleImage();
+			}
+		});
+		return openImage;
+	}
+
+	private void updateTurtleImage() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle(getTextResources().getString("imagebrowsertitle"));
+		fileChooser.getExtensionFilters()
+				.addAll(new ExtensionFilter(getTextResources().getString("imageextensionlabel"), getTextResources()
+						.getString("imageextensions").split(getTextResources().getString("imageextensiondelimiter"))));
+		File selectedFile = fileChooser.showOpenDialog(myStage);
+		if (selectedFile != null) {
+			try {
+				myTurtleArea.addImage(selectedFile.getAbsolutePath());
+				for (GUITurtle t : myTurtles) {
+
+					t.setDisplayIndex(myTurtleArea.getImagesSize() - 1);
+				}
+				myTurtleArea.drawAll();
+			} catch (Exception e) {
+				handleException(e);
+			}
+		}
+	}
 
 	public void updateGUINumber() {
-		
+
 		guiDropdown.getItems().clear();
-		  for(int i = 0; i < myGUIController.getNumberOfGUIs(); i++){
-	        	guiDropdown.getItems().add(i + 1);
-	        }
-		
+		for (int i = 0; i < myGUIController.getNumberOfGUIs(); i++) {
+			guiDropdown.getItems().add(i + 1);
+		}
+
 	}
 }
