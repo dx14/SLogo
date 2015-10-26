@@ -1,8 +1,9 @@
 package gui;
 
 import java.util.List;
+import javafx.scene.image.Image;
 
-public interface GUITurtleAreaRedrawInterface {
+public interface GUITurtleAreaRedrawInterface{
 
     public void drawAll ();
     public void addImage(String image);

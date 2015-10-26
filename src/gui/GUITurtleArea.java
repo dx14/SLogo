@@ -11,6 +11,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -26,7 +29,7 @@ import util.GUIVariable;
 import util.SlogoPath;
 
 
-public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaRedrawInterface, Observer {
+public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterface, GUITurtleAreaImagesInterface, Observer {
 
     private static final double DASH_LENGTH = 10;
     private List<GUITurtle> myTurtles;
@@ -41,7 +44,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private double widthBackground=xCanvas;
     private double heightBackground=yCanvas;
     private String imageFileDirectoryName;
-    private List<String> images;
+    private ObservableList<String> images;
     private int numResourceImages;
     private final String TURTLE_DISPLAY_FILE = "src/resources/guitext/TurtleDisplay.properties";
 
@@ -74,7 +77,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         }
         scanner.close();*/
         
-        images = imagePaths;
+        images = FXCollections.observableArrayList(imagePaths);
         System.out.println(imagePaths);
         numResourceImages=images.size();
 
@@ -107,14 +110,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private void drawTurtle (GUITurtle turtle) {
     	System.out.println("DRAWING TURTLE");
         try {
-            Image image;
-            if (images.get(turtle.getDisplayIndex()).startsWith("C:")) {
-                image = new Image("file:"+images.get(turtle.getDisplayIndex()));
-            }
-            else {
-                image = new Image(images.get(turtle.getDisplayIndex()));
-                System.out.println(String.valueOf(turtle.getDisplayIndex()));
-            }
+            Image image = parseImage(turtle.getDisplayIndex());
             drawTurtleImage(turtle, image);
         }
         catch (Exception e) {
@@ -189,7 +185,6 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
                 gc.setLineCap(StrokeLineCap.SQUARE);
                 break;
         }
-        System.out.println(path.getPen().getStyle().toString());
         gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
     }
     @Override
@@ -247,7 +242,18 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
 		return images.stream().reduce((t, u) -> t + "," + u).
 		            get();
 	}
-	
-	
+	@Override
+	public Image parseImage(int index) {
+        if (images.get(index).startsWith("C:")) {
+            return new Image("file:"+images.get(index));
+        }
+        else {
+            return new Image(images.get(index));
+        }
+	}
+	@Override
+	public void addImagesListener(ListChangeListener l) {
+	    images.addListener(l);
+	}
 
 }

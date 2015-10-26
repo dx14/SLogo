@@ -42,6 +42,7 @@ public class MainGUI implements GUIInterface {
 	private GUIConsole myGUIConsole;
 	private GUIVariableList myGUIVariables;
 	private GUIUserDefinedCommands myUserDefinedCommands;
+	private GUIImageDisplay myGUIImageDisplay;
 
 	private GUIParameter myParams;
 
@@ -87,7 +88,7 @@ public class MainGUI implements GUIInterface {
 		myGUIVariables = new GUIVariableList(myGUIController);
 		// allGUIComponents.add(myGUIVariables);
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
-
+		myGUIImageDisplay = new GUIImageDisplay((GUITurtleAreaImagesInterface)myGUITurtleArea);
 	}
 
 	public void draw() {
@@ -100,7 +101,8 @@ public class MainGUI implements GUIInterface {
 																	// file
 				myGUIPaletteBackground.returnNodeToDraw(), new Label("Pen Color:"), // resource
 																					// file
-				myGUIPen.returnNodeToDraw()));
+				myGUIPen.returnNodeToDraw(),
+				myGUIImageDisplay.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());

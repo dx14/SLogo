@@ -29,7 +29,6 @@ public class GUIPenStyle extends GUIPenDisplay{
         if (result.isPresent()) {
             try{
                 getTurtles().get(0).setPenStyle(LineStyle.valueOf(result.get().getText()));
-                System.out.println(result.get().getText());
             }
             catch (Exception e){
                 handleException(e);

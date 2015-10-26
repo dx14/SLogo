@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <simulation>
     <color>0x99cc99ff</color>
-    <imageList>http://www.iconshock.com/img_jpg/SUPERVISTA/animals/jpg/32/turtle_icon.jpg</imageList>
+    <imageList>http://www.iconshock.com/img_jpg/SUPERVISTA/animals/jpg/32/turtle_icon.jpg,https://sites.google.com/a/sahuarita.net/ms-fitch---sps-computer-lab/_/rsrc/1319138969445/home/kinderlogo/Turtle.bmp</imageList>
     <commandLanguage>English</commandLanguage>
 </simulation>
