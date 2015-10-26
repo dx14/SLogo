@@ -178,16 +178,16 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaImagesIn
         gc.setLineWidth(path.getPen().getWidth());
         switch (path.getPen().getStyle()) {
             case DOTTED:
-                gc.setLineDashes(1,path.getPen().getWidth());
+                gc.setLineDashes(1,path.getPen().getWidth()*2);
                 gc.setLineCap(StrokeLineCap.ROUND);
                 break;
             case DASHED:
-                gc.setLineDashes(DASH_LENGTH,DASH_LENGTH);
-                gc.setLineCap(StrokeLineCap.SQUARE);
+                gc.setLineDashes(path.getPen().getWidth()*2,path.getPen().getWidth());
+                gc.setLineCap(StrokeLineCap.BUTT);
                 break;
             default:
                 gc.setLineDashes(0);
-                gc.setLineCap(StrokeLineCap.SQUARE);
+                gc.setLineCap(StrokeLineCap.BUTT);
                 break;
         }
         gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
