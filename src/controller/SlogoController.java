@@ -15,6 +15,7 @@ import parser.ParserException;
 import parser.ParserInterface;
 import parser.SlogoParser;
 import parser.command.CommandList;
+import parser.structure.TurtleContainer;
 import turtle.BackendTurtle;
 import util.SlogoPath;
 
@@ -121,11 +122,11 @@ public class SlogoController implements GUIController{
 		
 	}
 	
-	public void setBackgroundColor(double index){
+	public void setBackgroundColor(int index){
 		
 	}
 	
-	public void setPaletteColor(double index, double r, double g, double b){
+	public void setPaletteColor(int index, int r, int g, int b){
 		
 	}
 	
@@ -133,7 +134,7 @@ public class SlogoController implements GUIController{
 	// TODO: implement this function
 	@Override
 	public GUITurtle getTurtle(int turtleId){
-		return null;
+		return myParser.getTurtle(turtleId);
 	}
 	
 	// TODO: implement this function
