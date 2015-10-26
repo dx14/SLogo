@@ -3,6 +3,7 @@ package parser;
 import java.util.Observer;
 
 import parser.command.CommandList;
+import parser.structure.TurtleContainer;
 
 public interface ParserInterface {
 
@@ -21,5 +22,5 @@ public interface ParserInterface {
 	public void addTurtleObserver(Observer o);
 	
 	public void debug();
-	
+
 }
