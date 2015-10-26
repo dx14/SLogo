@@ -75,13 +75,16 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         }
     }
     private void drawTurtle (GUITurtle turtle) {
+    	System.out.println("DRAWING TURTLE");
         try {
-            Image image = new Image("file:"+getTextResources().getString(String.valueOf(turtle.getDisplayIndex())));
+            Image image = new Image(getTextResources().getString(String.valueOf(turtle.getDisplayIndex())));
+            System.out.println(String.valueOf(turtle.getDisplayIndex()));
             drawTurtleImage(turtle, image);
         }
         catch (Exception e) {
             try {
                 Image image = new Image(getTextResources().getString(String.valueOf(turtle.getDisplayIndex())));
+                System.out.println("EXCEPTION THROWN");
                 drawTurtleImage(turtle, image);
             }
             catch (Exception ee) {
@@ -103,6 +106,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     private void turtleObserved(GUITurtle turtle) {
         myTurtles.clear();
         if (turtle.isShowing()) {
+        	System.out.println("TURTLE IS SHOWING");
             myTurtles.add(turtle);
         }
         myPaths.clear();
