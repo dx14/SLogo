@@ -1,0 +1,2 @@
+to recurse [  :testvar ] 
+[ fd :iteration make :localvar :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse :iteration ] ]

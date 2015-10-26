@@ -44,7 +44,7 @@ public class UserCommandInstance extends Command implements Evaluable, GUIComman
 		myVariableContainer = new LocalVariableContainer(myParser.getVariableContainer());
 		myParser.setVariableContainer(myVariableContainer);
 		for(int i = 0; i<myVariables.size(); i++){
-			myParser.getVariableContainer().setVariable(myVariables.get(i), myTree.get(i).evaluate());
+			myVariableContainer.setVariable(myVariables.get(i), myTree.get(i).evaluate(), false);
 		}
 		System.out.println("COMMANDS " + myCommands.toString());
 		myVariableContainer.debug();
