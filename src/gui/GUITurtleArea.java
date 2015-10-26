@@ -108,12 +108,11 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     	System.out.println("DRAWING TURTLE");
         try {
             Image image;
-            if (turtle.getDisplayIndex()<numResourceImages) {
-                System.out.println("less than");
-                image = new Image(images.get(turtle.getDisplayIndex()));
+            if (images.get(turtle.getDisplayIndex()).startsWith("C:")) {
+                image = new Image("file:"+images.get(turtle.getDisplayIndex()));
             }
             else {
-                image = new Image("file:"+images.get(turtle.getDisplayIndex()));
+                image = new Image(images.get(turtle.getDisplayIndex()));
                 System.out.println(String.valueOf(turtle.getDisplayIndex()));
             }
             drawTurtleImage(turtle, image);

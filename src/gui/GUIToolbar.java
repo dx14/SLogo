@@ -268,11 +268,12 @@ public class GUIToolbar extends GUIComponent {
 			try {
 				myTurtleArea.addImage(selectedFile.getAbsolutePath());
 				for (GUITurtle t : myTurtles) {
-
 					t.setDisplayIndex(myTurtleArea.getImagesSize() - 1);
 				}
+
 				myTurtleArea.drawAll();
 			} catch (Exception e) {
+			    e.printStackTrace();
 				handleException(e);
 			}
 		}

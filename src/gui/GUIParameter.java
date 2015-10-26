@@ -37,10 +37,11 @@ public class GUIParameter {
 		return defaultBackground;
 	}
 
-	public ObservableList<String> getImageList(){
-		return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(imageList));
-		
-	}
-
+//	public ObservableList<String> getImageList(){
+//		return FXCollections.unmodifiableObservableList(FXCollections.observableArrayList(imageList));	
+//	}
+      public List<String> getImageList(){
+          return imageList;  
+      }
 	
 }
