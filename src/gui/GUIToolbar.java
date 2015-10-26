@@ -203,9 +203,9 @@ public class GUIToolbar extends GUIComponent {
         File selectedFile = fileChooser.showOpenDialog(myStage);
         if (selectedFile!=null) {
             try {
-                myTurtleArea.getImages().add(selectedFile.getAbsolutePath());
+                myTurtleArea.addImage(selectedFile.getAbsolutePath());
                 for (GUITurtle t: myTurtles) {
-                    t.setDisplayIndex(myTurtleArea.getImages().size()-1);
+                    t.setDisplayIndex(myTurtleArea.getImagesSize());
                 }
                 myTurtleArea.drawAll();
             }

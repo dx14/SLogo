@@ -222,8 +222,11 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
     }
 
     @Override
-    public List<String> getImages () {
-        return images;
+    public void addImage (String image) {
+        images.add(image);
     }
-
+    @Override
+    public int getImagesSize () {
+        return images.size();
+    }
 }

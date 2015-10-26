@@ -5,5 +5,6 @@ import java.util.List;
 public interface GUITurtleAreaRedrawInterface {
 
     public void drawAll ();
-    public List<String> getImages();
+    public void addImage(String image);
+    public int getImagesSize();
 }
