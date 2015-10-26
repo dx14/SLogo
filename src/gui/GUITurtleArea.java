@@ -133,11 +133,14 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
             drawPath(path);
         }
     }
+    
+    // TODO: 
     private void drawPath(SlogoPath path) {
         //TODO: be able to draw arcs
         Double[] guiStartCoords=realToGUICoordinates(path.getStart().getX(),-1*path.getStart().getY());
         Double[] guiEndCoords=realToGUICoordinates(path.getEnd().getX(),-1*path.getEnd().getY());
-        gc.setStroke(Color.valueOf(path.getPen().getColor()));
+        // TODO: replace this with a function to look up the color index
+        gc.setStroke(Color.valueOf("#000000"));
         gc.setLineWidth(path.getPen().getWidth());
         switch (path.getPen().getStyle()) {
             case DOTTED:

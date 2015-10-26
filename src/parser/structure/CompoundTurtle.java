@@ -10,6 +10,7 @@ import gui.GUITurtle;
 import parser.ParserException;
 import parser.command.Evaluable;
 import util.Coordinate;
+import util.LineStyle;
 import util.SlogoPath;
 
 public class CompoundTurtle implements Turtle, GUITurtle{
@@ -83,27 +84,6 @@ public class CompoundTurtle implements Turtle, GUITurtle{
 	@Override
 	public void completeUpdate() {
 		myTurtles.get(currentTurtleID).completeUpdate();
-	}
-
-	@Override
-	public boolean usingImage() {
-		return myTurtles.get(currentTurtleID).usingImage();
-	}
-
-	// NOTE: may want to do recursive-set on this one...?
-	@Override
-	public void setUsingImage(boolean useImage) {
-		myTurtles.get(currentTurtleID).setUsingImage(useImage);
-	}
-
-	@Override
-	public String getDisplayString() {
-		return myTurtles.get(currentTurtleID).getDisplayString();
-	}
-
-	@Override
-	public void setDisplayString(String display) {
-		myTurtles.get(currentTurtleID).setDisplayString(display);
 	}
 
 	@Override
@@ -182,7 +162,7 @@ public class CompoundTurtle implements Turtle, GUITurtle{
 	}
 	
 	@Override
-	public void setPenColor(double color) {
+	public void setPenColor(int color) {
 		myTurtles.get(currentTurtleID).setPenColor(color);
 	}
 
@@ -214,6 +194,26 @@ public class CompoundTurtle implements Turtle, GUITurtle{
 	@Override
 	public double stamp() {
 		return recursiveSet((t) -> t.stamp(), false);
+	}
+
+	@Override
+	public void setPenStyle(LineStyle style) {
+		recursiveSet((t) -> { t.setPenStyle(style); return 0.0;}, false);
+	}
+
+	@Override
+	public LineStyle getPenStyle() {
+		return myTurtles.get(currentTurtleID).getPenStyle();
+	}
+
+	@Override
+	public int getDisplayIndex() {
+		return myTurtles.get(currentTurtleID).getDisplayIndex();
+	}
+
+	@Override
+	public void setDisplayIndex(int display) {
+		recursiveSet((t) -> {t.setDisplayIndex(display); return 0.0;}, false);
 	}
 
 }

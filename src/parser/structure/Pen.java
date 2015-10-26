@@ -7,7 +7,7 @@ import util.LineStyle;
 public class Pen implements GUIPen{
 
 	private double myWidth;
-	private double myColor;
+	private int myColor;
 	private boolean down;
 	private LineStyle myStyle = LineStyle.SOLID;
 	
@@ -15,7 +15,7 @@ public class Pen implements GUIPen{
 		this(0, 1, true);
 	}
 	
-	public Pen(double color, double width, boolean down){
+	public Pen(int color, double width, boolean down){
 		myColor = color;
 		myWidth = width;
 		this.down = down;
@@ -35,13 +35,8 @@ public class Pen implements GUIPen{
 		return myWidth;
 	}
 
-	public void setColor(double d) {
+	public void setColor(int d) {
 		myColor = d;
-	}
-	
-	@Override
-	public void setColor(String d){
-		myColor = Double.parseDouble(d);
 	}
 	
 	public void setWidth(double width) throws ParserException {
@@ -52,13 +47,9 @@ public class Pen implements GUIPen{
 			throw new ParserException("Error: pen width must be greater than 0.");
 		}
 	}
-
-	@Override
-	public String getColor() {
-		return ((Double)myColor).toString();
-	}
 	
-	public double getColor(boolean useIndex){
+	@Override
+	public int getColor(){
 		return myColor;
 	}
 	

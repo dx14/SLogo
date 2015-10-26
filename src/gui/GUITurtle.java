@@ -20,9 +20,10 @@ public interface GUITurtle {
 	
 	public List<SlogoPath> getHistory();
 	
+	// NOTE: don't use this to set values - only to get
 	public GUIPen getPen();
 	
-	public void setPenColor(double color);
+	public void setPenColor(int color);
 	public void penUp();
 	public void penDown();
 	public void setPenStyle(LineStyle style);
@@ -36,8 +37,8 @@ public interface GUITurtle {
 	
 	public void completeUpdate(); 
 	
-	public double getDisplayIndex();
-	public void setDisplayIndex(double display);
+	public int getDisplayIndex();
+	public void setDisplayIndex(int display);
 	
 	// TODO: mechanism to get shape, stamps, etc
 	

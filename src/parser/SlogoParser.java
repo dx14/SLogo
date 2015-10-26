@@ -29,20 +29,20 @@ public class SlogoParser implements ParserInterface{
 	
 	private SlogoController myController;
 	
-	public static void main(String args[]) throws ParserException{
-		
-		SlogoParser p = new SlogoParser(null);
-		
-		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
-		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
-		//p.loadCommand("examples/simple/forward_complex.logo");
-		//p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
-		p.runCommand("make :iteration 5 to recurse [ :testvar ] [ fd :iteration make :localvar :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse :iteration ] ] recurse :iteration");
-		//p.runCommand("make :i 5 to test [ ] [ make :i 4 ] test");
-		p.getVariableContainer().debug();
-		p.getCommandContainer().debug();
-		p.getTurtleContainer().debug();
-	}
+//	public static void main(String args[]) throws ParserException{
+//		
+//		SlogoParser p = new SlogoParser(null);
+//		
+//		//p.runCommand("to walk [ :turns ] [ repeat :turns [ forward 50 2 ] ] walk walk 3");
+//		//p.loadCommand("examples/procedures_with_parameters/random_range.logo");
+//		//p.loadCommand("examples/simple/forward_complex.logo");
+//		//p.runCommand("tell [ 1 2 3 10 ] fd 10 setheading 50 askwith [ equal? ycor 0 ] [ fd 50 ]");
+//		p.runCommand("make :iteration 5 to recurse [ :testvar ] [ fd :iteration make :localvar :iteration make :iteration sum :iteration -1 if [ greater? :iteration 0 ] [ recurse :iteration ] ] recurse :iteration");
+//		//p.runCommand("make :i 5 to test [ ] [ make :i 4 ] test");
+//		p.getVariableContainer().debug();
+//		p.getCommandContainer().debug();
+//		p.getTurtleContainer().debug();
+//	}
 	
 	public SlogoParser(SlogoController controller){
 		myController = controller;
@@ -134,5 +134,11 @@ public class SlogoParser implements ParserInterface{
 		myVariableContainer.debug();
 		myCommandContainer.debug();
 		myTurtleContainer.debug();
+	}
+
+	@Override
+	public void outputCommandContainer(String filename) throws ParserException {
+		// TODO Auto-generated method stub
+		
 	}
 }

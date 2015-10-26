@@ -32,11 +32,17 @@ public class GUIPaletteTurtle extends GUIPalette implements Observer {
                 Color penColor = (colorPicker.getValue());
                 for (GUITurtle turtle : myTurtles) {
                     //TODO: which turtle to set color? Right now it sets all turtles. Also does it change the color or already drawn paths?
-                    turtle.setPenColor(toRGBCode(penColor));
+                    turtle.setPenColor(toColorIndex(penColor));
                 }
             }
         });
         return colorPicker;
+    }
+    
+    // TODO: implement this to return actual index
+    
+    private static int toColorIndex (Color color) {
+    	return 0;
     }
 
     private static String toRGBCode( Color color )

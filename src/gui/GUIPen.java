@@ -10,9 +10,9 @@ public interface GUIPen {
 	public double getWidth();
 	public void setWidth(double width) throws ParserException;
 	
-	public String getColor();
+	public int getColor();
 	
-	public void setColor(String color);
+	public void setColor(int color);
 	
 	public LineStyle getStyle();
 	public void setStyle(LineStyle style);

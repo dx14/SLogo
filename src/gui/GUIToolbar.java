@@ -205,13 +205,13 @@ public class GUIToolbar extends GUIComponent {
         if (selectedFile!=null) {
             try {
                 scanner=new Scanner(new BufferedReader(new FileReader(TURTLE_DISPLAY_FILE)));
-                double indexes = 0;
+                int indexes = 0;
                 while (scanner.hasNextLine()) {
                     indexes++;
                     scanner.nextLine();
                 }
                 scanner.close();
-                String newImage = ((Double)indexes).intValue()+" = "+selectedFile.getAbsolutePath();
+                String newImage = indexes +" = "+selectedFile.getAbsolutePath();
                 out = new PrintWriter(new BufferedWriter(new FileWriter(TURTLE_DISPLAY_FILE, true)));
                 out.println(newImage);
                 out.flush();
