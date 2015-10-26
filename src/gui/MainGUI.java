@@ -42,22 +42,28 @@ public class MainGUI implements GUIInterface {
 	private GUIConsole myGUIConsole;
 	private GUIVariableList myGUIVariables;
 	private GUIUserDefinedCommands myUserDefinedCommands;
-	
+
 	private GUIParameter myParams;
 
 	public MainGUI(BorderPane root, Stage stage, GUIController controller) {
-		
+
+		// debating over using src/resources
 		try {
-			XMLParser a = new XMLParser(new File("resources.XML"));
+			XMLParser a = new XMLParser(new File("src/resources/default.xml"));
+			myParams = a.getParameters();
+			
+			
+			/*
+			String output = myParams.getImageList().stream().reduce((t, u) -> t + "," + u).
+            get();
+			
+			a.saveToXML("src/resources/default.xml", myParams.getDefaultBackground().toString(),
+					output, myParams.getCommandLanguage()); */
+
 		} catch (GUIException e) {
 			e.printStackTrace();
 		}
-		
-	
-		
-		
-		
-		
+
 		myGUIController = controller;
 		// turtleList=myGUIController.getGUITurtles();
 		turtleList = new ArrayList<GUITurtle>();
@@ -68,28 +74,27 @@ public class MainGUI implements GUIInterface {
 		mainStage = stage;
 
 		myGUIConsole = new GUIConsole(myGUIController);
-
-		myGUITurtleArea = new GUITurtleArea(mainStage, turtleAreaColor, turtleList, pathList);
+		myGUITurtleArea = new GUITurtleArea(mainStage, myParams.getDefaultBackground(), turtleList, pathList, myParams.getImageList());
 		allGUIComponents.add(myGUITurtleArea);
 		myGUIHistory = new GUIHistory((GUIConsoleTextEditable) myGUIConsole);
 		allGUIComponents.add(myGUIHistory);
-		myGUIPaletteBackground = new GUIPaletteBackground(turtleAreaColor, (GUITurtleAreaBGInterface) myGUITurtleArea);
+		myGUIPaletteBackground = new GUIPaletteBackground(myParams.getDefaultBackground(),
+				(GUITurtleAreaBGInterface) myGUITurtleArea);
 		myGUIPen = new GUIPenDisplayContainer(turtleList, (GUITurtleAreaBGInterface) myGUITurtleArea);
 		allGUIComponents.add(myGUIPaletteBackground);
 		myGUIToolbar = new GUIToolbar(mainStage, turtleList, (GUITurtleAreaRedrawInterface) myGUITurtleArea,
-				myGUIController);
+				myGUIController, myParams.getCommandLanguage());
 		myGUIVariables = new GUIVariableList(myGUIController);
 		// allGUIComponents.add(myGUIVariables);
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
 
-		
 	}
 
 	public void draw() {
 		mainRoot.setCenter(myGUITurtleArea.returnNodeToDraw());
-		mainRoot.setLeft(new VBox(new Label("History"), myGUIHistory.returnNodeToDraw(), 
-				new Label("Variables"),	myGUIVariables.returnNodeToDraw(), 
-				new Label("User Defined Commands"), myUserDefinedCommands.returnNodeToDraw()));
+		mainRoot.setLeft(new VBox(new Label("History"), myGUIHistory.returnNodeToDraw(), new Label("Variables"),
+				myGUIVariables.returnNodeToDraw(), new Label("User Defined Commands"),
+				myUserDefinedCommands.returnNodeToDraw()));
 
 		mainRoot.setRight(new VBox(new Label("Background Color:"), // resource
 																	// file
@@ -108,10 +113,10 @@ public class MainGUI implements GUIInterface {
 	public Observer showObserverVariables() {
 		return (Observer) myGUIVariables;
 	}
-	
-	       public Observer showTurtleArea() {
-	                return (Observer) myGUITurtleArea;
-	        }
+
+	public Observer showTurtleArea() {
+		return (Observer) myGUITurtleArea;
+	}
 
 	public Observer showUserDefinedCommands() {
 		return (Observer) myUserDefinedCommands;
@@ -120,16 +125,16 @@ public class MainGUI implements GUIInterface {
 	public UpdatableHistory showHistory() {
 		return (UpdatableHistory) myGUIHistory;
 	}
-	
-	       public Observer showTurtlePen() {
-	                return (Observer) myGUIPen;
-	        }
 
-		@Override
-		public Object updateGUINumber() {
-			myGUIToolbar.updateGUINumber();
-			// TODO Auto-generated method stub
-			return null;
-		}
+	public Observer showTurtlePen() {
+		return (Observer) myGUIPen;
+	}
+
+	@Override
+	public Object updateGUINumber() {
+		myGUIToolbar.updateGUINumber();
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
