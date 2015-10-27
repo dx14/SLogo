@@ -3,5 +3,5 @@
     <color>0x990000ff</color>
     <imageList>http://www.iconshock.com/img_jpg/SUPERVISTA/animals/jpg/32/turtle_icon.jpg,https://sites.google.com/a/sahuarita.net/ms-fitch---sps-computer-lab/_/rsrc/1319138969445/home/kinderlogo/Turtle.bmp</imageList>
     <commandLanguage>English</commandLanguage>
-    <defaultPalette>0,0x804d80ff,1,0xccffccff,2,0xab12cd34,3,0x990000ff</defaultPalette>
+    <defaultPalette>0,0x000000ff,1,0xccffccff,2,0x0000ffff,3,0x990000ff</defaultPalette>
 </simulation>

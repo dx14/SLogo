@@ -41,7 +41,7 @@ public class GUITurtleArea extends GUIComponent
                           List<GUITurtle> turtles,
                           List<SlogoPath> paths,
                           List<String> imagePaths,
-                          Map<Integer, String> defaultPalette) {
+                          Map<Integer, String> defaultPalette,  GUIController controller) {
         setTextResources(ResourceBundle.getBundle(TURTLE_AREA_FILE));
         xCanvas =
                 mainStage.getScene().getWidth() -
@@ -49,7 +49,7 @@ public class GUITurtleArea extends GUIComponent
         yCanvas =
                 mainStage.getScene().getHeight() -
                   Integer.parseInt(getTextResources().getString("canvasyshrinkpixels"));
-        drawer = new GUITurtleAreaDrawer(xCanvas, yCanvas);
+        drawer = new GUITurtleAreaDrawer(xCanvas, yCanvas, controller);
         drawer.setSpeed(Double.parseDouble(getTextResources().getString("initialspeed")));
 
         backgroundColor = turtleAreaColor;

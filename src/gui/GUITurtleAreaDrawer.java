@@ -34,15 +34,16 @@ public class GUITurtleAreaDrawer extends GUIComponent{
     private StackPane allImagesAndCanvas;
     private HashMap<Integer, ImageView> prevImages;
     private double mySpeed = 1000;
+    private GUIController controller;
 
-    public GUITurtleAreaDrawer (double width, double height) {
+    public GUITurtleAreaDrawer (double width, double height, GUIController myController) {
         xCanvas = width;
         yCanvas = height;
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
         allImagesAndCanvas = new StackPane();
  	   allImagesAndCanvas.getChildren().add(canvas);
-
+ 	   controller=myController;
         
         prevImages = new HashMap<Integer, ImageView>();
     }
@@ -96,12 +97,18 @@ public class GUITurtleAreaDrawer extends GUIComponent{
         boolean b = turtle.getPen().isDown();
         double x = turtle.getCoordinate().getX();
         double y = turtle.getCoordinate().getY();
+        int id = turtle.getID();
         actualImage.setOnMouseClicked(e -> {
-            String text = "Coordinate: " + x + "," + y + " Direction: " + a + " Is down: " + b;
+            try {
+                System.out.println("tell [ "+turtle.getID()+" ]");
+                controller.runCommand("tell [ "+turtle.getID()+" ]");
+            }
+            catch (Exception e1) {
+            }
+            String text = "ID: "+ id + " Coordinate: " + x + "," + y + " Direction: " + a + " Is down: " + b;
             Alert alert = new Alert(Alert.AlertType.INFORMATION, text);
             alert.showAndWait().filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> System.out.println("handled"));
-
         });
 
         allImagesAndCanvas.getChildren().add(actualImage);
