@@ -10,23 +10,26 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 
-public class SaveXMLButton extends GUIComponent{
+
+public class SaveXMLButton extends GUIComponent {
     GUIToolbarInterface myTool;
     Button save;
-    public SaveXMLButton(GUIToolbarInterface tool) {
-        myTool=tool;
+
+    public SaveXMLButton (GUIToolbarInterface tool) {
+        myTool = tool;
         setTextResources(ResourceBundle.getBundle("resources.guitext.SaveXMLButton"));
         save = new Button(getTextResources().getString("savexml"));
         save.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
                 try {
-                    XMLParser a = new XMLParser(new File(getTextResources().getString("defaultxml")));
+                    XMLParser a =
+                            new XMLParser(new File(getTextResources().getString("defaultxml")));
                     String imageList = myTool.getImageList();
                     String backgroundColor = myTool.getBGColor();
                     String defaultPalette = myTool.getPalette();
                     a.saveToXML(getTextResources().getString("defaultxml"), backgroundColor,
-                                imageList, myTool.getLanguage(), defaultPalette);
+                                imageList, myTool.getCurrentLanguage().getLanguage(), defaultPalette);
                 }
                 catch (GUIException e) {
                     e.printStackTrace();
@@ -34,6 +37,7 @@ public class SaveXMLButton extends GUIComponent{
             }
         });
     }
+
     @Override
     public Node returnNodeToDraw () {
         return save;

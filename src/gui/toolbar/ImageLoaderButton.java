@@ -12,11 +12,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
-public class ImageLoaderButton extends GUIComponent{
+
+public class ImageLoaderButton extends GUIComponent {
     Button openImage;
     GUIToolbarInterface myTool;
+
     public ImageLoaderButton (GUIToolbarInterface tool, Stage stage) {
-        myTool=tool;
+        myTool = tool;
         setTextResources(ResourceBundle.getBundle("resources.guitext.ImageLoaderButton"));
         openImage = new Button(getTextResources().getString("openimage"));
         openImage.setOnAction(new EventHandler<ActionEvent>() {

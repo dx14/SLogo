@@ -10,8 +10,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
-public class HelpButton extends GUIComponent{
+
+public class HelpButton extends GUIComponent {
     Button help;
+
     public HelpButton (Stage stage) {
         setTextResources(ResourceBundle.getBundle("resources.guitext.HelpButton"));
         help = new Button(getTextResources().getString("help"));
@@ -22,6 +24,7 @@ public class HelpButton extends GUIComponent{
             }
         });
     }
+
     private void displayHelp (Stage stage) {
         Popup popup = new Popup();
         popup.setX(stage.getX());
@@ -39,6 +42,7 @@ public class HelpButton extends GUIComponent{
         popup.getContent().addAll(hide);
         popup.show(stage);
     }
+
     @Override
     public Node returnNodeToDraw () {
         return help;
