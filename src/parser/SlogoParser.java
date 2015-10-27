@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Observer;
 
 import controller.SlogoController;
+import gui.GUITurtle;
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.resource.ResourceParser;
@@ -151,5 +152,10 @@ public class SlogoParser implements ParserInterface{
 			e.printStackTrace();
 			throw new ParserException("Error opening file: " + filename);
 		}
+	}
+
+	@Override
+	public GUITurtle getTurtle(int turtleId) {
+		return myTurtleContainer.getTurtle(turtleId);
 	}
 }

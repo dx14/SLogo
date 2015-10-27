@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import parser.ParserException;
+import parser.Validator;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.Evaluable;
@@ -30,13 +31,8 @@ public class MakeUserInstructionCommand extends Command{
 		CommandList remainder = myTree.buildNext().buildNext().getRemainder();
 		myVariables = new ArrayList<>();
 		
-		if(!(myTree.get(0).getCommand() instanceof UserDefinedCommand)){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected user defined command name but got: " + myTree.get(0).getCommandElement().getRawText());
-		}
-		
-		if(!(myTree.get(1).getCommand() instanceof ListStartCommand)){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected list of variables but got: " + myTree.get(1).getCommandElement().getRawText());
-		}
+		Validator.assertType(myTree.get(0), myCommand, UserDefinedCommand.class);
+		Validator.assertType(myTree.get(1), myCommand, ListStartCommand.class);
 		
 		myName = myTree.get(0).getCommandElement().getRawText();
 		parseVariables(myTree.get(1));
@@ -47,9 +43,7 @@ public class MakeUserInstructionCommand extends Command{
 		// build commands here so that recursive commands will operate
 		remainder = myTree.buildNext().getRemainder();
 		
-		if(!(myTree.get(2).getCommand() instanceof ListStartCommand)){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected list of commands but got: " + myTree.get(2).getCommandElement().getRawText());
-		}
+		Validator.assertType(myTree.get(2), myCommand, ListStartCommand.class);
 		
 		myCommands = myTree.get(2);
 		myInstance.setCommandTree(myCommands);

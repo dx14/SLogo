@@ -17,6 +17,13 @@ public class Validator {
 		}
 	}
 	
+	public static void assertAtLeastNumArguments(CommandTreeNode tree, CommandElement command, int count, boolean subtractone) throws ParserException{
+		int adjustment = (subtractone)?1:0;
+		if(tree.getNumBranches() < count){
+			throw new ParserException(String.format(errors.getString("AtLeastNumArguments"), command.getRawText(), count - adjustment, tree.getNumBranches() - adjustment));
+		}
+	}
+	
 	public static void assertType(CommandTreeNode tree, CommandElement command, Class<?> test) throws ParserException{
 		if(!( test.isInstance(tree.getCommand()))){
 			throw new ParserException(String.format(errors.getString("ArgumentType"), command.getRawText(), test.getSimpleName(), tree.getCommandElement().getRawText()));

@@ -22,7 +22,6 @@ public class CommandInterpreter {
 	private static final ResourceBundle COMMANDRESOURCE = ResourceBundle.getBundle("resources.config.Commands");
 	private static final List<String> commandTypes = 
 			COMMANDRESOURCE.keySet().stream().map((s) -> COMMANDRESOURCE.getString(s)).collect(Collectors.toList());
-
 	
 	public CommandInterpreter(SlogoParser parser, ResourceParser resourceParser){
 		

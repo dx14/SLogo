@@ -1,6 +1,7 @@
 package parser.command.commandlist.syntax;
 
 import parser.ParserException;
+import parser.Validator;
 import parser.command.CommandList;
 
 public class GroupEndCommand extends parser.command.Command{
@@ -12,9 +13,7 @@ public class GroupEndCommand extends parser.command.Command{
 	
 	@Override
 	public CommandList build() throws ParserException {
-		if(!(myTree.getParent().getCommand() instanceof GroupStartCommand)){
-			throw new ParserException("Error: unmatched group brace ')'");
-		}
+		Validator.assertParent(myTree, myCommand, GroupStartCommand.class);
 		return myTree.getRemainder();
 	}
 
