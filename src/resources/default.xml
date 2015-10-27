@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <simulation>
     <color>0x990000ff</color>
-    <imageList>http://www.iconshock.com/img_jpg/SUPERVISTA/animals/jpg/32/turtle_icon.jpg,https://sites.google.com/a/sahuarita.net/ms-fitch---sps-computer-lab/_/rsrc/1319138969445/home/kinderlogo/Turtle.bmp</imageList>
+    <imageList>http://www.iconshock.com/img_jpg/SUPERVISTA/animals/jpg/32/turtle_icon.jpg,https://sites.google.com/a/sahuarita.net/ms-fitch---sps-computer-lab/_/rsrc/1319138969445/home/kinderlogo/Turtle.bmp,https://d30y9cdsu7xlg0.cloudfront.net/png/95365-200.png</imageList>
     <commandLanguage>English</commandLanguage>
     <defaultPalette>0,0x000000ff,1,0xccffccff,2,0x0000ffff,3,0x990000ff</defaultPalette>
 </simulation>

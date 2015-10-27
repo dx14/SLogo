@@ -12,41 +12,35 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.HBox;
 import parser.ParserException;
 
-public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable{
+
+public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable {
 
     private GUIController myGUIController;
     private TextInputControl console;
     private HBox container;
     private Button submit;
-    private final double CONSOLE_MAX_WIDTH = 400;
+    private final double CONSOLE_MAX_WIDTH;
 
     public GUIConsole (GUIController guiController) {
         myGUIController = guiController;
         setTextResources(ResourceBundle.getBundle("resources.guitext.Console"));
-        
         console = new TextArea();
         console.setPromptText(getTextResources().getString("prompttext"));
+        CONSOLE_MAX_WIDTH=Double.parseDouble(getTextResources().getString("maxwidth"));
         console.setMaxWidth(CONSOLE_MAX_WIDTH);
-        // console.setWrapText(true);
-
         submit = new Button(getTextResources().getString("submittext"));
         submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {
                 String input = console.getText();
-                //TODO: do we want any formatting or filtering here such as checking if string is blank?
                 sendCommand(input);
-                //System.out.println(input);
                 console.clear();
             }
         });
-        
         container = new HBox();
         container.getChildren().add(console);
         container.getChildren().add(submit);
     }
-    
-    
 
     @Override
     public Node returnNodeToDraw () {
@@ -62,12 +56,9 @@ public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable{
         }
     }
 
-
-
-	@Override
-	public void changeText(String input) {
-
-		console.setText(input);
-	}
+    @Override
+    public void changeText (String input) {
+        console.setText(input);
+    }
 
 }
