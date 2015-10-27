@@ -1,6 +1,6 @@
 package parser.structure;
 
-import gui.GUIPen;
+import gui.modelinterface.GUIPen;
 import parser.ParserException;
 import util.LineStyle;
 

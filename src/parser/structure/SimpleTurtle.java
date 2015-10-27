@@ -8,8 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.UnaryOperator;
-
-import gui.GUITurtle;
+import gui.modelinterface.GUITurtle;
 import parser.ParserException;
 import parser.command.Evaluable;
 

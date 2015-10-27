@@ -1,8 +1,7 @@
 package parser.structure;
 
 import java.util.function.UnaryOperator;
-
-import gui.GUITurtle;
+import gui.modelinterface.GUITurtle;
 import parser.ParserException;
 import parser.command.Evaluable;
 import util.Coordinate;

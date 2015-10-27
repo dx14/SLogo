@@ -1,6 +1,6 @@
 package util;
 
-import gui.GUIPen;
+import gui.modelinterface.GUIPen;
 import parser.structure.Pen;
 
 public abstract class SlogoPath {

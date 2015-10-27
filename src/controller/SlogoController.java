@@ -2,11 +2,10 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import gui.GUIController;
-import gui.GUIInterface;
-import gui.GUITurtle;
 import gui.MainGUI;
+import gui.modelinterface.GUIController;
+import gui.modelinterface.GUIInterface;
+import gui.modelinterface.GUITurtle;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

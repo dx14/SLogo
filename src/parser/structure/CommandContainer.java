@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-
+import gui.modelinterface.GUICommand;
+import gui.modelinterface.GUICommandContainer;
 import parser.ParserException;
 import parser.command.commandlist.UserCommandInstance;
 

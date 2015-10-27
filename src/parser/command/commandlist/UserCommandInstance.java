@@ -4,10 +4,10 @@ import parser.ParserException;
 
 import java.util.ArrayList;
 import java.util.List;
+import gui.modelinterface.GUICommand;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.Evaluable;
-import parser.structure.GUICommand;
 import parser.structure.LocalVariableContainer;
 
 public class UserCommandInstance extends Command implements Evaluable, GUICommand {

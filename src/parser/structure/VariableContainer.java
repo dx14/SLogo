@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.stream.Collectors;
-
+import gui.modelinterface.GUIVariableContainer;
 import parser.command.Evaluable;
 import util.GUIVariable;
 

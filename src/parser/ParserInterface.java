@@ -1,8 +1,7 @@
 package parser;
 
 import java.util.Observer;
-
-import gui.GUITurtle;
+import gui.modelinterface.GUITurtle;
 import parser.command.CommandList;
 import parser.structure.TurtleContainer;
 

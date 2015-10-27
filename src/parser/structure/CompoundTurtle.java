@@ -5,8 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
-
-import gui.GUITurtle;
+import gui.modelinterface.GUITurtle;
 import parser.ParserException;
 import parser.command.Evaluable;
 import util.Coordinate;

@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Observer;
 
 import controller.SlogoController;
-import gui.GUITurtle;
+import gui.modelinterface.GUITurtle;
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
 import parser.resource.ResourceParser;
