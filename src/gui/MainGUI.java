@@ -3,6 +3,7 @@ package gui;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import gui.pen.GUIPenDisplay;
@@ -141,5 +142,10 @@ public class MainGUI implements GUIInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public Map<Integer,String> getPalette() {
+	    return myGUITurtleArea.getColorMap();
+	}
+	public void updateBackgroundColor(int index) {
+	    myGUITurtleArea.updateBackgroundColor(Color.valueOf(myGUITurtleArea.getColorMap().get(index)));
+	}
 }

@@ -95,6 +95,7 @@ public class GUITurtleArea extends GUIComponent
             drawer.drawTurtleImageView(turtle, image);
         }
         catch (Exception e) {
+            e.printStackTrace();
             handleException(e);
             image =
                     new Image((getTextResources().getString("defaultimageurl")));

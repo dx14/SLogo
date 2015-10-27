@@ -10,6 +10,7 @@ import gui.MainGUI;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import parser.ParserException;
 import parser.ParserInterface;
@@ -59,7 +60,11 @@ public class SlogoController implements GUIController{
         myGUIs.add(myGui);
         myParsers.add(myParser);
         myGUIs.stream().forEachOrdered(s -> s.updateGUINumber());
-
+        try {
+            myParser.runCommand("fd 0");
+        }
+        catch (ParserException e) {
+        }
 
     }
 
@@ -67,12 +72,19 @@ public class SlogoController implements GUIController{
         root.getChildren().clear(); 
         MainGUI myGui = new MainGUI(root, myPrimaryStage, (GUIController)this);
         myParser = new SlogoParser(this);
+
         setGUI((GUIInterface)myGui);
         myGUIs.add(myGui);
         myParsers.add(myParser);
         setParser(myParser);
         myGui.draw();
+
         myGUIs.stream().forEachOrdered(s -> s.updateGUINumber());
+        try {
+            myParser.runCommand("fd 0");
+        }
+        catch (ParserException e) {
+        }
     }
 
 
@@ -130,11 +142,12 @@ public class SlogoController implements GUIController{
     }
 
     public void setBackgroundColor(int index){
-
+        myGUI.updateBackgroundColor(index);
     }
 
     public void setPaletteColor(int index, int r, int g, int b){
-
+        System.out.println(Color.rgb(r, g, b, 1).toString());
+        myGUI.getPalette().put(index,Color.rgb(r, g, b, 1).toString());
     }
 
 
