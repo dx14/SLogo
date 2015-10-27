@@ -11,4 +11,6 @@ public interface GUITurtleAreaRedrawInterface {
     public String getBGColor ();
 
     public String getImagePathsAsAString ();
+
+	public String getPalette();
 }

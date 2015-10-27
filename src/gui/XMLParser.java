@@ -51,72 +51,68 @@ public class XMLParser {
 	}
 
 	public GUIParameter getParameters() throws GUIException {
-		
+
 		myElement = (Element) myNode;
-		
+
 		return new GUIParameter(myElement.getElementsByTagName("color").item(0).getTextContent(),
 				myElement.getElementsByTagName("imageList").item(0).getTextContent(),
-				myElement.getElementsByTagName("commandLanguage").item(0).getTextContent());
-
-	
+				myElement.getElementsByTagName("commandLanguage").item(0).getTextContent(),
+				myElement.getElementsByTagName("defaultPalette").item(0).getTextContent());
 
 	}
-	
-	public void saveToXML(String xml, String color, String listImages, String commandLang) {
-	    Document dom;
-	    Element e = null;
 
-	    // instance of a DocumentBuilderFactory
-	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	    try {
-	        // use factory to get an instance of document builder
-	        DocumentBuilder db = dbf.newDocumentBuilder();
-	        // create instance of DOM
-	        dom = db.newDocument();
+	public void saveToXML(String xml, String color, String listImages, String commandLang, String defPal) {
+		Document dom;
+		Element e = null;
 
-	        // create the root element
-	        Element rootEle = dom.createElement("simulation");
+		// instance of a DocumentBuilderFactory
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		try {
+			// use factory to get an instance of document builder
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			// create instance of DOM
+			dom = db.newDocument();
 
-	        // create data elements and place them under root
-	        e = dom.createElement("color");
-	        System.out.println(color);
-	        e.appendChild(dom.createTextNode(color));
-	        rootEle.appendChild(e);
+			// create the root element
+			Element rootEle = dom.createElement("simulation");
 
-	        e = dom.createElement("imageList");
-	        System.out.println(listImages);
-	        e.appendChild(dom.createTextNode(listImages));
-	        rootEle.appendChild(e);
+			// create data elements and place them under root
+			e = dom.createElement("color");
+			e.appendChild(dom.createTextNode(color));
+			rootEle.appendChild(e);
 
-	        e = dom.createElement("commandLanguage");
-	        System.out.println(commandLang);
-	        e.appendChild(dom.createTextNode(commandLang));
-	        rootEle.appendChild(e);
+			e = dom.createElement("imageList");
+			e.appendChild(dom.createTextNode(listImages));
+			rootEle.appendChild(e);
 
-	        dom.appendChild(rootEle);
+			e = dom.createElement("commandLanguage");
+			e.appendChild(dom.createTextNode(commandLang));
+			rootEle.appendChild(e);
 
-	        try {
-	            Transformer tr = TransformerFactory.newInstance().newTransformer();
-	            tr.setOutputProperty(OutputKeys.INDENT, "yes");
-	            tr.setOutputProperty(OutputKeys.METHOD, "xml");
-	            tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-	          //  tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.dtd");
-	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+			e = dom.createElement("defaultPalette");
+			e.appendChild(dom.createTextNode(defPal));
+			rootEle.appendChild(e);
+			
+			dom.appendChild(rootEle);
 
-	            // send DOM to file
-	            tr.transform(new DOMSource(dom), 
-	                                 new StreamResult(new FileOutputStream(xml)));
+			try {
+				Transformer tr = TransformerFactory.newInstance().newTransformer();
+				tr.setOutputProperty(OutputKeys.INDENT, "yes");
+				tr.setOutputProperty(OutputKeys.METHOD, "xml");
+				tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+				// tr.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "roles.dtd");
+				tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
-	        
-	    } catch (Exception pce) {
-	    	pce.printStackTrace();
-	    }
+				// send DOM to file
+				tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(xml)));
+
+			} catch (Exception pce) {
+				pce.printStackTrace();
+			}
+		} catch (Exception pce) {
+			pce.printStackTrace();
+
+		}
 	}
-	    catch (Exception pce) {
-	    	pce.printStackTrace();
-
-	    }
-	}
-	
 
 }

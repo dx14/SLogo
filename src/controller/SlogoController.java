@@ -24,17 +24,18 @@ import util.SlogoPath;
 
 public class SlogoController implements GUIController{
 
-    private Stage myPrimaryStage;
-    private BorderPane root;
+	
+	private Stage myPrimaryStage;
+	private BorderPane root;
 
-    private ParserInterface myParser;
-    private GUIInterface myGUI; //
+	private ParserInterface myParser;
+	private GUIInterface myGUI; //
+	
+	private List<GUIInterface> myGUIs;
+	private List<ParserInterface> myParsers;
+	
+	public SlogoController(Stage primaryStage){
 
-    private List<GUIInterface> myGUIs;
-    private List<ParserInterface> myParsers;
-
-
-    public SlogoController(Stage primaryStage){
         myGUIs = new ArrayList<GUIInterface>();
         myParsers = new ArrayList<ParserInterface>();
 

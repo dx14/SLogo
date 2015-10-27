@@ -95,21 +95,16 @@ public class GUIToolbar extends GUIComponent {
 					
 					String imageList = getImageList();
 					String backgroundColor = getBGColor();
+					String defaultPalette = getPalette();
 					
 					a.saveToXML("src/resources/default.xml", backgroundColor,
-							imageList, currentLanguage); 
+							imageList, currentLanguage, defaultPalette); 
 					
 					
 				} catch (GUIException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
-			//	String output = myParams.getImageList().stream().reduce((t, u) -> t + "," + u).
-	         //   get();
-				
-				
 			}
 
 			
@@ -118,6 +113,11 @@ public class GUIToolbar extends GUIComponent {
 		
 			}
 	
+	protected String getPalette() {
+		// TODO Auto-generated method stub
+		return myTurtleArea.getPalette();
+	}
+
 	private String getBGColor() {
 		
 		return myTurtleArea.getBGColor();

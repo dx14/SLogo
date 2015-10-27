@@ -1,6 +1,9 @@
 package gui;
 
 import java.util.HashMap;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -38,7 +41,9 @@ public class GUITurtleAreaDrawer extends GUIComponent{
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
         allImagesAndCanvas = new StackPane();
+ 	   allImagesAndCanvas.getChildren().add(canvas);
 
+        
         prevImages = new HashMap<Integer, ImageView>();
     }
 
@@ -82,9 +87,6 @@ public class GUITurtleAreaDrawer extends GUIComponent{
         actualImage.setTranslateX(prevX);
         actualImage.setTranslateY(-1 * prevY);
 
-        System.out.println(turtle.getCoordinate().getX());
-        System.out.println(turtle.getCoordinate().getY());
-        System.out.println("QEWRT" + prevY);
         actualImage.setRotate(turtle.getHeading());
         TranslateTransition tt = new TranslateTransition(Duration.millis(mySpeed), actualImage);
         tt.setByX(turtle.getCoordinate().getX() - prevX);
@@ -155,7 +157,7 @@ public class GUITurtleAreaDrawer extends GUIComponent{
     @Override
     public Node returnNodeToDraw () {
 
-        allImagesAndCanvas.getChildren().add(canvas);
+
 
         return allImagesAndCanvas;
     }

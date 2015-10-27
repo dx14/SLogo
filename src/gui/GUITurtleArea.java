@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -39,7 +40,8 @@ public class GUITurtleArea extends GUIComponent
                           Color turtleAreaColor,
                           List<GUITurtle> turtles,
                           List<SlogoPath> paths,
-                          List<String> imagePaths) {
+                          List<String> imagePaths,
+                          Map<Integer, String> defaultPalette) {
         setTextResources(ResourceBundle.getBundle(TURTLE_AREA_FILE));
         xCanvas =
                 mainStage.getScene().getWidth() -
@@ -59,8 +61,7 @@ public class GUITurtleArea extends GUIComponent
         
         drawer.drawBackground(backgroundColor);
 
-        
-        palette.put(0, "0xff00ffff"); // TODO:default
+        defaultPalette.keySet().stream().forEach(e -> palette.put(e,defaultPalette.get(e)));
     }
 
     @Override
@@ -203,6 +204,26 @@ public class GUITurtleArea extends GUIComponent
     public void setSpeed (double speed) {
         drawer.setSpeed(speed);
     }
+
+	@Override
+	public String getPalette() {
+		// TODO Auto-generated method stub
+		
+		System.out.println(palette);
+		
+		//HashSet<String> aa = new HashSet<String>();
+		
+		//palette.keySet().stream().forEach(e -> aa.add(e.toString()));
+
+		String ans = "";
+		
+		for(Integer e : palette.keySet()){
+			ans = ans + e.toString() + "," + palette.get(e) + ",";
+		}
+		
+		return ans.substring(0, ans.length()-1);
+		//return aa.stream().reduce((t,u) -> t + ',' + palette.get(Integer.parseInt(t)) + ',' + u + ',' + palette.get(Integer.parseInt(u))).get();
+	}
 
     @Override
     public double getSpeed () {
