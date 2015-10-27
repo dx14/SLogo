@@ -3,11 +3,12 @@ package parser;
 import java.util.ResourceBundle;
 
 import parser.command.CommandElement;
+import parser.command.CommandList;
 import parser.command.tree.CommandTreeNode;
 
 public class Validator {
 
-	private static ResourceBundle errors = ResourceBundle.getBundle("resources.config.errors");
+	private static ResourceBundle errors = ResourceBundle.getBundle("resources.config.Errors");
 	
 	public static void assertNumArguments(CommandTreeNode tree, CommandElement command, int count, boolean subtractone) throws ParserException{
 		int adjustment = (subtractone)?1:0;
@@ -18,7 +19,7 @@ public class Validator {
 	
 	public static void assertType(CommandTreeNode tree, CommandElement command, Class<?> test) throws ParserException{
 		if(!( test.isInstance(tree.getCommand()))){
-			throw new ParserException(String.format(errors.getString("ArgumentType"), command.getRawText(), test.getCanonicalName(), tree.getCommandElement().getRawText()));
+			throw new ParserException(String.format(errors.getString("ArgumentType"), command.getRawText(), test.getSimpleName(), tree.getCommandElement().getRawText()));
 		}
 	}
 	
@@ -28,4 +29,9 @@ public class Validator {
 		}
 	}
 	
+	public static void assertNonEmpty(CommandList commands) throws ParserException{
+		if(commands.isEmpty()){
+			throw new ParserException(errors.getString("NotEnoughArgs"));
+		}
+	}
 }
