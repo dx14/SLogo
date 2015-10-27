@@ -1,6 +1,5 @@
 package parser;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -14,7 +13,6 @@ import parser.command.CommandList;
 import parser.resource.ResourceParser;
 import parser.structure.CommandContainer;
 import parser.structure.Turtle;
-import parser.structure.SimpleTurtle;
 import parser.structure.TurtleContainer;
 import parser.structure.VariableContainer;
 

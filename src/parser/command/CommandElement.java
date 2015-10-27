@@ -9,13 +9,13 @@ public class CommandElement {
 	private String myType;
 	private String myNativeCommand;
 	
-	private String mySeparator;
+	//private String mySeparator;
 	
 	public CommandElement(String s){
 		myRawText = s;
 		myType = "";
 		myNativeCommand = "";
-		mySeparator = "";
+		//mySeparator = "";
 	}
 	
 	public CommandElement(List<String> commandList){

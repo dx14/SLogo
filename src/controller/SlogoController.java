@@ -6,7 +6,6 @@ import gui.MainGUI;
 import gui.modelinterface.GUIController;
 import gui.modelinterface.GUIInterface;
 import gui.modelinterface.GUITurtle;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -15,9 +14,6 @@ import parser.ParserException;
 import parser.ParserInterface;
 import parser.SlogoParser;
 import parser.command.CommandList;
-import parser.structure.TurtleContainer;
-import turtle.BackendTurtle;
-import util.SlogoPath;
 
 // TODO: backend controller interface
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import gui.modelinterface.GUITurtleContainer;
 import parser.ParserException;

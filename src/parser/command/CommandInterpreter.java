@@ -1,8 +1,5 @@
 package parser.command;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -84,15 +81,15 @@ public class CommandInterpreter {
 	@SuppressWarnings("rawtypes")
 	private static Evaluable instantiateClass(String className) throws ParserException {
 		Class c = loadClass(className);
-		Class[] types = { CommandTreeNode.class, SlogoParser.class };
-		Constructor constructor;
-		try{
-		constructor = Class.forName(className).getDeclaredConstructor(types);
-		}
-		catch(Exception e)
-		{
-			
-		}
+//		Class[] types = { CommandTreeNode.class, SlogoParser.class };
+//		Constructor constructor;
+//		try{
+//		constructor = Class.forName(className).getDeclaredConstructor(types);
+//		}
+//		catch(Exception e)
+//		{
+//			
+//		}
 		Evaluable command = null;
 		try {
 		    command = (Evaluable)c.newInstance();
