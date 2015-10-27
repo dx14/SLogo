@@ -1,7 +1,7 @@
 package gui;
 
 import java.util.HashMap;
-
+import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,6 +15,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import util.SlogoPath;
 
 
@@ -56,21 +57,37 @@ public class GUITurtleAreaDrawer extends GUIComponent {
     }
     
     public void drawTurtleImageView (GUITurtle turtle, Image image){
-    	
+        double prevX=0;
+                double prevY=0;
     	if(prevImages.containsKey(turtle.getID())){
     		allImagesAndCanvas.getChildren().remove(prevImages.get(turtle.getID()));
+    	        prevX=prevImages.get(turtle.getID()).getTranslateX();
+    	        prevY=-1*(prevImages.get(turtle.getID()).getTranslateY());
     	}
     	
     	
     	
     	ImageView actualImage = new ImageView(image);
-    	
     	prevImages.put(turtle.getID(), actualImage);
     	
+//    	System.out.println("RRRRR"+turtle.getHistory().size());
+//    	if (turtle.getHistory().size()>0) {
+//    	prevX=turtle.getHistory().get(turtle.getHistory().size()-1).getStart().getX();
+//    	prevY=turtle.getHistory().get(turtle.getHistory().size()-1).getStart().getY();
+//    	}
+//    	else {
+//    	    prevX=0;
+//    	    prevY=0;
+//    	}
+
     	
-        actualImage.setTranslateX(turtle.getCoordinate().getX());
-        actualImage.setTranslateY(-1* turtle.getCoordinate().getY());
+        actualImage.setTranslateX(prevX);
+        actualImage.setTranslateY(prevY);
+        System.out.println("QEWRT"+prevY);
         actualImage.setRotate(turtle.getHeading());
+        TranslateTransition tt = new TranslateTransition(Duration.millis(1000), actualImage);
+        tt.setByX(turtle.getCoordinate().getX()-prevX);
+        tt.setByY(-1* (turtle.getCoordinate().getY()+prevY));
     
         
         double a = turtle.getHeading();
@@ -83,11 +100,8 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         	
         });
         
-        
         allImagesAndCanvas.getChildren().add(actualImage);
-        
-         
-        
+        tt.play();
     }
 
     public void drawPath (SlogoPath path, Color color) {
