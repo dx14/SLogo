@@ -1,6 +1,7 @@
 package parser.command.commandlist.control;
 
 import parser.ParserException;
+import parser.Validator;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.commandlist.syntax.ListStartCommand;
@@ -35,21 +36,10 @@ public class DoTimesCommand extends Command {
 		myParameters = myTree.get(0);
 		myCommands = myTree.get(1);
 		
-		if(!(myParameters.getCommand() instanceof ListStartCommand)){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected [ :variable limit ] but got: " + myParameters.getCommandElement().getRawText());
-		}
-		
-		if(!(myCommands.getCommand() instanceof ListStartCommand)){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected list of commands but got: " + myCommands.getCommandElement().getRawText());
-		}
-		
-		if(!(myParameters.get(0).getCommand() instanceof VariableCommand)){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected variable but got: " + myParameters.get(0).getCommandElement().getRawText());
-		}
-		
-		if(myParameters.getNumBranches()!=3){
-			throw new ParserException("Error: " + myCommand.getRawText() + " expected 2 parameters but got: " + (myParameters.getNumBranches()-1));
-		}
+		Validator.assertType(myParameters, myCommand, ListStartCommand.class);
+		Validator.assertType(myCommands, myCommand, ListStartCommand.class);
+		Validator.assertType(myParameters.get(0), myCommand, VariableCommand.class);
+		Validator.assertNumArguments(myParameters, myCommand, 3, true);
 		
 		return remainder;
 	}
