@@ -206,11 +206,13 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	@Override
 	public void penDown() {
 		myPen.setDown(true);
+		update();
 	}
 
 	@Override
 	public void penUp() {
 		myPen.setDown(false);
+		update();
 	}
 
 	@Override

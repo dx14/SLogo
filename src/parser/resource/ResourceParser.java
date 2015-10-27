@@ -1,5 +1,6 @@
 package parser.resource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -15,27 +16,30 @@ public class ResourceParser {
 	private ResourceBundle syntaxResources;
 	private ResourceBundle commandResources;
 	
+	private static final ResourceBundle LANGUAGELIST = ResourceBundle.getBundle("resources.config.Languages");
+	
 	private String myCurrentLanguage;
 	private List<String> mySyntaxTypes;
 	private List<String> myCommandNames;
+	private List<String> myLanguages;
 	
 	public static final String NOTFOUND = "NOTFOUND";
 	public static final String USERDEFINED = "UserDefinedCommand";
-	public static final List<String> LANGUAGES = Arrays.asList(
-			"English", 
-			"Chinese", 
-			"French", 
-			"German", 
-			"Italian", 
-			"Portuguese", 
-			"Russian", 
-			"Spanish");
 	
 	public ResourceParser(){
-		this(LANGUAGES.get(0));
+		myCurrentLanguage = loadLanguages().get(0);
+		reload();
+	}
+	
+	private List<String> loadLanguages(){
+		myLanguages = Collections.list(LANGUAGELIST.getKeys()).stream()
+				.map((s) -> LANGUAGELIST.getString(s))
+				.collect(Collectors.toList());
+		return myLanguages;
 	}
 	
 	public ResourceParser(String language){
+		loadLanguages();
 		myCurrentLanguage = language;
 		reload();
 	}
@@ -80,7 +84,7 @@ public class ResourceParser {
 	}
 	
 	public void setLanguage(String language) throws ParserException{
-		if(!LANGUAGES.contains(language)){
+		if(!myLanguages.contains(language)){
 			throw new ParserException("Error: don't know language " + language);
 		}
 		else {
