@@ -9,16 +9,17 @@ public class Pen implements GUIPen{
 	private double myWidth;
 	private int myColor;
 	private boolean down;
-	private LineStyle myStyle = LineStyle.SOLID;
+	private LineStyle myStyle;
 	
 	public Pen(){
-		this(0, 1, true);
+		this(0, 1, true, LineStyle.SOLID);
 	}
 	
-	public Pen(int color, double width, boolean down){
+	public Pen(int color, double width, boolean down, LineStyle style){
 		myColor = color;
 		myWidth = width;
 		this.down = down;
+	        myStyle = style;
 	}
 	
 	public void setDown(boolean down){
@@ -55,7 +56,7 @@ public class Pen implements GUIPen{
 	}
 	
 	public Pen clone() {
-		return new Pen(myColor, myWidth, down);
+		return new Pen(myColor, myWidth, down, myStyle);
 	}
 	
 	public LineStyle getStyle() {
