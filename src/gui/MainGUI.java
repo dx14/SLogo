@@ -76,7 +76,7 @@ public class MainGUI implements GUIInterface {
 		mainStage = stage;
 
 		myGUIConsole = new GUIConsole(myGUIController);
-		myGUITurtleArea = new GUITurtleArea(mainStage, myParams.getDefaultBackground(), turtleList, pathList, myParams.getImageList());
+		myGUITurtleArea = new GUITurtleArea(mainStage, myParams.getDefaultBackground(), turtleList, pathList, myParams.getImageList(),myParams.getDefaultPalette());
 		allGUIComponents.add(myGUITurtleArea);
 		myGUIHistory = new GUIHistory((GUIConsoleTextEditable) myGUIConsole);
 		allGUIComponents.add(myGUIHistory);

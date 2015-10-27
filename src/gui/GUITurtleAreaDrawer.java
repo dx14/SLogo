@@ -2,6 +2,8 @@ package gui;
 
 import java.util.HashMap;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,6 +17,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import util.SlogoPath;
 
 
@@ -32,6 +35,8 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
         allImagesAndCanvas = new StackPane();
+ 	   allImagesAndCanvas.getChildren().add(canvas);
+
         
         prevImages = new HashMap<Integer, ImageView>();
     }
@@ -60,8 +65,6 @@ public class GUITurtleAreaDrawer extends GUIComponent {
     	if(prevImages.containsKey(turtle.getID())){
     		allImagesAndCanvas.getChildren().remove(prevImages.get(turtle.getID()));
     	}
-    	
-    	
     	
     	ImageView actualImage = new ImageView(image);
     	
@@ -138,7 +141,6 @@ public class GUITurtleAreaDrawer extends GUIComponent {
     @Override
     public Node returnNodeToDraw () {
     	
-    	   allImagesAndCanvas.getChildren().add(canvas);
     	
         return allImagesAndCanvas;
     }

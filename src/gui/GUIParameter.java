@@ -2,7 +2,9 @@ package gui;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.sun.javafx.UnmodifiableArrayList;
 
@@ -17,8 +19,9 @@ public class GUIParameter {
 	private Color defaultBackground;
 	private List<String> imageList;
 	private String commandLanguage;
+	private Map<Integer, String> defaultPalette;
 	
-	public GUIParameter(String defaultBg, String listOfImages, String cmdLang){
+	public GUIParameter(String defaultBg, String listOfImages, String cmdLang, String paletteMap){
 		
 		defaultBackground = Color.web(defaultBg);
 		
@@ -27,8 +30,19 @@ public class GUIParameter {
 		
 		commandLanguage = cmdLang;
 		
+		defaultPalette = new HashMap<Integer, String>();
+		String[] myList = paletteMap.split(",");
+		for(int i = 0; i < myList.length; i = i + 2){
+			defaultPalette.put(Integer.parseInt(myList[i]), myList[i+1]);
+		}
+		
 	}
 
+	public Map<Integer, String> getDefaultPalette(){
+		
+		return defaultPalette;
+	}
+	
 	public String getCommandLanguage() {
 		return commandLanguage;
 	}
