@@ -18,7 +18,7 @@ public class LocalVariableContainer extends VariableContainer {
 	}
 	
 	public void setVariable(String name, double value, boolean recursive){
-		if(myParent.contains(name) && recursive){
+		if(!myVariables.containsKey(name) && myParent.contains(name) && recursive){
 			myParent.setVariable(name, value);
 		}
 		else{
