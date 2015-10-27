@@ -61,7 +61,7 @@ public class GUITurtleArea extends GUIComponent implements GUITurtleAreaBGInterf
         drawAll();
     }
     public void drawAll() {
-        drawBackground();
+    //    drawBackground();
         drawTurtles();
         drawPaths();
     }
