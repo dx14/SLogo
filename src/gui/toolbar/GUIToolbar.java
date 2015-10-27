@@ -73,42 +73,20 @@ public class GUIToolbar extends GUIComponent {
         addNode(new Separator());
         addNode(guiDropDown());
         addNode(new Separator());
-        addNode(saveXML());
+        addNode(new SaveXMLButton((GUIToolbarInterface)this).returnNodeToDraw());
     }
 
-    private Node saveXML () {
-        Button help = new Button(getTextResources().getString("savexml"));
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                try {
-                    XMLParser a = new XMLParser(new File(getTextResources().getString("defaultxml")));
-                    String imageList = getImageList();
-                    String backgroundColor = getBGColor();
-                    String defaultPalette = getPalette();
-                    a.saveToXML(getTextResources().getString("defaultxml"), backgroundColor,
-                                imageList, currentLanguage.getLanguage(), defaultPalette);
-
-                }
-                catch (GUIException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        return help;
-
-    }
-
-    protected String getPalette () {
+    public String getPalette () {
         return myTurtleArea.getPalette();
     }
-
-    private String getBGColor () {
+    public String getBGColor () {
         return myTurtleArea.getBGColor();
     }
-
-    private String getImageList () {
+    public String getImageList () {
         return myTurtleArea.getImagePathsAsAString();
+    }
+    public String getLanguage () {
+        return currentLanguage.getLanguage();
     }
 
     /**
