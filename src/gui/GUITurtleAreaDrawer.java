@@ -1,25 +1,39 @@
 package gui;
 
+import java.util.HashMap;
+
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.transform.Rotate;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import util.SlogoPath;
 
 
 public class GUITurtleAreaDrawer extends GUIComponent {
-    private double xCanvas, yCanvas;
+    
+	private double xCanvas, yCanvas;
     private GraphicsContext gc;
     private Canvas canvas;
+    private StackPane allImagesAndCanvas;
+    private HashMap<Integer, ImageView> prevImages;
 
     public GUITurtleAreaDrawer (double width, double height) {
         xCanvas = width;
         yCanvas = height;
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
+        allImagesAndCanvas = new StackPane();
+        
+        prevImages = new HashMap<Integer, ImageView>();
     }
 
     public void drawBackground (Color backgroundColor) {
@@ -39,6 +53,41 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         setGCTransform(turtle.getHeading(), guiCoords[0], guiCoords[1]);
         gc.drawImage(image, offsetguiCoords[0], offsetguiCoords[1]);
         gc.restore();
+    }
+    
+    public void drawTurtleImageView (GUITurtle turtle, Image image){
+    	
+    	if(prevImages.containsKey(turtle.getID())){
+    		allImagesAndCanvas.getChildren().remove(prevImages.get(turtle.getID()));
+    	}
+    	
+    	
+    	
+    	ImageView actualImage = new ImageView(image);
+    	
+    	prevImages.put(turtle.getID(), actualImage);
+    	
+    	
+        actualImage.setTranslateX(turtle.getCoordinate().getX());
+        actualImage.setTranslateY(-1* turtle.getCoordinate().getY());
+        actualImage.setRotate(turtle.getHeading());
+    
+        
+        double a = turtle.getHeading();
+        boolean b = turtle.getPen().isDown();
+        actualImage.setOnMouseClicked(e -> {
+        	String text = "Direction: " + a + " Is down: " + b;
+        	Alert alert = new Alert(Alert.AlertType.INFORMATION, text);
+            alert.showAndWait().filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> System.out.println("handled"));
+        	
+        });
+        
+        
+        allImagesAndCanvas.getChildren().add(actualImage);
+        
+         
+        
     }
 
     public void drawPath (SlogoPath path, Color color) {
@@ -88,6 +137,9 @@ public class GUITurtleAreaDrawer extends GUIComponent {
 
     @Override
     public Node returnNodeToDraw () {
-        return canvas;
+    	
+    	   allImagesAndCanvas.getChildren().add(canvas);
+    	
+        return allImagesAndCanvas;
     }
 }
