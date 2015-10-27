@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import parser.structure.GUITurtleContainer;
@@ -53,6 +54,10 @@ public class GUITurtleArea extends GUIComponent
 
         images = FXCollections.observableArrayList(imagePaths);
         palette = FXCollections.observableHashMap();
+        
+        drawer.drawBackground(backgroundColor);
+
+        
         palette.put(0, "0xff00ffff"); // TODO:default
     }
 
@@ -65,12 +70,11 @@ public class GUITurtleArea extends GUIComponent
     @Override
     public void updateBackgroundColor (Color c) {
         backgroundColor = c;
-        drawAll();
+        drawer.drawBackground(backgroundColor);
     }
 
     @Override
     public void drawAll () {
-        drawer.drawBackground(backgroundColor);
         drawTurtles();
         drawPaths();
     }
@@ -82,16 +86,22 @@ public class GUITurtleArea extends GUIComponent
     }
 
     private void drawTurtle (GUITurtle turtle) {
+    	Image image;
         try {
-            Image image = parseImage(turtle.getDisplayIndex());
-            drawer.drawTurtleImage(turtle, image);
+            image = parseImage(turtle.getDisplayIndex());
+      //      drawer.drawTurtleImage(turtle, image);
+            drawer.drawTurtleImageView(turtle, image);
         }
         catch (Exception e) {
             handleException(e);
-            Image image =
+            image =
                     new Image((getTextResources().getString("defaultimageurl")));
-            drawer.drawTurtleImage(turtle, image);
+        //    drawer.drawTurtleImage(turtle, image);
+            drawer.drawTurtleImageView(turtle, image);
+
         }
+
+        
     }
 
     private void turtleObserved (GUITurtle turtle) {
