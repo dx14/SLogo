@@ -1,6 +1,7 @@
 package parser.command.commandlist.control;
 
 import parser.ParserException;
+import parser.Validator;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.commandlist.syntax.VariableCommand;
@@ -18,8 +19,7 @@ public class MakeVariableCommand extends Command {
 	@Override
 	public CommandList build() throws ParserException {
 		CommandList remainder = myTree.buildNext().buildNext().getRemainder();
-		if(!(myTree.get(0).getCommand() instanceof VariableCommand))
-			throw new ParserException(myCommand.getRawText() + " expected variable argument, got " + myTree.get(0).getCommandElement().getRawText());
+		Validator.assertType(myTree.get(0), myCommand, VariableCommand.class);
 		return remainder;
 	}
 
