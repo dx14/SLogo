@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import parser.ParserException;
 
 
-public class GUIToolbar extends GUIComponent {
+public class GUIToolbar extends GUIComponent implements GUIToolbarInterface{
 
     private final String languagesFileDirectoryName;
     private List<GUITurtle> myTurtles;
@@ -46,7 +46,7 @@ public class GUIToolbar extends GUIComponent {
                        GUITurtleAreaRedrawInterface turtleArea,
                        GUIController GUIController,
                        String defLang) {
-        myTurtles = turtles;
+        myTurtles=turtles;
         myTurtleArea = turtleArea;
         myStage = stage;
         myGUIController = GUIController;
@@ -65,7 +65,7 @@ public class GUIToolbar extends GUIComponent {
     protected void initializeToolBar () {
         addNode(languageDropDown());
         addNode(new Separator());
-        addNode(imageFileLoader());
+        addNode(new ImageLoaderButton((GUIToolbarInterface)this, myStage).returnNodeToDraw());
         addNode(new Separator());
         addNode(new HelpButton(myStage).returnNodeToDraw());
         addNode(new Separator());
@@ -177,42 +177,7 @@ public class GUIToolbar extends GUIComponent {
         }
     }
 
-    private Button imageFileLoader () {
-        Button openImage = new Button(getTextResources().getString("openimage"));
-        openImage.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                updateTurtleImage();
-            }
-        });
-        return openImage;
-    }
 
-    private void updateTurtleImage () {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(getTextResources().getString("imagebrowsertitle"));
-        fileChooser.getExtensionFilters()
-                .addAll(new ExtensionFilter(getTextResources().getString("imageextensionlabel"),
-                                            getTextResources()
-                                                    .getString("imageextensions")
-                                                    .split(getTextResources()
-                                                            .getString("imageextensiondelimiter"))));
-        File selectedFile = fileChooser.showOpenDialog(myStage);
-        if (selectedFile != null) {
-            try {
-                myTurtleArea.addImage(selectedFile.getAbsolutePath());
-                for (GUITurtle t : myTurtles) {
-                    t.setDisplayIndex(myTurtleArea.getImagesSize() - 1);
-                }
-
-                myTurtleArea.drawAll();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                handleException(e);
-            }
-        }
-    }
 
     public void updateGUINumber () {
 
@@ -221,5 +186,12 @@ public class GUIToolbar extends GUIComponent {
             guiDropdown.getItems().add(i + 1);
         }
 
+    }
+
+    public List<GUITurtle> getTurtles () {
+        return myTurtles;
+    }
+    public GUITurtleAreaRedrawInterface getTurtleArea() {
+        return myTurtleArea;
     }
 }
