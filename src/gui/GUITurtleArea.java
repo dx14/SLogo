@@ -33,6 +33,7 @@ public class GUITurtleArea extends GUIComponent
     private ObservableMap<Integer, String> palette;
     private final String TURTLE_AREA_FILE = "resources.guitext.TurtleArea";
     private GUITurtleAreaDrawer drawer;
+    private int pathBeforeSize, pathAfterSize;
 
     public GUITurtleArea (Stage mainStage,
                           Color turtleAreaColor,
@@ -90,6 +91,7 @@ public class GUITurtleArea extends GUIComponent
         try {
             image = parseImage(turtle.getDisplayIndex());
       //      drawer.drawTurtleImage(turtle, image);
+            System.out.println("GGGG"+pathBeforeSize+" "+pathAfterSize);
             drawer.drawTurtleImageView(turtle, image);
         }
         catch (Exception e) {
@@ -110,6 +112,7 @@ public class GUITurtleArea extends GUIComponent
             System.out.println("TURTLE IS SHOWING");
             myTurtles.add(turtle);
         }
+        pathBeforeSize=myPaths.size();
         myPaths.clear();
         if (!turtle.isClear()) {
             for (SlogoPath path : turtle.getHistory()) {
@@ -119,6 +122,7 @@ public class GUITurtleArea extends GUIComponent
                 checkPen(path);
             }
         }
+        pathAfterSize=myPaths.size();
         drawAll();
         // myPaths.stream().forEach(s -> System.out.println(s.toString()));
         // if (turtle.getPaths().size()>0){
