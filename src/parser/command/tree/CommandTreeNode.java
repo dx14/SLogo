@@ -5,6 +5,7 @@ import java.util.List;
 
 import parser.ParserException;
 import parser.SlogoParser;
+import parser.Validator;
 import parser.command.CommandElement;
 import parser.command.CommandInterpreter;
 import parser.command.CommandList;
@@ -26,9 +27,8 @@ public class CommandTreeNode implements Evaluable {
 	}
 	
 	public CommandTreeNode(CommandList source, SlogoParser parser, CommandTreeNode parent) throws ParserException{
-		if(source.isEmpty()){
-			throw new ParserException("Error: expected another argument.");
-		}
+		Validator.assertNonEmpty(source);
+		
 		mySource = source;
 		
 		myParser = parser;

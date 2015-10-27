@@ -1,6 +1,7 @@
 package parser.command.commandlist.control;
 
 import parser.ParserException;
+import parser.Validator;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.commandlist.syntax.ListStartCommand;
@@ -15,9 +16,7 @@ public class IfCommand extends Command {
 	@Override
 	public CommandList build() throws ParserException {
 		CommandList remainder = myTree.buildNext().buildNext().getRemainder();
-		if(!(myTree.get(1).getCommand() instanceof ListStartCommand)){
-			throw new ParserException("Error: if expected list argument, got: " + myTree.get(1).getCommandElement().getRawText());
-		}
+		Validator.assertType(myTree.get(1), myCommand, ListStartCommand.class);
 		return remainder;
 	}
 }

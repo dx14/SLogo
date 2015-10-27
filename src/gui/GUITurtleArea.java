@@ -72,9 +72,9 @@ public class GUITurtleArea extends GUIComponent
         backgroundColor = c;
         drawer.drawBackground(backgroundColor);
     }
-
-    @Override
-    public void drawAll () {
+    
+    public void drawAll() {
+    //    drawBackground();
         drawTurtles();
         drawPaths();
     }
