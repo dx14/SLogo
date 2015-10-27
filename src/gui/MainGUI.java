@@ -3,6 +3,7 @@ package gui;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import gui.pen.GUIPenDisplay;
@@ -44,6 +45,7 @@ public class MainGUI implements GUIInterface {
 	private GUIUserDefinedCommands myUserDefinedCommands;
 	private GUIImageDisplay myGUIImageDisplay;
 	private GUIPaletteDisplay myGUIPaletteDisplay;
+	private GUIAnimationSpeedDisplay myGUIAnimationSpeedDisplay;
 
 	private GUIParameter myParams;
 
@@ -91,6 +93,7 @@ public class MainGUI implements GUIInterface {
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
 		myGUIImageDisplay = new GUIImageDisplay((GUITurtleAreaImagesInterface)myGUITurtleArea);
 		myGUIPaletteDisplay = new GUIPaletteDisplay((GUITurtleAreaPaletteInterface)myGUITurtleArea);
+		myGUIAnimationSpeedDisplay = new GUIAnimationSpeedDisplay((GUITADrawerSpeedInterface)myGUITurtleArea);
 	}
 
 	public void draw() {
@@ -105,7 +108,8 @@ public class MainGUI implements GUIInterface {
 																					// file
 				myGUIPen.returnNodeToDraw(),
 				myGUIImageDisplay.returnNodeToDraw(),
-				myGUIPaletteDisplay.returnNodeToDraw()));
+				myGUIPaletteDisplay.returnNodeToDraw(),
+				myGUIAnimationSpeedDisplay.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());
@@ -141,5 +145,10 @@ public class MainGUI implements GUIInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public Map<Integer,String> getPalette() {
+	    return myGUITurtleArea.getColorMap();
+	}
+	public void updateBackgroundColor(int index) {
+	    myGUITurtleArea.updateBackgroundColor(Color.valueOf(myGUITurtleArea.getColorMap().get(index)));
+	}
 }

@@ -22,7 +22,7 @@ import util.SlogoPath;
 
 
 public class GUITurtleArea extends GUIComponent
-        implements GUITurtleAreaImagesInterface, GUITurtleAreaPaletteInterface, Observer {
+        implements GUITurtleAreaImagesInterface, GUITurtleAreaPaletteInterface, GUITADrawerSpeedInterface, Observer {
 
     private static final double DASH_LENGTH = 10;
     private List<GUITurtle> myTurtles;
@@ -34,6 +34,7 @@ public class GUITurtleArea extends GUIComponent
     private ObservableMap<Integer, String> palette;
     private final String TURTLE_AREA_FILE = "resources.guitext.TurtleArea";
     private GUITurtleAreaDrawer drawer;
+    private int pathBeforeSize, pathAfterSize;
 
     public GUITurtleArea (Stage mainStage,
                           Color turtleAreaColor,
@@ -49,6 +50,7 @@ public class GUITurtleArea extends GUIComponent
                 mainStage.getScene().getHeight() -
                   Integer.parseInt(getTextResources().getString("canvasyshrinkpixels"));
         drawer = new GUITurtleAreaDrawer(xCanvas, yCanvas);
+        drawer.setSpeed(Double.parseDouble(getTextResources().getString("initialspeed")));
 
         backgroundColor = turtleAreaColor;
         myTurtles = turtles;
@@ -91,9 +93,11 @@ public class GUITurtleArea extends GUIComponent
         try {
             image = parseImage(turtle.getDisplayIndex());
       //      drawer.drawTurtleImage(turtle, image);
+            System.out.println("GGGG"+pathBeforeSize+" "+pathAfterSize);
             drawer.drawTurtleImageView(turtle, image);
         }
         catch (Exception e) {
+            e.printStackTrace();
             handleException(e);
             image =
                     new Image((getTextResources().getString("defaultimageurl")));
@@ -111,6 +115,7 @@ public class GUITurtleArea extends GUIComponent
             System.out.println("TURTLE IS SHOWING");
             myTurtles.add(turtle);
         }
+        pathBeforeSize=myPaths.size();
         myPaths.clear();
         if (!turtle.isClear()) {
             for (SlogoPath path : turtle.getHistory()) {
@@ -120,6 +125,7 @@ public class GUITurtleArea extends GUIComponent
                 checkPen(path);
             }
         }
+        pathAfterSize=myPaths.size();
         drawAll();
         // myPaths.stream().forEach(s -> System.out.println(s.toString()));
         // if (turtle.getPaths().size()>0){
@@ -194,6 +200,10 @@ public class GUITurtleArea extends GUIComponent
     public void addPaletteListener (MapChangeListener l) {
         palette.addListener(l);
     }
+    @Override
+    public void setSpeed (double speed) {
+        drawer.setSpeed(speed);
+    }
 
 	@Override
 	public String getPalette() {
@@ -215,4 +225,8 @@ public class GUITurtleArea extends GUIComponent
 		//return aa.stream().reduce((t,u) -> t + ',' + palette.get(Integer.parseInt(t)) + ',' + u + ',' + palette.get(Integer.parseInt(u))).get();
 	}
 
+    @Override
+    public double getSpeed () {
+        return drawer.getSpeed();
+    }
 }
