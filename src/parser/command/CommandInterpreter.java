@@ -3,6 +3,9 @@ package parser.command;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import parser.ParserException;
 import parser.SlogoParser;
@@ -16,7 +19,9 @@ public class CommandInterpreter {
 	private SlogoParser myParser;
 	private ResourceParser myResourceParser;
 	
-	private static final ArrayList<String> commandTypes = new ArrayList<>(Arrays.asList("turtlecommand.", "turtlequery.", "math.", "booleancommand.", "control.", "display.", "turtles.", "syntax."));
+	private static final ResourceBundle COMMANDRESOURCE = ResourceBundle.getBundle("resources.config.Commands");
+	private static final List<String> commandTypes = 
+			COMMANDRESOURCE.keySet().stream().map((s) -> COMMANDRESOURCE.getString(s)).collect(Collectors.toList());
 
 	
 	public CommandInterpreter(SlogoParser parser, ResourceParser resourceParser){

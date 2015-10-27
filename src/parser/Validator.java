@@ -34,4 +34,10 @@ public class Validator {
 			throw new ParserException(errors.getString("NotEnoughArgs"));
 		}
 	}
+	
+	public static void assertCommandExists(boolean notFound, CommandElement command) throws ParserException{
+		if(notFound){
+			throw new ParserException(String.format(errors.getString("CommandNotFound"), command.getRawText()));
+		}
+	}
 }

@@ -1,6 +1,7 @@
 package parser.command.commandlist.syntax;
 
 import parser.ParserException;
+import parser.Validator;
 import parser.command.Command;
 import parser.command.CommandList;
 import parser.command.Evaluable;
@@ -13,8 +14,7 @@ public class UserDefinedCommand extends Command {
 	
 	@Override
 	public double evaluate() throws ParserException {
-		if(notFound)
-			throw new ParserException("Error: don't know how to: " + myCommand.getRawText());
+		Validator.assertCommandExists(notFound, myCommand);
 		return usercommand.evaluate();
 	}
 	
