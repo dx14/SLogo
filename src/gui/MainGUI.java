@@ -45,6 +45,7 @@ public class MainGUI implements GUIInterface {
 	private GUIUserDefinedCommands myUserDefinedCommands;
 	private GUIImageDisplay myGUIImageDisplay;
 	private GUIPaletteDisplay myGUIPaletteDisplay;
+	private GUIAnimationSpeedDisplay myGUIAnimationSpeedDisplay;
 
 	private GUIParameter myParams;
 
@@ -92,6 +93,7 @@ public class MainGUI implements GUIInterface {
 		myUserDefinedCommands = new GUIUserDefinedCommands((GUIConsoleTextEditable) myGUIConsole);
 		myGUIImageDisplay = new GUIImageDisplay((GUITurtleAreaImagesInterface)myGUITurtleArea);
 		myGUIPaletteDisplay = new GUIPaletteDisplay((GUITurtleAreaPaletteInterface)myGUITurtleArea);
+		myGUIAnimationSpeedDisplay = new GUIAnimationSpeedDisplay((GUITADrawerSpeedInterface)myGUITurtleArea);
 	}
 
 	public void draw() {
@@ -106,7 +108,8 @@ public class MainGUI implements GUIInterface {
 																					// file
 				myGUIPen.returnNodeToDraw(),
 				myGUIImageDisplay.returnNodeToDraw(),
-				myGUIPaletteDisplay.returnNodeToDraw()));
+				myGUIPaletteDisplay.returnNodeToDraw(),
+				myGUIAnimationSpeedDisplay.returnNodeToDraw()));
 		mainRoot.setTop(myGUIToolbar.returnNodeToDraw());
 		mainRoot.setBottom(myGUIConsole.returnNodeToDraw());
 		// mainRoot.setLeft(myGUIVariables.returnNodeToDraw());

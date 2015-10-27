@@ -23,13 +23,14 @@ import javafx.util.Duration;
 import util.SlogoPath;
 
 
-public class GUITurtleAreaDrawer extends GUIComponent {
+public class GUITurtleAreaDrawer extends GUIComponent{
 
     private double xCanvas, yCanvas;
     private GraphicsContext gc;
     private Canvas canvas;
     private StackPane allImagesAndCanvas;
     private HashMap<Integer, ImageView> prevImages;
+    private double mySpeed = 1000;
 
     public GUITurtleAreaDrawer (double width, double height) {
         xCanvas = width;
@@ -85,7 +86,7 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         System.out.println(turtle.getCoordinate().getY());
         System.out.println("QEWRT" + prevY);
         actualImage.setRotate(turtle.getHeading());
-        TranslateTransition tt = new TranslateTransition(Duration.millis(1000), actualImage);
+        TranslateTransition tt = new TranslateTransition(Duration.millis(mySpeed), actualImage);
         tt.setByX(turtle.getCoordinate().getX() - prevX);
         tt.setByY(-1 * (turtle.getCoordinate().getY() - prevY));
 
@@ -157,5 +158,13 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         allImagesAndCanvas.getChildren().add(canvas);
 
         return allImagesAndCanvas;
+    }
+
+    public void setSpeed (double speed) {
+        mySpeed=speed;
+    }
+
+    public double getSpeed () {
+        return mySpeed;
     }
 }
