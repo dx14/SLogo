@@ -194,6 +194,7 @@ public class SimpleTurtle implements Turtle, GUITurtle{
 	}
 	
 	protected void update(){
+	    System.out.println("turtle updated!!!!!!!!!!!!!!!!!1");
 		myContainer.update();
 	}
 

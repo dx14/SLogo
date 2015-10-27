@@ -21,7 +21,7 @@ import util.SlogoPath;
 
 
 public class GUITurtleArea extends GUIComponent
-        implements GUITurtleAreaImagesInterface, GUITurtleAreaPaletteInterface, Observer {
+        implements GUITurtleAreaImagesInterface, GUITurtleAreaPaletteInterface, GUITADrawerSpeedInterface, Observer {
 
     private static final double DASH_LENGTH = 10;
     private List<GUITurtle> myTurtles;
@@ -48,6 +48,7 @@ public class GUITurtleArea extends GUIComponent
                 mainStage.getScene().getHeight() -
                   Integer.parseInt(getTextResources().getString("canvasyshrinkpixels"));
         drawer = new GUITurtleAreaDrawer(xCanvas, yCanvas);
+        drawer.setSpeed(Double.parseDouble(getTextResources().getString("initialspeed")));
 
         backgroundColor = turtleAreaColor;
         myTurtles = turtles;
@@ -95,6 +96,7 @@ public class GUITurtleArea extends GUIComponent
             drawer.drawTurtleImageView(turtle, image);
         }
         catch (Exception e) {
+            e.printStackTrace();
             handleException(e);
             image =
                     new Image((getTextResources().getString("defaultimageurl")));
@@ -197,5 +199,13 @@ public class GUITurtleArea extends GUIComponent
     public void addPaletteListener (MapChangeListener l) {
         palette.addListener(l);
     }
+    @Override
+    public void setSpeed (double speed) {
+        drawer.setSpeed(speed);
+    }
 
+    @Override
+    public double getSpeed () {
+        return drawer.getSpeed();
+    }
 }

@@ -1,6 +1,10 @@
 package gui;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -19,13 +23,14 @@ import javafx.util.Duration;
 import util.SlogoPath;
 
 
-public class GUITurtleAreaDrawer extends GUIComponent {
-    
-	private double xCanvas, yCanvas;
+public class GUITurtleAreaDrawer extends GUIComponent{
+
+    private double xCanvas, yCanvas;
     private GraphicsContext gc;
     private Canvas canvas;
     private StackPane allImagesAndCanvas;
     private HashMap<Integer, ImageView> prevImages;
+    private double mySpeed = 1000;
 
     public GUITurtleAreaDrawer (double width, double height) {
         xCanvas = width;
@@ -33,7 +38,7 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         canvas = new Canvas(xCanvas, yCanvas);
         gc = canvas.getGraphicsContext2D();
         allImagesAndCanvas = new StackPane();
-        
+
         prevImages = new HashMap<Integer, ImageView>();
     }
 
@@ -55,53 +60,51 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         gc.drawImage(image, offsetguiCoords[0], offsetguiCoords[1]);
         gc.restore();
     }
-    
-    public void drawTurtleImageView (GUITurtle turtle, Image image){
-        double prevX=0;
-                double prevY=0;
-    	if(prevImages.containsKey(turtle.getID())){
-    		allImagesAndCanvas.getChildren().remove(prevImages.get(turtle.getID()));
-    	        prevX=prevImages.get(turtle.getID()).getTranslateX();
-    	        prevY=-1*(prevImages.get(turtle.getID()).getTranslateY());
-    	}
-    	
-    	
-    	
-    	ImageView actualImage = new ImageView(image);
-    	prevImages.put(turtle.getID(), actualImage);
-    	
-//    	System.out.println("RRRRR"+turtle.getHistory().size());
-//    	if (turtle.getHistory().size()>0) {
-//    	prevX=turtle.getHistory().get(turtle.getHistory().size()-1).getStart().getX();
-//    	prevY=turtle.getHistory().get(turtle.getHistory().size()-1).getStart().getY();
-//    	}
-//    	else {
-//    	    prevX=0;
-//    	    prevY=0;
-//    	}
 
-    	
+    public void drawTurtleImageView (GUITurtle turtle, Image image) {
+
+        double prevX = 0;
+        double prevY = 0;
+        if (prevImages.containsKey(turtle.getID())) {
+            allImagesAndCanvas.getChildren().remove(prevImages.get(turtle.getID()));
+
+            prevX = prevImages.get(turtle.getID()).getTranslateX();
+            prevY = -1 * (prevImages.get(turtle.getID()).getTranslateY());
+
+            System.out.println("prevX = " + prevX);
+            System.out.println("prevY = " + prevY);
+
+        }
+
+        ImageView actualImage = new ImageView(image);
+        prevImages.put(turtle.getID(), actualImage);
+
         actualImage.setTranslateX(prevX);
-        actualImage.setTranslateY(prevY);
-        System.out.println("QEWRT"+prevY);
+        actualImage.setTranslateY(-1 * prevY);
+
+        System.out.println(turtle.getCoordinate().getX());
+        System.out.println(turtle.getCoordinate().getY());
+        System.out.println("QEWRT" + prevY);
         actualImage.setRotate(turtle.getHeading());
-        TranslateTransition tt = new TranslateTransition(Duration.millis(1000), actualImage);
-        tt.setByX(turtle.getCoordinate().getX()-prevX);
-        tt.setByY(-1* (turtle.getCoordinate().getY()+prevY));
-    
-        
+        TranslateTransition tt = new TranslateTransition(Duration.millis(mySpeed), actualImage);
+        tt.setByX(turtle.getCoordinate().getX() - prevX);
+        tt.setByY(-1 * (turtle.getCoordinate().getY() - prevY));
+
         double a = turtle.getHeading();
         boolean b = turtle.getPen().isDown();
+        double x = turtle.getCoordinate().getX();
+        double y = turtle.getCoordinate().getY();
         actualImage.setOnMouseClicked(e -> {
-        	String text = "Direction: " + a + " Is down: " + b;
-        	Alert alert = new Alert(Alert.AlertType.INFORMATION, text);
+            String text = "Coordinate: " + x + "," + y + " Direction: " + a + " Is down: " + b;
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, text);
             alert.showAndWait().filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> System.out.println("handled"));
-        	
+
         });
-        
+
         allImagesAndCanvas.getChildren().add(actualImage);
         tt.play();
+
     }
 
     public void drawPath (SlogoPath path, Color color) {
@@ -151,9 +154,17 @@ public class GUITurtleAreaDrawer extends GUIComponent {
 
     @Override
     public Node returnNodeToDraw () {
-    	
-    	   allImagesAndCanvas.getChildren().add(canvas);
-    	
+
+        allImagesAndCanvas.getChildren().add(canvas);
+
         return allImagesAndCanvas;
+    }
+
+    public void setSpeed (double speed) {
+        mySpeed=speed;
+    }
+
+    public double getSpeed () {
+        return mySpeed;
     }
 }
