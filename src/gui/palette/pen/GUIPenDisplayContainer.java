@@ -34,16 +34,10 @@ public class GUIPenDisplayContainer extends GUIPaletteTurtle {
 
     @Override
     public void update (Observable o, Object arg) {
-        System.out.println("work3");
         if (o instanceof TurtleContainer) {
             for (GUIPenDisplay d : displays) {
                 d.update(o, arg);
             }
-        }
-        else {
-            // make this an exception
-            System.out
-                    .println("update didnt update it; it might not be an instance of GUITurtleContainer");
         }
     }
 }

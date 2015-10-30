@@ -1,33 +1,30 @@
 package gui.statedisplay;
 
 import java.util.Optional;
-import gui.GUIComponent;
 import gui.turtlearea.GUITADrawerSpeedInterface;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class GUIAnimationSpeedDisplay extends GUIComponent{
+
+public class GUIAnimationSpeedDisplay extends GUIStateDisplay {
     private GUITADrawerSpeedInterface myDrawer;
     private Text text;
-    public GUIAnimationSpeedDisplay(GUITADrawerSpeedInterface drawer) {
-        myDrawer=drawer;
+
+    public GUIAnimationSpeedDisplay (GUITADrawerSpeedInterface drawer) {
+        myDrawer = drawer;
     }
+
     @Override
     public Node returnNodeToDraw () {
-        text = new Text(""+myDrawer.getSpeed());
+        text = new Text(getTextResources().getString("animationdisplay") + myDrawer.getSpeed());
         text.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle (MouseEvent event) {
                 TextInputDialog dialog = new TextInputDialog();
-                dialog.setContentText("Enter animation time (milliseconds):");
-
+                dialog.setContentText(getTextResources().getString("animationprompt"));
                 Optional<String> result = dialog.showAndWait();
                 if (result.isPresent()) {
                     try {
@@ -43,7 +40,10 @@ public class GUIAnimationSpeedDisplay extends GUIComponent{
         });
         return text;
     }
-    private void redraw() {
-        text.setText(""+myDrawer.getSpeed());;
+
+    @Override
+    public void redraw () {
+        text.setText("" + myDrawer.getSpeed());
+        ;
     }
 }

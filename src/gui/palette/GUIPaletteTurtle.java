@@ -31,8 +31,6 @@ public class GUIPaletteTurtle extends GUIPalette implements Observer {
                 Color penColor = (getPicker().getValue());
                 int i = addToPalette(penColor);
                 for (GUITurtle turtle : myTurtles) {
-                    // TODO: which turtle to set color? Right now it sets all turtles. Also does it
-                    // change the color or already drawn paths?
                     turtle.setPenColor(i);
                 }
             }
@@ -42,15 +40,10 @@ public class GUIPaletteTurtle extends GUIPalette implements Observer {
 
     @Override
     public void update (Observable o, Object arg) {
-        System.out.println("work");
         if (o instanceof TurtleContainer) {
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
             myTurtles.set(0, turtle);
             turtle.completeUpdate();
-        }
-        else {
-            System.out
-                    .println("update didnt update it; it might not be an instance of GUITurtleContainer");
         }
     }
 

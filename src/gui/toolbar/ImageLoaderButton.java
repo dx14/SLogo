@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 
 
 public class ImageLoaderButton extends GUIComponent {
-    Button openImage;
-    GUIToolbarInterface myTool;
+    private Button openImage;
+    private GUIToolbarInterface myTool;
 
     public ImageLoaderButton (GUIToolbarInterface tool, Stage stage) {
         myTool = tool;

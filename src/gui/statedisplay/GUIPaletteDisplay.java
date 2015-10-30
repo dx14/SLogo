@@ -7,7 +7,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 
-public class GUIPaletteDisplay extends GUIStateDisplay implements MapChangeListener {
+public class GUIPaletteDisplay extends GUIStateDisplay
+        implements MapChangeListener<Integer, String> {
     private GUITurtleAreaPaletteInterface myTurtleArea;
 
     public GUIPaletteDisplay (GUITurtleAreaPaletteInterface turtleArea) {
@@ -20,15 +21,21 @@ public class GUIPaletteDisplay extends GUIStateDisplay implements MapChangeListe
     public void redraw () {
         getHbox().getChildren().clear();
         for (Integer i : myTurtleArea.getColorMap().keySet()) {
-            getHbox().getChildren().add(new Text(i + "->"));
-            Rectangle rect = new Rectangle(20, 20);
-            rect.setFill(Paint.valueOf(myTurtleArea.getColorMap().get(i)));
-            getHbox().getChildren().add(rect);
+            getHbox().getChildren()
+                    .add(new Text(i + getTextResources().getString("imagedelimiter")));
+            try {
+                double size = Double.parseDouble(getTextResources().getString("paletteiconsize"));
+                Rectangle rect = new Rectangle(size, size);
+                rect.setFill(Paint.valueOf(myTurtleArea.getColorMap().get(i)));
+                getHbox().getChildren().add(rect);
+            }
+            catch (Exception e) {
+            }
         }
     }
 
     @Override
-    public void onChanged (Change arg0) {
+    public void onChanged (javafx.collections.MapChangeListener.Change<? extends Integer, ? extends String> arg0) {
         redraw();
     }
 }

@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 
-public class GUIImageDisplay extends GUIStateDisplay implements ListChangeListener {
+public class GUIImageDisplay extends GUIStateDisplay implements ListChangeListener<String> {
     private GUITurtleAreaImagesInterface myTurtleArea;
 
     public GUIImageDisplay (GUITurtleAreaImagesInterface turtleArea) {
@@ -19,13 +19,15 @@ public class GUIImageDisplay extends GUIStateDisplay implements ListChangeListen
         getHbox().getChildren().clear();
         int max = myTurtleArea.getImagesSize();
         for (int i = 0; i < max; i++) {
-            getHbox().getChildren().add(new Text(i + "->"));
+            getHbox().getChildren()
+                    .add(new Text(i + getTextResources().getString("imagedelimiter")));
             getHbox().getChildren().add(new ImageView(myTurtleArea.parseImage(i)));
         }
     }
 
     @Override
-    public void onChanged (Change arg0) {
+    public void onChanged (javafx.collections.ListChangeListener.Change<? extends String> arg0) {
         redraw();
     }
+
 }

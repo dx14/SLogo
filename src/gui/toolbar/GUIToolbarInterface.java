@@ -13,12 +13,15 @@ public interface GUIToolbarInterface {
 
     public String getImageList ();
 
-
     public List<GUITurtle> getTurtles ();
 
     public GUITurtleAreaRedrawInterface getTurtleArea ();
+
     public SLogoLanguage getCurrentLanguage ();
+
     public void setCurrentLanguage (String lang);
+
     public SLogoLanguage getDefaultLanguage ();
+
     public GUIController getController ();
 }

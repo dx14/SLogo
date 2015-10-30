@@ -2,6 +2,7 @@ package gui.palette.pen;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import gui.modelinterface.GUITurtle;
 import gui.turtlearea.GUITurtleAreaBGInterface;
 import javafx.scene.control.ButtonType;
@@ -9,17 +10,22 @@ import javafx.scene.control.Dialog;
 
 
 public class GUIPenDown extends GUIPenDisplay {
-    String up = "Pen Up";
-    String down = "Pen Down";
+    private String up;
+    private String down;
+    private String displayInfo;
 
     public GUIPenDown (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
         super(turtles, guiTurtleArea);
+        setTextResources(ResourceBundle.getBundle("resources.guitext.PenDown"));
+        up = getTextResources().getString("penup");
+        down = getTextResources().getString("pendown");
+        displayInfo = getTextResources().getString("displayinfo");
     }
 
     @Override
     void redraw () {
         getWhatToShow().clear();
-        getWhatToShow().add("Pen Down: " + getTurtles().get(0).getPen().isDown());
+        getWhatToShow().add(displayInfo + getTurtles().get(0).getPen().isDown());
     }
 
     @Override

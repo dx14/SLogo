@@ -12,8 +12,8 @@ import javafx.scene.control.Button;
 
 
 public class SaveXMLButton extends GUIComponent {
-    GUIToolbarInterface myTool;
-    Button save;
+    private GUIToolbarInterface myTool;
+    private Button save;
 
     public SaveXMLButton (GUIToolbarInterface tool) {
         myTool = tool;
@@ -29,7 +29,8 @@ public class SaveXMLButton extends GUIComponent {
                     String backgroundColor = myTool.getBGColor();
                     String defaultPalette = myTool.getPalette();
                     a.saveToXML(getTextResources().getString("defaultxml"), backgroundColor,
-                                imageList, myTool.getCurrentLanguage().getLanguage(), defaultPalette);
+                                imageList, myTool.getCurrentLanguage().getLanguage(),
+                                defaultPalette);
                 }
                 catch (GUIException e) {
                     e.printStackTrace();

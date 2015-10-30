@@ -14,7 +14,7 @@ public abstract class GUIComponent {
     protected void handleException (Exception e) {
         Alert alert = new Alert(Alert.AlertType.ERROR, e.getMessage());
         alert.showAndWait().filter(response -> response == ButtonType.OK)
-                .ifPresent(response -> System.out.println("handled"));
+                .ifPresent(response -> System.out.print(""));
     }
 
     public ResourceBundle getTextResources () {

@@ -6,17 +6,17 @@ import util.LineStyle;
 
 public interface GUIPen {
 
-    public boolean isDown ();
+    boolean isDown ();
 
-    public double getWidth ();
+    double getWidth ();
 
-    public void setWidth (double width) throws ParserException;
+    void setWidth (double width) throws ParserException;
 
-    public int getColor ();
+    int getColor ();
 
-    public void setColor (int color);
+    void setColor (int color);
 
-    public LineStyle getStyle ();
+    LineStyle getStyle ();
 
-    public void setStyle (LineStyle style);
+    void setStyle (LineStyle style);
 }

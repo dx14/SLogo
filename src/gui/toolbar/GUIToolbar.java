@@ -1,22 +1,15 @@
 package gui.toolbar;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import gui.GUIComponent;
 import gui.modelinterface.GUIController;
 import gui.modelinterface.GUITurtle;
 import gui.turtlearea.GUITurtleAreaRedrawInterface;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Separator;
 import javafx.scene.control.ToolBar;
 import javafx.stage.Stage;
-import parser.ParserException;
 
 
 public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
@@ -26,10 +19,9 @@ public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
     private GUITurtleAreaRedrawInterface myTurtleArea;
     private Stage myStage;
     private GUIController myGUIController;
-    private ComboBox<Integer> guiDropdown;
     private SLogoLanguage defaultLanguage;
     private SLogoLanguage currentLanguage;
-    private int numberOfGUIs;
+    private GUIDropdownButton guiDropdown;
 
     public GUIToolbar (Stage stage,
                        List<GUITurtle> turtles,
@@ -52,17 +44,18 @@ public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
      * Override this if you want to create a new toolbar setup
      */
     protected void initializeToolBar () {
-        addNode(new LanguageDropdown((GUIToolbarInterface)this).returnNodeToDraw());
+        guiDropdown = new GUIDropdownButton(myGUIController);
+        addNode(new LanguageDropdown(this).returnNodeToDraw());
         addNode(new Separator());
-        addNode(new ImageLoaderButton((GUIToolbarInterface)this, myStage).returnNodeToDraw());
+        addNode(new ImageLoaderButton(this, myStage).returnNodeToDraw());
         addNode(new Separator());
         addNode(new HelpButton(myStage).returnNodeToDraw());
         addNode(new Separator());
-        addNode(addGUIButton());
+        addNode(new AddGUIButton(myGUIController).returnNodeToDraw());
         addNode(new Separator());
-        addNode(guiDropDown());
+        addNode(guiDropdown.returnNodeToDraw());
         addNode(new Separator());
-        addNode(new SaveXMLButton((GUIToolbarInterface)this).returnNodeToDraw());
+        addNode(new SaveXMLButton(this).returnNodeToDraw());
     }
 
     @Override
@@ -84,14 +77,17 @@ public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
     public SLogoLanguage getCurrentLanguage () {
         return currentLanguage;
     }
+
     @Override
     public void setCurrentLanguage (String lang) {
         currentLanguage.setLanguage(lang);
     }
+
     @Override
     public SLogoLanguage getDefaultLanguage () {
         return defaultLanguage;
     }
+
     @Override
     public GUIController getController () {
         return myGUIController;
@@ -113,38 +109,8 @@ public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
         return toolBar;
     }
 
-    private Button addGUIButton () {
-        Button help = new Button(getTextResources().getString("addGUI"));
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                myGUIController.addGUI();
-            }
-        });
-        return help;
-    }
-
-    private ComboBox<Integer> guiDropDown () {
-        guiDropdown = new ComboBox<Integer>();
-        for (int i = 0; i < myGUIController.getNumberOfGUIs(); i++) {
-            guiDropdown.getItems().add(i + 1);
-        }
-        guiDropdown.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle (ActionEvent event) {
-                myGUIController.changeGUI(guiDropdown.getValue() - 1); // to
-                // align
-                // indexing
-            }
-        });
-        return guiDropdown;
-    }
-
     public void updateGUINumber () {
-        guiDropdown.getItems().clear();
-        for (int i = 0; i < myGUIController.getNumberOfGUIs(); i++) {
-            guiDropdown.getItems().add(i + 1);
-        }
+        guiDropdown.updateGUINumber();
     }
 
     @Override

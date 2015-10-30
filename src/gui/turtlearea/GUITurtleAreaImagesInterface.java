@@ -7,5 +7,5 @@ import javafx.scene.image.Image;
 public interface GUITurtleAreaImagesInterface extends GUITurtleAreaRedrawInterface {
     public Image parseImage (int index);
 
-    public void addImagesListener (ListChangeListener l);
+    public void addImagesListener (ListChangeListener<String> l);
 }

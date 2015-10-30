@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 
 public class HelpButton extends GUIComponent {
-    Button help;
+    private Button help;
 
     public HelpButton (Stage stage) {
         setTextResources(ResourceBundle.getBundle("resources.guitext.HelpButton"));

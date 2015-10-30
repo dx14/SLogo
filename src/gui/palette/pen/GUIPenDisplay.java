@@ -29,7 +29,6 @@ public abstract class GUIPenDisplay extends GUIPaletteTurtle {
     public Node returnNodeToDraw () {
         ListView<String> whatToGive = new ListView<String>(getWhatToShow());
         whatToGive.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
             @Override
             public void handle (MouseEvent event) {
                 setVariable();
@@ -49,18 +48,11 @@ public abstract class GUIPenDisplay extends GUIPaletteTurtle {
 
     @Override
     public void update (Observable o, Object arg) {
-        System.out.println("work2");
         if (o instanceof TurtleContainer) {
             GUITurtle turtle = ((GUITurtleContainer) o).getCurrentTurtle();
             getTurtles().set(0, turtle);
             redraw();
             turtle.completeUpdate();
-        }
-
-        else {
-            // make this an exception
-            System.out
-                    .println("update didnt update it; it might not be an instance of GUITurtleContainer");
         }
     }
 

@@ -7,5 +7,5 @@ import javafx.collections.MapChangeListener;
 public interface GUITurtleAreaPaletteInterface extends GUITurtleAreaBGInterface {
     public Map<Integer, String> getColorMap ();
 
-    public void addPaletteListener (MapChangeListener l);
+    public void addPaletteListener (MapChangeListener<Integer, String> m);
 }

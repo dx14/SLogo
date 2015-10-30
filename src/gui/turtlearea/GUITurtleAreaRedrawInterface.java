@@ -12,5 +12,5 @@ public interface GUITurtleAreaRedrawInterface {
 
     public String getImagePathsAsAString ();
 
-	public String getPalette();
+    public String getPalette ();
 }

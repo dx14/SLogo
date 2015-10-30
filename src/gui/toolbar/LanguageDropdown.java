@@ -7,20 +7,16 @@ import gui.GUIComponent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.web.WebView;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
 import parser.ParserException;
 
 
 public class LanguageDropdown extends GUIComponent {
-    ComboBox<String> languageDropdown;
-    GUIToolbarInterface myTool;
+    private ComboBox<String> languageDropdown;
+    private GUIToolbarInterface myTool;
 
     public LanguageDropdown (GUIToolbarInterface tool) {
-        myTool=tool;
+        myTool = tool;
         setTextResources(ResourceBundle.getBundle("resources.guitext.LanguageDropdown"));
         String languagesFileDirectoryName = getTextResources().getString("languagesdirectory");
         languageDropdown = new ComboBox<String>();
@@ -45,6 +41,7 @@ public class LanguageDropdown extends GUIComponent {
             }
         });
     }
+
     private void updateLanguage (String language) {
         try {
             myTool.getController().changeLanguage(language);
