@@ -9,11 +9,21 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 
 
+/**
+ * The Class GUIPenDown extends GUIPenDisplay and controls and displays turtle pen down information.
+ * @author John
+ */
 public class GUIPenDown extends GUIPenDisplay {
     private String up;
     private String down;
     private String displayInfo;
 
+    /**
+     * Instantiates a new GUI pen down display.
+     *
+     * @param turtles the turtles
+     * @param guiTurtleArea the gui turtle area
+     */
     public GUIPenDown (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
         super(turtles, guiTurtleArea);
         setTextResources(ResourceBundle.getBundle("resources.guitext.PenDown"));
@@ -22,12 +32,18 @@ public class GUIPenDown extends GUIPenDisplay {
         displayInfo = getTextResources().getString("displayinfo");
     }
 
+    /* (non-Javadoc)
+     * @see gui.palette.pen.GUIPenDisplay#redraw()
+     */
     @Override
     protected void redraw () {
         getWhatToShow().clear();
         getWhatToShow().add(displayInfo + getTurtles().get(0).getPen().isDown());
     }
 
+    /* (non-Javadoc)
+     * @see gui.palette.pen.GUIPenDisplay#setVariable()
+     */
     @Override
     protected void setVariable () {
         Dialog<ButtonType> dialog = new Dialog<ButtonType>();

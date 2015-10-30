@@ -13,10 +13,20 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 
+/**
+ * The Class ImageLoaderButton extends GUIComponent and represents the display and functionality of the image file browser.
+ * @author John
+ */
 public class ImageLoaderButton extends GUIComponent {
     private Button openImage;
     private GUIToolbarInterface myTool;
 
+    /**
+     * Instantiates a new image loader button.
+     *
+     * @param tool the tool
+     * @param stage the stage
+     */
     public ImageLoaderButton (GUIToolbarInterface tool, Stage stage) {
         myTool = tool;
         setTextResources(ResourceBundle.getBundle("resources.guitext.ImageLoaderButton"));
@@ -29,6 +39,11 @@ public class ImageLoaderButton extends GUIComponent {
         });
     }
 
+    /**
+     * Update turtle image.
+     *
+     * @param stage the stage
+     */
     private void updateTurtleImage (Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(getTextResources().getString("imagebrowsertitle"));
@@ -53,6 +68,9 @@ public class ImageLoaderButton extends GUIComponent {
         }
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         return openImage;

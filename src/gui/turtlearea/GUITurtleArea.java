@@ -22,6 +22,14 @@ import parser.structure.TurtleContainer;
 import util.SlogoPath;
 
 
+/**
+ * The Class GUITurtleArea extends GUIComponent and represents the central turtle area display.
+ * It also holds many of the front end variables including the turtle, path, and local palette lists.
+ * Instatiates a GUITurtleAreaDrawer to do the drawing.
+ * Implements GUITurtleAreaImangesInterface, GUITurtleAreaPaletteInterface, and GUITADrawerSpeedInterface for communication.
+ * Implements Observer to update whenever turtles are changed in the backend
+ * @author John
+ */
 public class GUITurtleArea extends GUIComponent
         implements GUITurtleAreaImagesInterface, GUITurtleAreaPaletteInterface,
         GUITADrawerSpeedInterface, Observer {
@@ -36,6 +44,17 @@ public class GUITurtleArea extends GUIComponent
     private static final String TURTLE_AREA_FILE = "resources.guitext.TurtleArea";
     private GUITurtleAreaDrawer drawer;
 
+    /**
+     * Instantiates a new GUI turtle area.
+     *
+     * @param mainStage the main stage
+     * @param turtleAreaColor the turtle area color
+     * @param turtles the turtles
+     * @param paths the paths
+     * @param imagePaths the image paths
+     * @param defaultPalette the default palette
+     * @param controller the controller
+     */
     public GUITurtleArea (Stage mainStage,
                           Color turtleAreaColor,
                           List<GUITurtle> turtles,
@@ -61,28 +80,45 @@ public class GUITurtleArea extends GUIComponent
         defaultPalette.keySet().stream().forEach(e -> palette.put(e, defaultPalette.get(e)));
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         drawAll();
         return drawer.returnNodeToDraw();
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaBGInterface#updateBackgroundColor(javafx.scene.paint.Color)
+     */
     @Override
     public void updateBackgroundColor (Color c) {
         backgroundColor = c;
         drawer.drawBackground(backgroundColor);
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaRedrawInterface#drawAll()
+     */
     @Override
     public void drawAll () {
         drawTurtles();
         drawPaths();
     }
 
+    /**
+     * Draw all turtles.
+     */
     private void drawTurtles () {
         myTurtles.stream().forEach(t -> drawTurtle(t));
     }
 
+    /**
+     * Draw a turtle.
+     *
+     * @param turtle the turtle
+     */
     private void drawTurtle (GUITurtle turtle) {
         Image image;
         try {
@@ -97,6 +133,11 @@ public class GUITurtleArea extends GUIComponent
         }
     }
 
+    /**
+     * Turtle observed, called when update() observed.
+     *
+     * @param turtle the turtle
+     */
     private void turtleObserved (GUITurtle turtle) {
         myTurtles.clear();
         if (turtle.isShowing()) {
@@ -110,18 +151,29 @@ public class GUITurtleArea extends GUIComponent
         drawAll();
     }
 
+    /**
+     * Check pen.
+     *
+     * @param path the path
+     */
     private void checkPen (SlogoPath path) {
         if (path.getPen().isDown()) {
             myPaths.add(path);
         }
     }
 
+    /**
+     * Draw paths.
+     */
     private void drawPaths () {
         for (SlogoPath path : myPaths) {
             drawer.drawPath(path, Color.valueOf(palette.get(path.getPen().getColor())));
         }
     }
 
+    /* (non-Javadoc)
+     * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
+     */
     @Override
     public void update (Observable o, Object arg) {
         if (o instanceof TurtleContainer) {
@@ -131,26 +183,41 @@ public class GUITurtleArea extends GUIComponent
         }
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaRedrawInterface#addImage(java.lang.String)
+     */
     @Override
     public void addImage (String image) {
         images.add(image);
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaRedrawInterface#getImagesSize()
+     */
     @Override
     public int getImagesSize () {
         return images.size();
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaRedrawInterface#getBGColor()
+     */
     @Override
     public String getBGColor () {
         return backgroundColor.toString();
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaRedrawInterface#getImagePathsAsAString()
+     */
     @Override
     public String getImagePathsAsAString () {
         return images.stream().reduce( (t, u) -> t + "," + u).get();
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaImagesInterface#parseImage(int)
+     */
     @Override
     public Image parseImage (int index) {
         if (images.get(index).startsWith(getTextResources().getString("localfileprefix"))) {
@@ -161,26 +228,41 @@ public class GUITurtleArea extends GUIComponent
         }
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaImagesInterface#addImagesListener(javafx.collections.ListChangeListener)
+     */
     @Override
     public void addImagesListener (ListChangeListener<String> l) {
         images.addListener(l);
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaPaletteInterface#getColorMap()
+     */
     @Override
     public Map<Integer, String> getColorMap () {
         return palette;
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaPaletteInterface#addPaletteListener(javafx.collections.MapChangeListener)
+     */
     @Override
     public void addPaletteListener (MapChangeListener<Integer, String> m) {
         palette.addListener(m);
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITADrawerSpeedInterface#setSpeed(double)
+     */
     @Override
     public void setSpeed (double speed) {
         drawer.setSpeed(speed);
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITurtleAreaRedrawInterface#getPalette()
+     */
     @Override
     public String getPalette () {
         String ans = "";
@@ -192,6 +274,9 @@ public class GUITurtleArea extends GUIComponent
         // ',' + palette.get(Integer.parseInt(u))).get();
     }
 
+    /* (non-Javadoc)
+     * @see gui.turtlearea.GUITADrawerSpeedInterface#getSpeed()
+     */
     @Override
     public double getSpeed () {
         return drawer.getSpeed();

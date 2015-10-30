@@ -13,6 +13,10 @@ import javafx.scene.layout.HBox;
 import parser.ParserException;
 
 
+/**
+ * The Class GUIConsole represents the text box where the user types in LOGO commands.
+ * @author John
+ */
 public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable {
 
     private GUIController myGUIController;
@@ -21,6 +25,11 @@ public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable {
     private Button submit;
     private final double consoleMaxWidth;
 
+    /**
+     * Instantiates a new GUI console.
+     *
+     * @param guiController the GUI controller
+     */
     public GUIConsole (GUIController guiController) {
         myGUIController = guiController;
         setTextResources(ResourceBundle.getBundle("resources.guitext.Console"));
@@ -42,11 +51,19 @@ public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable {
         container.getChildren().add(submit);
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         return container;
     }
 
+    /**
+     * Sends a command through the controller to the backend which may throw an error.
+     *
+     * @param string the command
+     */
     public void sendCommand (String string) {
         try {
             myGUIController.runCommand(string);
@@ -56,6 +73,9 @@ public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable {
         }
     }
 
+    /* (non-Javadoc)
+     * @see gui.console.GUIConsoleTextEditable#changeText(java.lang.String)
+     */
     @Override
     public void changeText (String input) {
         console.setText(input);

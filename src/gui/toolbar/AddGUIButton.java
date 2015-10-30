@@ -9,9 +9,18 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 
 
+/**
+ * The Class AddGUIButton extends GUIComponent and adds a new GUI workspace instance.
+ * @author Efe
+ */
 public class AddGUIButton extends GUIComponent {
     private Button add;
 
+    /**
+     * Instantiates a new add gui button.
+     *
+     * @param controller the controller
+     */
     public AddGUIButton (GUIController controller) {
         setTextResources(ResourceBundle.getBundle("resources.guitext.AddGUI"));
         add = new Button(getTextResources().getString("addGUI"));
@@ -23,6 +32,9 @@ public class AddGUIButton extends GUIComponent {
         });
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         return add;

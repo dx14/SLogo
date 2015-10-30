@@ -20,6 +20,10 @@ import javafx.util.Duration;
 import util.SlogoPath;
 
 
+/**
+ * The Class GUITurtleAreaDrawer extends GUIComponent and takes care of the actual drawing of the turtle area.
+ * @author John, Efe
+ */
 public class GUITurtleAreaDrawer extends GUIComponent {
 
     private double xCanvas, yCanvas;
@@ -30,6 +34,13 @@ public class GUITurtleAreaDrawer extends GUIComponent {
     private double mySpeed;
     private GUIController controller;
 
+    /**
+     * Instantiates a new GUI turtle area drawer.
+     *
+     * @param width the width
+     * @param height the height
+     * @param myController the my controller
+     */
     public GUITurtleAreaDrawer (double width, double height, GUIController myController) {
         setTextResources(ResourceBundle.getBundle("resources.guitext.TurtleDrawer"));
         xCanvas = width;
@@ -43,11 +54,23 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         prevImages = new HashMap<Integer, ImageView>();
     }
 
+    /**
+     * Draw background.
+     *
+     * @param backgroundColor the background color
+     */
     public void drawBackground (Color backgroundColor) {
         gc.setFill(backgroundColor);
         gc.fillRect(0, 0, xCanvas, yCanvas);
     }
 
+    /**
+     * Draw turtle image.
+     * 
+     * @deprecated using legacy Image class
+     * @param turtle the turtle
+     * @param image the image
+     */
     public void drawTurtleImage (GUITurtle turtle, Image image) {
         gc.save();
         Double[] offsetCoords =
@@ -62,6 +85,12 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         gc.restore();
     }
 
+    /**
+     * Draw turtle image view.
+     *
+     * @param turtle the turtle
+     * @param image the image
+     */
     public void drawTurtleImageView (GUITurtle turtle, Image image) {
         double prevX = 0;
         double prevY = 0;
@@ -100,6 +129,12 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         tt.play();
     }
 
+    /**
+     * Draw path.
+     *
+     * @param path the path
+     * @param color the color
+     */
     public void drawPath (SlogoPath path, Color color) {
         Double[] guiStartCoords =
                 realToGUICoordinates(path.getStart().getX(), -1 * path.getStart().getY());
@@ -124,19 +159,39 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         gc.strokeLine(guiStartCoords[0], guiStartCoords[1], guiEndCoords[0], guiEndCoords[1]);
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         return allImagesAndCanvas;
     }
 
+    /**
+     * Sets the animation speed.
+     *
+     * @param speed the new speed
+     */
     public void setSpeed (double speed) {
         mySpeed = speed;
     }
 
+    /**
+     * Gets the animation speed.
+     *
+     * @return the speed
+     */
     public double getSpeed () {
         return mySpeed;
     }
 
+    /**
+     * Real to gui coordinates.
+     *
+     * @param xOnGrid the x on grid
+     * @param yOnGrid the y on grid
+     * @return the double[]
+     */
     // ___helper functions___
     private Double[] realToGUICoordinates (double xOnGrid, double yOnGrid) {
         Double[] guiCoords = new Double[2];
@@ -145,15 +200,30 @@ public class GUITurtleAreaDrawer extends GUIComponent {
         return guiCoords;
     }
 
+    /**
+     * Find image center.
+     *
+     * @param xOnGrid the x on grid
+     * @param yOnGrid the y on grid
+     * @param image the image
+     * @return the double[]
+     */
     private Double[] findImageCenter (double xOnGrid, double yOnGrid, Image image) {
-        Double[] centerCoords = new Double[2];
-        centerCoords[0] = xOnGrid - image.getWidth() / 2;
-        centerCoords[1] = yOnGrid - image.getHeight() / 2;
-        return centerCoords;
+        Double[] d = new Double[2];
+        d[0] = xOnGrid - image.getWidth() / 2;
+        d[1] = yOnGrid - image.getHeight() / 2;
+        return d;
     }
 
+    /**
+     * Sets the graphics context rotation transform.
+     *
+     * @param angle the angle
+     * @param x the x
+     * @param y the y
+     */
     private void setGCTransform (double angle, double x, double y) {
-        Rotate rotate = new Rotate(angle, x, y);
-        gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), rotate.getTx(), rotate.getTy());
+        Rotate r = new Rotate(angle, x, y);
+        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 }

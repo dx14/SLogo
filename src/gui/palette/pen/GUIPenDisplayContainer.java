@@ -11,9 +11,19 @@ import javafx.scene.layout.VBox;
 import parser.structure.TurtleContainer;
 
 
+/**
+ * The Class GUIPenDisplayContainer extends GUIPaletteTurtle and instantiates and collects the pen-related GUI elements.
+ * @author John
+ */
 public class GUIPenDisplayContainer extends GUIPaletteTurtle {
     private List<GUIPenDisplay> displays;
 
+    /**
+     * Instantiates a new GUI pen display container.
+     *
+     * @param turtles the turtles
+     * @param guiTurtleArea the gui turtle area
+     */
     public GUIPenDisplayContainer (List<GUITurtle> turtles,
                                    GUITurtleAreaBGInterface guiTurtleArea) {
         super(turtles, guiTurtleArea);
@@ -23,6 +33,9 @@ public class GUIPenDisplayContainer extends GUIPaletteTurtle {
         displays.add(new GUIPenStyle(turtles, guiTurtleArea));
     }
 
+    /* (non-Javadoc)
+     * @see gui.palette.GUIPaletteTurtle#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         VBox out = new VBox(super.returnNodeToDraw());
@@ -32,6 +45,9 @@ public class GUIPenDisplayContainer extends GUIPaletteTurtle {
         return out;
     }
 
+    /* (non-Javadoc)
+     * @see gui.palette.GUIPaletteTurtle#update(java.util.Observable, java.lang.Object)
+     */
     @Override
     public void update (Observable o, Object arg) {
         if (o instanceof TurtleContainer) {

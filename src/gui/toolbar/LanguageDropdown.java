@@ -12,10 +12,19 @@ import javafx.scene.control.ComboBox;
 import parser.ParserException;
 
 
+/**
+ * The Class LanguageDropdown extends GUIComponent and represents the display and functionality of the language selection dropdown.
+ * @author John
+ */
 public class LanguageDropdown extends GUIComponent {
     private ComboBox<String> languageDropdown;
     private GUIToolbarInterface myTool;
 
+    /**
+     * Instantiates a new language dropdown.
+     *
+     * @param tool the tool
+     */
     public LanguageDropdown (GUIToolbarInterface tool) {
         myTool = tool;
         setTextResources(ResourceBundle.getBundle("resources.guitext.LanguageDropdown"));
@@ -43,6 +52,11 @@ public class LanguageDropdown extends GUIComponent {
         });
     }
 
+    /**
+     * Update language through the controller.
+     *
+     * @param language the language
+     */
     private void updateLanguage (String language) {
         try {
             myTool.getController().changeLanguage(language);
@@ -52,6 +66,9 @@ public class LanguageDropdown extends GUIComponent {
         }
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         return languageDropdown;

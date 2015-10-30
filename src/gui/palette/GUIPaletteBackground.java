@@ -7,15 +7,28 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 
 
+/**
+ * The Class GUIPaletteBackground extends GUIPalette. It represents the chooser for the background color of the turtle area.
+ * @author John
+ */
 public class GUIPaletteBackground extends GUIPalette {
 
     private Color backgroundColor;
 
+    /**
+     * Instantiates a new GUI palette background.
+     *
+     * @param col the initial background color
+     * @param guiTurtleArea the gui turtle area
+     */
     public GUIPaletteBackground (Color col, GUITurtleAreaBGInterface guiTurtleArea) {
         super(guiTurtleArea);
         backgroundColor = col;
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         getPicker().setValue(backgroundColor);

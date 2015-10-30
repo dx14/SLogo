@@ -11,9 +11,18 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 
+/**
+ * The Class HelpButton extends GUIComponent and represents the help button display and functionality.
+ * @author John
+ */
 public class HelpButton extends GUIComponent {
     private Button help;
 
+    /**
+     * Instantiates a new help button.
+     *
+     * @param stage the stage
+     */
     public HelpButton (Stage stage) {
         setTextResources(ResourceBundle.getBundle("resources.guitext.HelpButton"));
         help = new Button(getTextResources().getString("help"));
@@ -25,6 +34,11 @@ public class HelpButton extends GUIComponent {
         });
     }
 
+    /**
+     * Display help.
+     *
+     * @param stage the stage
+     */
     private void displayHelp (Stage stage) {
         Popup popup = new Popup();
         popup.setX(stage.getX());
@@ -43,6 +57,9 @@ public class HelpButton extends GUIComponent {
         popup.show(stage);
     }
 
+    /* (non-Javadoc)
+     * @see gui.GUIComponent#returnNodeToDraw()
+     */
     @Override
     public Node returnNodeToDraw () {
         return help;
