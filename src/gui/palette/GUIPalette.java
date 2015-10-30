@@ -13,7 +13,7 @@ public abstract class GUIPalette extends GUIComponent {
     private GUITurtleAreaPaletteInterface myGuiTurtleArea;
     private final ColorPicker picker;
 
-    public GUIPalette (GUITurtleAreaBGInterface guiTurtleArea) {
+    protected GUIPalette (GUITurtleAreaBGInterface guiTurtleArea) {
         picker = new ColorPicker();
         setMyGuiTurtleArea((GUITurtleAreaPaletteInterface) guiTurtleArea);
     }

@@ -23,13 +23,13 @@ public class GUIPenDown extends GUIPenDisplay {
     }
 
     @Override
-    void redraw () {
+    protected void redraw () {
         getWhatToShow().clear();
         getWhatToShow().add(displayInfo + getTurtles().get(0).getPen().isDown());
     }
 
     @Override
-    void setVariable () {
+    protected void setVariable () {
         Dialog<ButtonType> dialog = new Dialog<ButtonType>();
         ButtonType upButtonType = new ButtonType(up);
         dialog.getDialogPane().getButtonTypes().add(upButtonType);

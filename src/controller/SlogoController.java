@@ -130,7 +130,6 @@ public class SlogoController implements GUIController {
     }
 
     public void setPaletteColor (int index, int r, int g, int b) {
-        System.out.println(Color.rgb(r, g, b, 1).toString());
         myGUI.getPalette().put(index, Color.rgb(r, g, b, 1).toString());
     }
 

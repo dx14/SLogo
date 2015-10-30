@@ -105,7 +105,6 @@ public class GUITurtleAreaDrawer extends GUIComponent {
                 realToGUICoordinates(path.getStart().getX(), -1 * path.getStart().getY());
         Double[] guiEndCoords =
                 realToGUICoordinates(path.getEnd().getX(), -1 * path.getEnd().getY());
-        System.out.println(path.getPen().getColor());
         gc.setStroke(color);
         gc.setLineWidth(path.getPen().getWidth());
         switch (path.getPen().getStyle()) {
@@ -140,21 +139,21 @@ public class GUITurtleAreaDrawer extends GUIComponent {
 
     // ___helper functions___
     private Double[] realToGUICoordinates (double xOnGrid, double yOnGrid) {
-        Double[] d = new Double[2];
-        d[0] = xOnGrid + xCanvas / 2;
-        d[1] = yOnGrid + yCanvas / 2;
-        return d;
+        Double[] guiCoords = new Double[2];
+        guiCoords[0] = xOnGrid + xCanvas / 2;
+        guiCoords[1] = yOnGrid + yCanvas / 2;
+        return guiCoords;
     }
 
     private Double[] findImageCenter (double xOnGrid, double yOnGrid, Image image) {
-        Double[] d = new Double[2];
-        d[0] = xOnGrid - image.getWidth() / 2;
-        d[1] = yOnGrid - image.getHeight() / 2;
-        return d;
+        Double[] centerCoords = new Double[2];
+        centerCoords[0] = xOnGrid - image.getWidth() / 2;
+        centerCoords[1] = yOnGrid - image.getHeight() / 2;
+        return centerCoords;
     }
 
     private void setGCTransform (double angle, double x, double y) {
-        Rotate r = new Rotate(angle, x, y);
-        gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+        Rotate rotate = new Rotate(angle, x, y);
+        gc.setTransform(rotate.getMxx(), rotate.getMyx(), rotate.getMxy(), rotate.getMyy(), rotate.getTx(), rotate.getTy());
     }
 }

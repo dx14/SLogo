@@ -33,7 +33,7 @@ public class GUITurtleArea extends GUIComponent
     private double yCanvas;
     private ObservableList<String> images;
     private ObservableMap<Integer, String> palette;
-    private final String TURTLE_AREA_FILE = "resources.guitext.TurtleArea";
+    private static final String TURTLE_AREA_FILE = "resources.guitext.TurtleArea";
     private GUITurtleAreaDrawer drawer;
 
     public GUITurtleArea (Stage mainStage,

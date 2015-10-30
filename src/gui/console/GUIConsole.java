@@ -19,15 +19,15 @@ public class GUIConsole extends GUIComponent implements GUIConsoleTextEditable {
     private TextInputControl console;
     private HBox container;
     private Button submit;
-    private final double CONSOLE_MAX_WIDTH;
+    private final double consoleMaxWidth;
 
     public GUIConsole (GUIController guiController) {
         myGUIController = guiController;
         setTextResources(ResourceBundle.getBundle("resources.guitext.Console"));
         console = new TextArea();
         console.setPromptText(getTextResources().getString("prompttext"));
-        CONSOLE_MAX_WIDTH = Double.parseDouble(getTextResources().getString("maxwidth"));
-        console.setMaxWidth(CONSOLE_MAX_WIDTH);
+        consoleMaxWidth = Double.parseDouble(getTextResources().getString("maxwidth"));
+        console.setMaxWidth(consoleMaxWidth);
         submit = new Button(getTextResources().getString("submittext"));
         submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override

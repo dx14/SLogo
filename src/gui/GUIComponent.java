@@ -21,7 +21,7 @@ public abstract class GUIComponent {
         return textResources;
     }
 
-    public void setTextResources (ResourceBundle textResources) {
+    public final void setTextResources (ResourceBundle textResources) {
         this.textResources = textResources;
     }
 }

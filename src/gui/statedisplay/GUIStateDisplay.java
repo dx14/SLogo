@@ -11,7 +11,7 @@ public abstract class GUIStateDisplay extends GUIComponent {
     private ScrollPane pane;
     private HBox hbox;
 
-    public GUIStateDisplay () {
+    protected GUIStateDisplay () {
         hbox = new HBox();
         pane = new ScrollPane(getHbox());
         setTextResources(ResourceBundle.getBundle("resources.guitext.StateDisplay"));

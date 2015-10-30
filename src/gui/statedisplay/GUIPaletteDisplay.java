@@ -30,6 +30,7 @@ public class GUIPaletteDisplay extends GUIStateDisplay
                 getHbox().getChildren().add(rect);
             }
             catch (Exception e) {
+                handleException(e);
             }
         }
     }

@@ -18,13 +18,13 @@ public class GUIPenWidth extends GUIPenDisplay {
     }
 
     @Override
-    void redraw () {
+    protected void redraw () {
         getWhatToShow().clear();
         getWhatToShow().add(displayInfo + getTurtles().get(0).getPen().getWidth());
     }
 
     @Override
-    void setVariable () {
+    protected void setVariable () {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setContentText(getTextResources().getString("prompt"));
         Optional<String> result = dialog.showAndWait();

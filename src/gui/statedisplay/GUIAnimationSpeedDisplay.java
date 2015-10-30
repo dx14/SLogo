@@ -44,6 +44,5 @@ public class GUIAnimationSpeedDisplay extends GUIStateDisplay {
     @Override
     public void redraw () {
         text.setText("" + myDrawer.getSpeed());
-        ;
     }
 }

@@ -20,8 +20,9 @@ import parser.structure.TurtleContainer;
 public abstract class GUIPenDisplay extends GUIPaletteTurtle {
     private List<String> listOfVariables = new ArrayList<String>();
     private ObservableList<String> whatToShow = FXCollections.observableList(listOfVariables);
-
-    public GUIPenDisplay (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
+    public static final double HEIGHT = 30;
+    
+    protected GUIPenDisplay (List<GUITurtle> turtles, GUITurtleAreaBGInterface guiTurtleArea) {
         super(turtles, guiTurtleArea);
     }
 
@@ -37,14 +38,14 @@ public abstract class GUIPenDisplay extends GUIPaletteTurtle {
         if (getTurtles().size() > 0) {
             redraw();
         }
-        whatToGive.setMaxHeight(30);
+        whatToGive.setMaxHeight(HEIGHT);
         VBox out = new VBox(whatToGive);
         return out;
     }
 
-    abstract void redraw ();
+    protected abstract void redraw ();
 
-    abstract void setVariable ();
+    protected abstract void setVariable ();
 
     @Override
     public void update (Observable o, Object arg) {

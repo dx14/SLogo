@@ -15,9 +15,7 @@ public class GUIDropdownButton extends GUIComponent {
     public GUIDropdownButton (GUIController controller) {
         guiDropdown = new ComboBox<Integer>();
         myController = controller;
-        for (int i = 0; i < myController.getNumberOfGUIs(); i++) {
-            guiDropdown.getItems().add(i + 1);
-        }
+        updateGUINumber();
         guiDropdown.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle (ActionEvent event) {

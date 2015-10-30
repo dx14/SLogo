@@ -23,12 +23,12 @@ public class SaveXMLButton extends GUIComponent {
             @Override
             public void handle (ActionEvent event) {
                 try {
-                    XMLParser a =
+                    XMLParser parser =
                             new XMLParser(new File(getTextResources().getString("defaultxml")));
                     String imageList = myTool.getImageList();
                     String backgroundColor = myTool.getBGColor();
                     String defaultPalette = myTool.getPalette();
-                    a.saveToXML(getTextResources().getString("defaultxml"), backgroundColor,
+                    parser.saveToXML(getTextResources().getString("defaultxml"), backgroundColor,
                                 imageList, myTool.getCurrentLanguage().getLanguage(),
                                 defaultPalette);
                 }

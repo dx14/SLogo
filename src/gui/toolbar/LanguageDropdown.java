@@ -2,6 +2,7 @@ package gui.toolbar;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import gui.GUIComponent;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ public class LanguageDropdown extends GUIComponent {
         languageDropdown = new ComboBox<String>();
         File folder = new File("./" + languagesFileDirectoryName);
         File[] listOfFiles = folder.listFiles();
-        ArrayList<String> languagesList = new ArrayList<String>();
+        List<String> languagesList = new ArrayList<String>();
         for (File file : listOfFiles) {
             if (!file.getName().equals(getTextResources().getString("ignoredsyntaxfile"))) {
                 languagesList.add(file.getName()
