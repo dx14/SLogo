@@ -17,7 +17,7 @@ import parser.structure.TurtleContainer;
  * The Class GUIPaletteTurtle extends GUIPalette and represents the color picker for the turtle pen.
  * It implements Observer to reflect changes to the pen color from the back end.
  * The default pen color is set to black instead of the default value loaded from the XML.
- * @author John
+ * @author John, Efe
  */
 public class GUIPaletteTurtle extends GUIPalette implements Observer {
 

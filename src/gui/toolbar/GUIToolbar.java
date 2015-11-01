@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// John Dai
 package gui.toolbar;
 
 import java.util.List;
@@ -16,7 +18,7 @@ import javafx.stage.Stage;
  * The Class GUIToolbar extends GUIComponent and represents the whole toolbar.
  * Implements GUIToolbarInterface.
  * Toolbar elements can be added to this component.
- * @author John
+ * @author John, Efe
  */
 public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
 
@@ -28,6 +30,7 @@ public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
     private SLogoLanguage defaultLanguage;
     private SLogoLanguage currentLanguage;
     private GUIDropdownButton guiDropdown;
+    public static final String TOOLBAR_PROPERTIES = "resources.guitext.Toolbar";
 
     /**
      * Instantiates a new GUI toolbar.
@@ -47,7 +50,7 @@ public class GUIToolbar extends GUIComponent implements GUIToolbarInterface {
         myTurtleArea = turtleArea;
         myStage = stage;
         myGUIController = guiController;
-        setTextResources(ResourceBundle.getBundle("resources.guitext.Toolbar"));
+        setTextResources(ResourceBundle.getBundle(TOOLBAR_PROPERTIES));
         defaultLanguage = new SLogoLanguage();
         defaultLanguage.setLanguage(defLang);
         currentLanguage = new SLogoLanguage();
