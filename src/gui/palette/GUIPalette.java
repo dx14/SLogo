@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 
 /**
  * The abstract Class GUIPalette extends GUIComponent and contains information about colors and a color picker.
- * @author John
+ * @author John, Efe
  */
 public abstract class GUIPalette extends GUIComponent {
 

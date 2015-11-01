@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 
 /**
  * The Class GUIPaletteBackground extends GUIPalette. It represents the chooser for the background color of the turtle area.
- * @author John
+ * @author John, Efe
  */
 public class GUIPaletteBackground extends GUIPalette {
 

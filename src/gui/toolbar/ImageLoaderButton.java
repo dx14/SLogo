@@ -1,3 +1,5 @@
+// This entire file is part of my masterpiece.
+// John Dai
 package gui.toolbar;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 public class ImageLoaderButton extends GUIComponent {
     private Button openImage;
     private GUIToolbarInterface myTool;
+    public static final String BUTTON_PROPERTIES = "resources.guitext.ImageLoaderButton";
 
     /**
      * Instantiates a new image loader button.
@@ -29,7 +32,7 @@ public class ImageLoaderButton extends GUIComponent {
      */
     public ImageLoaderButton (GUIToolbarInterface tool, Stage stage) {
         myTool = tool;
-        setTextResources(ResourceBundle.getBundle("resources.guitext.ImageLoaderButton"));
+        setTextResources(ResourceBundle.getBundle(BUTTON_PROPERTIES));
         openImage = new Button(getTextResources().getString("openimage"));
         openImage.setOnAction(new EventHandler<ActionEvent>() {
             @Override
